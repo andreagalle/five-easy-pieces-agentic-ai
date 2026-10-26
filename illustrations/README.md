@@ -17,7 +17,7 @@ scripts/gen-header.py 01 --dry-run                # print the exact prompt; cost
 What gets committed, and why:
 
 - **Article headers: `assets/header.jpg` only** (JPEG q90, about 1 MB). The 2K PNG master is about 7 MB, and seven of them would add about 50 MB to the git history for no visible difference. The PNG stays local as `assets/header.png`. Drafts stay local too, because only one per article matters.
-- **Favicon: the derived icons only** (`favicon.ico` with 16/32/48 px, PNGs at 16, 32, 180, 192 and 512 px). That's every size a browser or phone asks for, and nothing larger.
+- **Favicon: the derived icons only** (`favicon.ico` with 16/32/48 px, PNGs at 16, 32, 180, 192 and 512 px). That's every size a browser or phone asks for, and nothing larger. They're cut from the draft along the sphere's rim: **round, transparent outside the circle**, and cropped so the sphere fills the icon. That's the author's request, and it also makes the shape larger at 16 px. The rim is found automatically, as the bounding box of the brightest pixels. (iOS shows transparent corners of the 180 px icon as black, then masks them with its own rounded square.)
 - **[`log.jsonl`](log.jsonl):** every generation and every keep, with model, resolution, prompt hash, reference, size and **cost**. Article 06 can quote the real spend.
 
 ## What goes into the prompt, and why

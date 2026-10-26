@@ -231,16 +231,41 @@ def keep(article_id: str, draft_arg: str) -> None:
           f"({published.stat().st_size // 1024} KB, JPEG q{JPEG_QUALITY}; PNG master stays local)")
 
 
+def round_icon(draft: Path) -> Path:
+    """Keep only the sphere: transparent outside its rim, cropped so the circle fills the square.
+
+    The cream rim is the brightest and outermost shape, so the bounding box of the pixels above
+    80% luminance is the circle's bounding box.
+    """
+    bbox = subprocess.run(["convert", str(draft), "-colorspace", "Gray", "-threshold", "80%", "-format", "%@", "info:"],
+                          capture_output=True, text=True, check=True).stdout.strip()
+    size, x, y = bbox.split("+")
+    w, h = (int(v) for v in size.split("x"))
+    cx, cy = int(x) + w / 2, int(y) + h / 2
+    r = max(w, h) / 2 + 1  # one pixel of margin keeps the anti-aliased edge of the rim
+    side, left, top = round(2 * r), max(0, round(cx - r)), max(0, round(cy - r))
+    width, height = png_size(draft.read_bytes())
+    out = draft.with_name(draft.stem + "-round.png")
+    subprocess.run([
+        "convert", str(draft),
+        "(", "-size", f"{width}x{height}", "xc:black", "-fill", "white", "-draw", f"circle {cx},{cy} {cx + r},{cy}", ")",
+        "-alpha", "off", "-compose", "CopyOpacity", "-composite",
+        "-crop", f"{side}x{side}+{left}+{top}", "+repage", str(out),
+    ], check=True)
+    return out
+
+
 def keep_favicon(draft: Path) -> None:
-    """Derive every icon a browser asks for: PNGs at fixed sizes and a multi-size .ico."""
+    """Derive every icon a browser asks for, from the round cut: PNGs at fixed sizes and a .ico."""
     SITE_IMG.mkdir(parents=True, exist_ok=True)
+    source = round_icon(draft)
     made = []
     for name, px in ICON_SIZES.items():
         out = SITE_IMG / name
-        subprocess.run(["convert", str(draft), "-strip", "-resize", f"{px}x{px}", str(out)], check=True)
+        subprocess.run(["convert", str(source), "-strip", "-resize", f"{px}x{px}", str(out)], check=True)
         made.append(out)
     ico = ROOT / "site" / "favicon.ico"
-    subprocess.run(["convert", str(draft), "-strip", "-define", "icon:auto-resize=48,32,16", str(ico)], check=True)
+    subprocess.run(["convert", str(source), "-strip", "-define", "icon:auto-resize=48,32,16", str(ico)], check=True)
     made.append(ico)
     append_log({
         "time": now().isoformat(),
