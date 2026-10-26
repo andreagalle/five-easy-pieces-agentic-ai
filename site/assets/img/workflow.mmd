@@ -6,7 +6,7 @@ flowchart LR
     SBX -->|results +<br/>RUNINFO.json| R
   end
   SBX <-->|"sbx --cloud<br/>cp in · exec · cp out"| CLOUD[Cloud sandbox<br/>microVM]
-  SBX <-.->|"SBX_TARGET=local<br/>needs KVM"| LOCAL[Local sandbox<br/>microVM]
+  SBX <-.->|"SBX_TARGET=local<br/>not yet tested"| LOCAL[Local sandbox<br/>microVM]
   R --> ART[Article drafts<br/>articles/]
   R --> SITE[Making-of record<br/>site/ → GitHub Pages]
   A -->|edits, approves| ART
