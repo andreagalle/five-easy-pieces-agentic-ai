@@ -13,7 +13,7 @@
 3. **Reproducibility first.** Anything that must be run to reproduce an article lives in a script or a `make` target, never only in chat or in article prose. Articles quote commands from the scripts, not the other way round.
 4. **Never invent `sbx` flags.** Docker Sandboxes ships minor releases every few weeks. Verify every command against `sbx <command> --help` and the official docs before it lands in a script or article (protocol in §5.5).
 5. **No secrets in the repo, ever.** Credentials go through `sbx secret` / `sbx --cloud secret` (host-side proxy injection) or GitHub Codespaces secrets. Never print a secret in output, logs, journal entries or commit messages.
-6. **Identity hygiene.** Never write the author's legal name, employer, job title or affiliation anywhere in this repo (files, commits, pages, articles, metadata, screenshots). Use `<AUTHOR_HANDLE>` until the author replaces it. Never change git config.
+6. **Identity hygiene.** Never write the author's legal name, employer, job title or affiliation anywhere in this repo (files, commits, pages, articles, metadata, screenshots). The author's handle is `andreagalle` (ADR-0006). By the author's choice, git commit metadata and the copyright line in `LICENSE` keep the configured git identity (ADR-0006); don't flag them. Never change git config.
 7. **Cost hygiene.** Every cloud sandbox is created with an explicit `--ttl` and `--on-timeout`, and every script removes what it creates (trap on EXIT). End every session with `sbx --cloud ls` and report anything still alive.
 8. **Ask, don't assume,** on anything listed in §12 (Open decisions). Record every answer as an ADR.
 
@@ -359,23 +359,23 @@ One to three next steps.
 
 ## 12. Open decisions (ask the author; record each answer as an ADR)
 
-- **D1** Tier T (Terraform-provisioned VM): keep or drop? If kept, which provider and region?
-- **D2** LLM today's-twin variants for pieces 03–05 (and 01–02?): yes or no; provider and model; budget cap.
-- **D3** Site generator: plain GitHub Pages with Jekyll built in Actions (proposed — zero extra tooling) or something else.
-- **D4** Repository name, `<AUTHOR_HANDLE>`, code license (proposed: MIT) and article-text license (proposed: CC BY 4.0, excluding quoted AIMA material).
+- **D1** Tier T (Terraform-provisioned VM): keep or drop? If kept, which provider and region? → **dropped** (ADR-0003)
+- **D2** LLM today's-twin variants for pieces 03–05 (and 01–02?): yes or no; provider and model; budget cap. → **deferred** until before example 03 (ADR-0004)
+- **D3** Site generator: plain GitHub Pages with Jekyll built in Actions (proposed — zero extra tooling) or something else. → **Jekyll in Actions** (ADR-0005)
+- **D4** Repository name, `<AUTHOR_HANDLE>`, code license (proposed: MIT) and article-text license (proposed: CC BY 4.0, excluding quoted AIMA material). → **as proposed; handle `andreagalle`** (ADR-0006)
 - **D5** Dogfooding: should Claude Code itself run inside a sandbox (`sbx run claude` / `sbx --cloud run claude`) for some sessions? Strong material for article 06, but it changes the workflow.
-- **D6** Publication order and cadence on Medium (hub first with "coming soon" links, or pieces first).
-- **D7** Publish on the author's own Medium profile or in a Medium publication.
+- **D6** Publication order and cadence on Medium (hub first with "coming soon" links, or pieces first). → **hub + 01 together, then weekly, 06 last** (ADR-0007)
+- **D7** Publish on the author's own Medium profile or in a Medium publication. → **Docker Captains Wisdom publication** (ADR-0008)
 
 ---
 
 ## 13. Bootstrap (first session only — tick items here as they are done)
 
-- [ ] Create and run `scripts/check-env.sh`; keep the output for journal session 01.
-- [ ] Create the §7 layout with placeholder READMEs, `.gitignore`, `Makefile`, `.devcontainer/`, `.claude/commands/`, `pages.yml`, `test.yml`.
-- [ ] Seed `references/aima-ch2-map.md` from §2.3 and `references/bibliography.md` from §2.1; start `references/sbx-notes.md` from §5.1.
-- [ ] Create `site/` with `_config.yml`, `index.md`, a first `workflow.md`, `_data/series.yml` (every item `idea`) and `_data/metrics.yml`.
-- [ ] Write ADR-0001 "Execution tiers" (§5.2) and ADR-0002 "Same world, five programs" (§4).
-- [ ] Ask the author D1–D7 in a single message; record the answers as ADRs.
+- [x] Create and run `scripts/check-env.sh`; keep the output for journal session 01.
+- [x] Create the §7 layout with placeholder READMEs, `.gitignore`, `Makefile`, `.devcontainer/`, `.claude/commands/`, `pages.yml`, `test.yml`.
+- [x] Seed `references/aima-ch2-map.md` from §2.3 and `references/bibliography.md` from §2.1; start `references/sbx-notes.md` from §5.1.
+- [x] Create `site/` with `_config.yml`, `index.md`, a first `workflow.md`, `_data/series.yml` (every item `idea`) and `_data/metrics.yml`.
+- [x] Write ADR-0001 "Execution tiers" (§5.2) and ADR-0002 "Same world, five programs" (§4).
+- [x] Ask the author D1–D7 in a single message; record the answers as ADRs. (D5 still open after session 01.)
 - [ ] Show the git identity, wait for confirmation, then make the first commit.
 - [ ] Write journal session 01 and commit it.
