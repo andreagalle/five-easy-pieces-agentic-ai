@@ -1,11 +1,11 @@
 ---
 title: "ADR-0004 — LLM \"today's twin\" variants: deferred"
 adr: "0004"
-status: deferred
+status: superseded
 date: 2026-10-26
 ---
 
-**Status:** deferred, 2026-10-26. The author postponed open decision D2 in [session 01]({{ "/journal/2026-10-26-01-bootstrap/" | relative_url }}). It must be decided before example 03 is scaffolded.
+**Status:** superseded by [ADR-0011]({{ "/decisions/ADR-0011-one-mode-per-piece/" | relative_url }}) in session 02. Originally deferred, 2026-10-26: the author postponed open decision D2 in [session 01]({{ "/journal/2026-10-26-01-bootstrap/" | relative_url }}). It must be decided before example 03 is scaffolded.
 
 ## Context
 

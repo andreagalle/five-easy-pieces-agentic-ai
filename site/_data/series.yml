@@ -60,14 +60,14 @@ articles:
 examples:
   - id: "_shared"
     dir: "examples/_shared/worlds"
-    status: idea
+    status: tested-host
     code_tag: ""
-    last_session: "01"
+    last_session: "02"
   - id: "01"
     dir: "examples/01-simple-reflex"
-    status: idea
+    status: tested-sandbox
     code_tag: ""
-    last_session: "01"
+    last_session: "02"
   - id: "02"
     dir: "examples/02-model-based"
     status: idea

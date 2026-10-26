@@ -8,6 +8,8 @@ This site is the public record of how *Five Easy Pieces on Agentic AI w/ Docker 
 
 The work happens in a GitHub Codespace with Claude Code. Claude writes most of the raw material on this site as the work happens: [journal]({{ "/journal/" | relative_url }}) entries, [decisions]({{ "/decisions/" | relative_url }}), the [workflow]({{ "/workflow/" | relative_url }}). The author edits and decides.
 
+The plan in one page: [the five pieces]({{ "/pieces/" | relative_url }}). It covers what each agent does, where an LLM comes in and why, and whether the sandbox is actually needed.
+
 ## Series status
 
 | ID | Article | Status | Code |

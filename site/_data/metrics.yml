@@ -2,17 +2,19 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-26
-sessions: 1
-journal_entries: 1
-commits: 8            # project commits since the repository's initial commit
-adrs: 8
+sessions: 2
+journal_entries: 2
+commits: 22           # project commits since the repository's initial commit
+adrs: 11
 sandbox_runs:
-  cloud: 0
+  cloud: 3            # session 02: one probe, two runs of example 01
   local: 0
-cloud_sandbox_minutes: 0
+cloud_sandbox_minutes: 1   # approximate: 14 s + 17 s + 10 s of sandbox lifetime, micro shape
 sbx_versions_seen: ["v0.50.0"]
 notable_failures:
   - session: "01"
     what: "Local tier unavailable in the Codespace: /dev/kvm present but not accessible (GID 109, user not a member)."
   - session: "01"
     what: "The GitHub-template .gitignore ignored /site, which would have silently dropped the whole making-of site from git."
+  - session: "02"
+    what: "Codespaces secrets added while the Codespace was running stayed invisible until a restart."
