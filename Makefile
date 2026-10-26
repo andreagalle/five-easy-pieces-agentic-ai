@@ -22,7 +22,7 @@ test: ## Host-side unit tests for every example that has tests/
 	for d in $(TEST_DIRS); do \
 		ex=$${d%tests/}; \
 		echo "== $$ex"; \
-		(cd $$ex && $(PYTHON) -m unittest discover -s tests -t .) || status=1; \
+		(cd $$ex && PYTHONPATH=$(CURDIR)/examples/_shared $(PYTHON) -m unittest discover -s tests -t .) || status=1; \
 	done; \
 	exit $$status
 
