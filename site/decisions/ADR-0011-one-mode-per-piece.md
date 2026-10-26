@@ -51,4 +51,5 @@ The sandbox only sees a placeholder. **Why it matters:** the agent runs model-ge
 - The deterministic plans for 03–05 in CLAUDE.md §4 (BFS/A\*, one-step expected utility, tabular Q-learning) are dropped. The LLM pieces still work in the shared vacuum world: the code they write is an agent program for that world, so their results can be compared with 01 and 02. This is to be confirmed as each piece is scaffolded.
 - Pieces 03–05 are nondeterministic. Each article reports one recorded run (`RUNINFO.json`, plus the model and token cost), not a promise of identical output.
 - Readers need their own OpenRouter key to rerun 03–05. Pieces 01–02 stay free to reproduce.
-- Still to decide when building 03: the model(s) and the credit limit on the key.
+- **Credit limit: $5** on the OpenRouter key, set by the author (session 02). It caps the total model spend of pieces 03–05, enforced by OpenRouter, outside anything the agent can reach.
+- Still to decide when building 03: the model or models.

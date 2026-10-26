@@ -63,7 +63,7 @@ Two reasons. First, **it isn't needed**: the lessons of 01 and 02 are clearest i
 ## Credentials
 
 - **Codespaces secrets:** `DOCKER_ID` and `DOCKER_PAT` (sign-in to Docker, needed from 01), and `OPENROUTER_API_KEY` (needed from 03).
-- **Why OpenRouter:** one key for many models (04 compares them), one host to allow (`openrouter.ai`), and a credit limit on the key, so the budget is enforced outside the agent too.
+- **Why OpenRouter:** one key for many models (04 compares them), one host to allow (`openrouter.ai`), and a $5 credit limit on the key, so the budget is enforced outside the agent too.
 - **Why the agent never sees the key:** from 03 on it runs model-generated code. A credential inside the sandbox could be printed, logged or sent elsewhere. The cloud proxy adds it to requests to `openrouter.ai`, and the sandbox only holds a placeholder.
 
 ## Local sandboxes
