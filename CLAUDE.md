@@ -105,7 +105,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 2. What AIMA says — section reference, at most one short quote, explanation in our own words.
 3. PEAS and environment properties — as a bullet list.
 4. The agent program — ≤ 40-line excerpt, link to the full code at the tag.
-5. Run it in a sandbox — cloud commands first, then one line for the local equivalent ("same script, `SBX_TARGET=local`").
+5. Run it in a sandbox — cloud commands first, then one line for the local equivalent ("same script, `SBX_TARGET=local`"). Until ADR-0010 is lifted: cloud commands only, plus one line saying a locally tested version will follow.
 6. What the sandbox adds here — exactly one Docker Sandboxes feature (see §4).
 7. Why it still matters — 2–3 sentences: today's twin of this agent type.
 8. Reproduce it — repo tag, `sbx` version, template or kit reference, the one command.
@@ -349,7 +349,7 @@ One to three next steps.
 
 ## 11. Definition of done
 
-**Example 0N:** stdlib-only core; `unittest` passes on the host and inside a sandbox; runs with `SBX_TARGET=cloud` and `SBX_TARGET=local` (or the README honestly says "local tier not tested: no KVM available"); `policy.md` written; README contains the Reproduce box; tag created.
+**Example 0N:** stdlib-only core; `unittest` passes on the host and inside a sandbox; runs with `SBX_TARGET=cloud` and `SBX_TARGET=local` (or the README honestly says "local tier not tested: no KVM available"; until ADR-0010 is lifted, cloud only and the README says the local version will follow once tested); `policy.md` written; README contains the Reproduce box; tag created.
 
 **Article 0N:** within target length; Medium-safe formatting (§3.3); within the quote budget (§2.2); every `sbx` command verified (§5.5) and copied from the scripts; code links point to the tag; diagrams original; disclosure line present; reviewed by the author; `series.yml` updated.
 
@@ -363,7 +363,7 @@ One to three next steps.
 - **D2** LLM today's-twin variants for pieces 03–05 (and 01–02?): yes or no; provider and model; budget cap. → **deferred** until before example 03 (ADR-0004)
 - **D3** Site generator: plain GitHub Pages with Jekyll built in Actions (proposed — zero extra tooling) or something else. → **Jekyll in Actions** (ADR-0005)
 - **D4** Repository name, `<AUTHOR_HANDLE>`, code license (proposed: MIT) and article-text license (proposed: CC BY 4.0, excluding quoted AIMA material). → **as proposed; handle `andreagalle`** (ADR-0006)
-- **D5** Dogfooding: should Claude Code itself run inside a sandbox (`sbx run claude` / `sbx --cloud run claude`) for some sessions? Strong material for article 06, but it changes the workflow.
+- **D5** Dogfooding: should Claude Code itself run inside a sandbox (`sbx run claude` / `sbx --cloud run claude`) for some sessions? Strong material for article 06, but it changes the workflow. → **absolutely not** (though the correct answer would have been yes; ADR-0009)
 - **D6** Publication order and cadence on Medium (hub first with "coming soon" links, or pieces first). → **hub + 01 together, then weekly, 06 last** (ADR-0007)
 - **D7** Publish on the author's own Medium profile or in a Medium publication. → **Docker Captains Wisdom publication** (ADR-0008)
 
