@@ -3,3 +3,5 @@ CONSISTENCY RULES
 - Draw exactly as many cleaners and spheres as the SUBJECT says. Each cleaner is small: about a quarter of its sphere's width.
 - Each sphere's 4×4 grid of stones lies inside that sphere. There is no grid on the open seabed.
 - However sealed or solid a sphere looks, its glass stays transparent: the cleaner and the grid inside remain visible.
+- A night scene does not need a moon: the moon appears only when the SUBJECT names it.
+- When the SUBJECT says a sphere is dimmed or switched off, the whole scene is dark: no shafts of light, only the glow the SUBJECT describes.

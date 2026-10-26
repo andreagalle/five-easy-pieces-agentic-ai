@@ -231,5 +231,7 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 
-# Header illustration drafts (scripts/gen-header.py); only the kept header.png is committed
+# Header illustrations (scripts/gen-header.py): drafts and the 7 MB PNG master stay local; header.jpg is committed
 articles/*/assets/drafts/
+articles/*/assets/header.png
+illustrations/drafts/
