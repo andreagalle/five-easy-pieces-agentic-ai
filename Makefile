@@ -36,6 +36,9 @@ diagrams: $(DIAGRAMS) ## Render every Mermaid source (*.mmd) to PNG
 %.png: %.mmd
 	$(MMDC) --quiet -i $< -o $@ --size $(DIAGRAM_SIZE) -b white
 
+header-%: ## Draft a header illustration for article NN via OpenRouter (e.g. make header-00)
+	@scripts/gen-header.py $*
+
 site-check: ## Journal front matter, session numbering, credential scan
 	@scripts/site-check.sh
 

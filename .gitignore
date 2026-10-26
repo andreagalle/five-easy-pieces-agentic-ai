@@ -230,3 +230,6 @@ node_modules/
 _site/
 .jekyll-cache/
 .jekyll-metadata
+
+# Header illustration drafts (scripts/gen-header.py); only the kept header.png is committed
+articles/*/assets/drafts/

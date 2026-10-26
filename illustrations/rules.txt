@@ -1,0 +1,5 @@
+CONSISTENCY RULES
+- Draw only what the SUBJECT describes. If the SUBJECT does not mention the whale or the moon, leave them out.
+- Draw exactly as many cleaners and spheres as the SUBJECT says. Each cleaner is small: about a quarter of its sphere's width.
+- Each sphere's 4×4 grid of stones lies inside that sphere. There is no grid on the open seabed.
+- However sealed or solid a sphere looks, its glass stays transparent: the cleaner and the grid inside remain visible.
