@@ -42,6 +42,23 @@ Checked with `sbx <command> --help` in the Codespace, cross-checked with the doc
 - The docs link the install page as `/ai/sandboxes/get-started/install/`. Its raw Markdown is served at `/ai/sandboxes/install.md`, and the "append `.md`" rule gives a 404 for the linked path.
 - The CLI's own help text for `--cloud` says "Docker Cloud Sandboxes API". In articles, still write "cloud sandboxes (`sbx --cloud`)" and never "Docker Cloud" (CLAUDE.md §5.1).
 
+## Cloud sandbox facts, from a probe and two runs (2026-10-26, sbx v0.50.0)
+
+- **`shell` in the cloud:** image `docker/sandbox-templates:shell-docker`, Ubuntu 26.04.1 LTS, x86_64, user `agent`, `HOME=/home/agent`, working directory `/home/agent/workspace` (empty at creation).
+- **Python:** `/usr/bin/python3` is **3.14.4**. No install is needed for stdlib-only code. The host uses 3.12, so example output must not depend on the Python version (checked: byte-identical results on 3.12.3, 3.14.2 and 3.14.4).
+- **Timing (micro shape):** `create` ≈5 s, and a full run of example 01 (create, cp in, tests, run, cp out) takes 10–17 s.
+- **`sbx --cloud cp DIR sbx:/abs/path`:** when the destination is missing, it's created as a copy of DIR. Copying out works the same way.
+- **`--deny-network '**'` at creation:** an HTTPS request from inside fails at DNS resolution ("Temporary failure in name resolution"). Nothing leaves the sandbox.
+- **`sbx --cloud exec -w DIR -e K=V`:** both work, and the command's exit status is passed through (tested with 3).
+- **`sbx --cloud inspect --format json`:** fields `id`, `name`, `agent`, `state`, `image`, `cpus`, `memory_mib`, `on_timeout`, `auto_resume`, `age`, `created_at`, `expires_at`. There's no image digest, so `RUNINFO.json` records the tag only.
+- **Headless sign-in** (`printf '%s\n' "$DOCKER_PAT" | sbx login --username "$DOCKER_ID" --password-stdin`) works. Without a keychain, sbx warns that the credential is stored on disk, protected by file permissions; it's under `~/.config/com.docker.sandboxes` (mode 700), outside the repository.
+
+### OpenRouter in the cloud: docs vs `--help`
+
+- `sbx --cloud secret set --help` lists `openrouter` among the built-in services.
+- The cloud credentials page (`/ai/sandboxes/cloud/credentials.md`) says `openrouter` needs a custom secret in the cloud: `sbx --cloud secret set-custom --host openrouter.ai --env OPENROUTER_API_KEY`. The proxy then sets `Authorization: Bearer <key>` on requests to `openrouter.ai`, and the sandbox sees a placeholder.
+- Not tried yet. To settle at piece 03.
+
 ## Codespace facts (2026-10-26)
 
 - `/dev/kvm` is present (`crw-rw----`, owner root, GID 109, which has no name in `/etc/group`). The `codespace` user isn't in that group, so `sbx diagnose` reports *Virtualization — not accessible*. Not worked around (CLAUDE.md §5.2). See ADR-0001 and the session 01 journal.
