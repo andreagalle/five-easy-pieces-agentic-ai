@@ -10,6 +10,8 @@ The work happens in a GitHub Codespace with Claude Code. Claude writes most of t
 
 The plan in one page: [the five pieces]({{ "/pieces/" | relative_url }}). It covers what each agent does, where an LLM comes in and why, and whether the sandbox is actually needed.
 
+The illustrations, including the site icon, are AI-generated with Google's Nano Banana 2 via OpenRouter, from prompts kept in the repository's `illustrations/` folder.
+
 ## Series status
 
 | ID | Article | Status | Code |

@@ -1,0 +1,23 @@
+---
+# Minima's stylesheet plus the series' visual identity (palette: illustrations/style.txt).
+---
+
+$brand-color: #1F5C6B;  // dark teal from the illustration palette; ~7:1 contrast on white
+
+@import "minima";
+
+.site-header {
+  border-top-color: #2B2238;  // plum-navy
+}
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.site-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
