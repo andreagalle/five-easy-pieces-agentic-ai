@@ -88,6 +88,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 ### 3.2 Style
 
 - Precise, plain, lightly wry (the title nods to the 1970 film *Five Easy Pieces*). No hype words ("revolutionary", "game-changer", "unleash", "supercharge").
+- **Always state the why.** Every decision, sandbox feature and step comes with its reason, in articles, ADRs, journal entries and chat (author's standing request, session 02). In particular, say for each piece whether containment is actually needed, and why.
 - No invented numbers. Every figure comes from a run we did (and is recorded in a `RUNINFO.json`) or from a cited source.
 - Short paragraphs, one idea per section. Code excerpts in articles ≤ ~40 lines; full code lives in the repo.
 - Every article ends with series navigation (hub · previous · next) and a "Reproduce it" box.
@@ -118,6 +119,8 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 **Design principle: same world, five agent programs, one architecture.** All pieces share a small environment package (`examples/_shared/worlds/`) based on AIMA's vacuum world, generalized to an N×M grid with switches for partial observability, stochastic actions and dynamic dirt. Each piece adds one agent program and showcases one sandbox feature.
 
 **Language and dependencies:** Python 3.12, **standard library only** for environments and agent cores, tests with `unittest`. Nothing needs installing inside a sandbox for the deterministic path. Optional LLM variants (decision D2) live in a separate `agent_llm/` subfolder with their own pinned dependencies.
+
+**Decided in ADR-0011 (overrides the twin columns below):** one mode per piece, no dual versions. 01 and 02 are deterministic, with no LLM. 03, 04 and 05 are LLM agents via OpenRouter and have no deterministic core; their code lives in `agent/`, with no `agent_llm/`. One-page summary: `site/pieces.md`.
 
 | Piece | AIMA | Deterministic core (no LLM) | Optional today's twin (LLM, D2) | Sandbox feature showcased |
 |-------|------|-----------------------------|---------------------------------|---------------------------|
@@ -186,7 +189,7 @@ All examples run through one script so cloud and local behave the same:
 ### 5.4 Credentials and network
 
 - Deterministic cores need **no network**. Run them with egress blocked and say so in `policy.md`.
-- LLM variants: store keys with `sbx secret set …` / `sbx --cloud secret set …` so the host-side proxy injects them and the agent never sees the raw value. Allow only the provider host(s) needed. Never pass keys via `-e`, env files or files inside the sandbox — they would end up in saved templates.
+- LLM variants: store keys with `sbx secret set …` / `sbx --cloud secret set …` so the host-side proxy injects them and the agent never sees the raw value. For OpenRouter in the cloud, the docs require a custom secret (`sbx --cloud secret set-custom --host openrouter.ai --env OPENROUTER_API_KEY`); verify on first use (ADR-0011). Allow only the provider host(s) needed. Never pass keys via `-e`, env files or files inside the sandbox — they would end up in saved templates.
 - Before any `template save`, confirm the sandbox filesystem holds no credentials.
 
 ### 5.5 Verification protocol for anything `sbx`
@@ -204,7 +207,7 @@ All examples run through one script so cloud and local behave the same:
 - Base image: Ubuntu 24.04 (required by the `docker-sbx` apt package). Features: Python 3.12, Node LTS (for mermaid-cli and Claude Code), GitHub CLI. Terraform only if D1 = yes.
 - `postCreateCommand` → `scripts/post-create.sh`: install `docker-sbx` from Docker's apt repository (`curl -fsSL https://get.docker.com | sudo REPO_ONLY=1 sh` then `sudo apt-get install -y docker-sbx`), install mermaid-cli, then run `scripts/check-env.sh`. Check the current Claude Code install method in Anthropic's docs rather than hard-coding one from memory.
 - `scripts/check-env.sh` is read-only and reports: `sbx version`; whether `/dev/kvm` exists and is accessible; whether `sbx` is signed in; the result of `sbx --cloud diagnose`; the Python version.
-- Codespaces secrets the author may define (never committed): `DOCKER_ID`, `DOCKER_PAT`, and `ANTHROPIC_API_KEY` only if LLM variants are approved. Scripts read them from the environment and hand them straight to `sbx login` / `sbx secret`.
+- Codespaces secrets the author may define (never committed): `DOCKER_ID`, `DOCKER_PAT`, and `OPENROUTER_API_KEY` (for pieces 03–05, ADR-0011). Scripts read them from the environment and hand them straight to `sbx login` / `sbx secret`.
 - Claude Code runs in the Codespace, not inside a sandbox, unless decision D5 says otherwise.
 
 ---
@@ -360,7 +363,7 @@ One to three next steps.
 ## 12. Open decisions (ask the author; record each answer as an ADR)
 
 - **D1** Tier T (Terraform-provisioned VM): keep or drop? If kept, which provider and region? → **dropped** (ADR-0003)
-- **D2** LLM today's-twin variants for pieces 03–05 (and 01–02?): yes or no; provider and model; budget cap. → **deferred** until before example 03 (ADR-0004)
+- **D2** LLM today's-twin variants for pieces 03–05 (and 01–02?): yes or no; provider and model; budget cap. → **one mode per piece: 01–02 without LLM, 03–05 LLM via OpenRouter** (ADR-0011, supersedes ADR-0004)
 - **D3** Site generator: plain GitHub Pages with Jekyll built in Actions (proposed — zero extra tooling) or something else. → **Jekyll in Actions** (ADR-0005)
 - **D4** Repository name, `<AUTHOR_HANDLE>`, code license (proposed: MIT) and article-text license (proposed: CC BY 4.0, excluding quoted AIMA material). → **as proposed; handle `andreagalle`** (ADR-0006)
 - **D5** Dogfooding: should Claude Code itself run inside a sandbox (`sbx run claude` / `sbx --cloud run claude`) for some sessions? Strong material for article 06, but it changes the workflow. → **absolutely not** (though the correct answer would have been yes; ADR-0009)

@@ -5,7 +5,7 @@ status: accepted
 date: 2026-10-26
 ---
 
-**Status:** accepted, 2026-10-26. Decided by the author in the project brief (CLAUDE.md §4); recorded by Claude in [session 01]({{ "/journal/2026-10-26-01-bootstrap/" | relative_url }}).
+**Status:** accepted, 2026-10-26. Decided by the author in the project brief (CLAUDE.md §4); recorded by Claude in [session 01]({{ "/journal/2026-10-26-01-bootstrap/" | relative_url }}). Amended by [ADR-0011]({{ "/decisions/ADR-0011-one-mode-per-piece/" | relative_url }}): pieces 03–05 are LLM agents with no deterministic core and no `agent_llm/` split.
 
 ## Context
 
