@@ -377,5 +377,5 @@ One to three next steps.
 - [x] Create `site/` with `_config.yml`, `index.md`, a first `workflow.md`, `_data/series.yml` (every item `idea`) and `_data/metrics.yml`.
 - [x] Write ADR-0001 "Execution tiers" (§5.2) and ADR-0002 "Same world, five programs" (§4).
 - [x] Ask the author D1–D7 in a single message; record the answers as ADRs. (D5 still open after session 01.)
-- [ ] Show the git identity, wait for confirmation, then make the first commit.
-- [ ] Write journal session 01 and commit it.
+- [x] Show the git identity, wait for confirmation, then make the first commit.
+- [x] Write journal session 01 and commit it.
