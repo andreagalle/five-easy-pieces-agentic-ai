@@ -1,0 +1,18 @@
+# Running counters for article 06 (CLAUDE.md §9.2). Real numbers only.
+# Updated at the end of every session by /wrap.
+
+updated: 2026-10-26
+sessions: 1
+journal_entries: 1
+commits: 7            # project commits since the repository's initial commit, this session's journal commit included
+adrs: 8
+sandbox_runs:
+  cloud: 0
+  local: 0
+cloud_sandbox_minutes: 0
+sbx_versions_seen: ["v0.50.0"]
+notable_failures:
+  - session: "01"
+    what: "Local tier unavailable in the Codespace: /dev/kvm present but not accessible (GID 109, user not a member)."
+  - session: "01"
+    what: "The GitHub-template .gitignore ignored /site, which would have silently dropped the whole making-of site from git."
