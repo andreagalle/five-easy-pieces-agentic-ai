@@ -20,7 +20,7 @@ The author's direction: say that they're a Docker Captain and enthusiastic about
 
 Each short piece (01–05) ends with this line, in italics:
 
-> *Disclosure: I'm a Docker Captain, and I'm enthusiastic about this technology. This article was written with the assistance of Claude (Anthropic); the header image was generated with Google's Nano Banana 2 via OpenRouter. The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-0N-v1) at tag `piece-0N-v1`.*
+> *Disclosure: I'm a Docker Captain, and I'm enthusiastic about this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-0N-v1) at tag `piece-0N-v1`.*
 
 The hub (00) and the making-of (06) use the same line, with the last sentence replaced by "The code and the full making-of live in [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai)."
 
@@ -28,8 +28,14 @@ Why each part is there:
 
 - **Docker Captain:** readers deserve to know the author's relationship with the vendor of the product being discussed. One plain clause is enough, without apology or disclaimers.
 - **Claude:** the articles were drafted with an AI assistant, and the making-of (06) is about exactly that.
-- **The header image:** it's AI-generated, and saying so costs one clause.
+- **The header image:** it's AI-generated, and saying so costs one clause. The author asked for this to be stated explicitly (session 03).
 - **The tag:** it's what makes "reproducible" checkable rather than a claim.
+
+On Medium, each header image also carries a short caption, so readers learn it straight away rather than at the end of the article:
+
+> *AI-generated illustration.*
+
+The making-of site says the same on its home page, and covers the site icon too.
 
 ## Consequences
 
