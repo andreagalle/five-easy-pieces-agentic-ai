@@ -1,0 +1,32 @@
+{
+  // CLAUDE.md §6. Ubuntu 24.04 is required by the docker-sbx apt package.
+  "name": "five-easy-pieces-agentic-ai",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "lts" },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    // Installs the latest Claude Code and its VS Code extension
+    // (https://code.claude.com/docs/en/devcontainer).
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  // Installs the pinned sbx and mermaid-cli, then runs the read-only environment report.
+  "postCreateCommand": "bash scripts/post-create.sh",
+  // Recommended Codespaces secrets: names only, values are set by the author in GitHub settings.
+  "secrets": {
+    "DOCKER_ID": {
+      "description": "Docker ID used by `sbx login` for headless sign-in."
+    },
+    "DOCKER_PAT": {
+      "description": "Docker personal access token, piped to `sbx login --password-stdin`. Never printed."
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "bierner.markdown-mermaid"
+      ]
+    }
+  }
+}

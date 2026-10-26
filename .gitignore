@@ -167,7 +167,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs/Zensical documentation
-/site
+# ("/site" removed: in this repo site/ is the GitHub Pages source and must be tracked)
 
 # mypy
 .mypy_cache/
@@ -218,3 +218,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- five-easy-pieces-agentic-ai (CLAUDE.md §8) ---
+.env*
+out/
+.sbx/
+*.tfstate*
+*.tfvars
+.terraform/
+node_modules/
+_site/
+.jekyll-cache/
+.jekyll-metadata
