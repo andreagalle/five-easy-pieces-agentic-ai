@@ -1,0 +1,90 @@
+# Single source of truth for the status of every article and example (CLAUDE.md §9.2).
+# status (articles): idea | outline | draft | review | ready | published
+# status (examples): idea | scaffolded | in-progress | tested-host | tested-sandbox | frozen
+# Updated at the end of every session by /wrap.
+
+# Medium publication for every article (ADR-0008); order and cadence in ADR-0007.
+publication: "https://medium.com/docker-captains-wisdom"
+
+articles:
+  - id: "00"
+    title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
+    kind: hub
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "01"
+    title: "Piece 1/5 — The simple reflex agent"
+    kind: piece
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "02"
+    title: "Piece 2/5 — The model-based reflex agent"
+    kind: piece
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "03"
+    title: "Piece 3/5 — The goal-based agent"
+    kind: piece
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "04"
+    title: "Piece 4/5 — The utility-based agent"
+    kind: piece
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "05"
+    title: "Piece 5/5 — The learning agent"
+    kind: piece
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+  - id: "06"
+    title: "The making of: Claude, Docker Sandboxes and a Codespace"
+    kind: meta
+    status: idea
+    code_tag: ""
+    medium_url: ""
+    last_session: "01"
+
+examples:
+  - id: "_shared"
+    dir: "examples/_shared/worlds"
+    status: idea
+    code_tag: ""
+    last_session: "01"
+  - id: "01"
+    dir: "examples/01-simple-reflex"
+    status: idea
+    code_tag: ""
+    last_session: "01"
+  - id: "02"
+    dir: "examples/02-model-based"
+    status: idea
+    code_tag: ""
+    last_session: "01"
+  - id: "03"
+    dir: "examples/03-goal-based"
+    status: idea
+    code_tag: ""
+    last_session: "01"
+  - id: "04"
+    dir: "examples/04-utility-based"
+    status: idea
+    code_tag: ""
+    last_session: "01"
+  - id: "05"
+    dir: "examples/05-learning"
+    status: idea
+    code_tag: ""
+    last_session: "01"

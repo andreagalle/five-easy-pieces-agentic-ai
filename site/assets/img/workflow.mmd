@@ -1,0 +1,13 @@
+flowchart LR
+  A([Author]) -->|prompts, decisions| CC
+  subgraph CS[GitHub Codespace]
+    CC[Claude Code<br/>reads CLAUDE.md] -->|scripts/sbx-run.sh| SBX[sbx CLI]
+    CC -->|edits| R[(Git repository)]
+    SBX -->|results +<br/>RUNINFO.json| R
+  end
+  SBX <-->|"sbx --cloud<br/>cp in · exec · cp out"| CLOUD[Cloud sandbox<br/>microVM]
+  SBX <-.->|"SBX_TARGET=local<br/>needs KVM"| LOCAL[Local sandbox<br/>microVM]
+  R --> ART[Article drafts<br/>articles/]
+  R --> SITE[Making-of record<br/>site/ → GitHub Pages]
+  A -->|edits, approves| ART
+  ART --> MED([Medium])

@@ -1,0 +1,27 @@
+# GitHub Pages source for the making-of (CLAUDE.md §7, §9).
+# Built by .github/workflows/pages.yml with GitHub's jekyll-build-pages action (ADR-0005).
+title: "Five Easy Pieces on Agentic AI — the making-of"
+description: >-
+  How a seven-part series on AIMA's agent types and Docker Sandboxes is being made,
+  session by session, in a GitHub Codespace with Claude Code.
+author: "andreagalle"
+# Project site path; follows the repository name (ADR-0006).
+baseurl: "/five-easy-pieces-agentic-ai"
+
+theme: minima
+markdown: kramdown
+permalink: pretty
+
+header_pages:
+  - workflow.md
+  - journal/index.md
+  - decisions/index.md
+  - prompts/index.md
+
+defaults:
+  - scope: { path: "journal" }
+    values: { layout: post }
+  - scope: { path: "decisions" }
+    values: { layout: page }
+  - scope: { path: "prompts" }
+    values: { layout: page }
