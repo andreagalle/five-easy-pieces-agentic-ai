@@ -19,6 +19,9 @@
     },
     "DOCKER_PAT": {
       "description": "Docker personal access token, piped to `sbx login --password-stdin`. Never printed."
+    },
+    "OPENROUTER_API_KEY": {
+      "description": "OpenRouter key for pieces 03-05 (ADR-0011). Uploaded to the cloud secret store; sandboxes see only a placeholder. Set a credit limit on the key."
     }
   },
   "customizations": {

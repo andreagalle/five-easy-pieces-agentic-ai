@@ -77,7 +77,7 @@ else
 fi
 
 section "Secrets present in the environment (values never shown)"
-for name in DOCKER_ID DOCKER_PAT ANTHROPIC_API_KEY; do
+for name in DOCKER_ID DOCKER_PAT OPENROUTER_API_KEY; do
   item "$name" "$([ -n "${!name:-}" ] && echo set || echo "not set")"
 done
 
