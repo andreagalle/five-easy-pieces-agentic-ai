@@ -11,15 +11,23 @@ medium_url: ""
 
 # Five Easy Pieces on Agentic AI w/ Docker Sandboxes
 
-*AI agents got a parts list in 1995. Since then the parts have grown enormously. The hard problems haven't moved an inch, and they were never the easy pieces.*
+*Agents have changed a lot since 1995. Their problems, not so much.*
 
 ![Five glass spheres stand in a row on a seabed, each holding a small fish above a grid of stones. The glass grows thicker from left to right, and the last sphere is sealed. High above, a whale glides through shafts of light.](assets/header.jpg)
 
 *AI-generated illustration.*
 
-Today "agent" usually means a large language model with tools. The word is older than that. Something that perceives, decides and acts, again and again, in a world it doesn't fully control, was laid out in Chapter 2 of Stuart Russell and Peter Norvig's *Artificial Intelligence: A Modern Approach*. The book was first published in 1995 and is now in its fourth edition. The chapter is short, it predates large language models by decades, and its vocabulary still fits.
+I spend my days on the security of agentic AI, which mostly means watching software with tools do things nobody asked it to do. At some point curiosity won, and I took an old acquaintance down from the shelf: Stuart Russell and Peter Norvig's *Artificial Intelligence: A Modern Approach*, the encyclopedic textbook that has outlived several AI hype cycles. My copy is the Italian edition, which I studied a few years back.
 
-This series is this hub plus five short pieces. Each piece takes one of the book's agent types, implements it as a small program, and runs it in a Docker Sandbox: a disposable microVM you create, use and throw away, on your machine or in the cloud, with the same commands. One question runs through all of them, one the textbook had no reason to ask: when does an agent actually need a fence?
+Even then, Chapter 2, "Intelligent Agents", struck me as oddly modern. Reopening it, I found I'd remembered right: its vocabulary fits today's agents almost too well. So I wanted to put those concepts on the ground, as programs that actually run. Docker Sandboxes looked like the right place to do it.
+
+> Stuart Russell and Peter Norvig, *Artificial Intelligence: A Modern Approach*, 4th edition (US). Pearson, 2020. ISBN 978-0-13-461099-3.
+
+That's the reference for the whole series: AIMA for short, cited by section number. Since my copy speaks Italian, I paraphrase rather than quote. Translating the authors' sentences back into English and calling them quotations would be a creative act I'd rather not commit. The ideas are theirs.
+
+## Five pieces, one question
+
+This series is this hub plus five short pieces. Each piece takes one of the book's agent types, implements it as a small program, and runs it in a Docker Sandbox: a disposable microVM you create, use and throw away, on your machine or in the cloud, with the same commands. One question runs through all of them, one the textbook had no reason to ask in 1995: when does an agent actually need a fence?
 
 The title borrows from Richard Feynman's *Six Easy Pieces*: six chapters from his 1960s physics lectures, published as a book in the mid-1990s, at about the time AIMA first appeared. Feynman's pieces were easy only in a particular sense. They were the fundamentals, stated so plainly that they looked simple, with everything hard about physics sitting right underneath.
 
@@ -29,7 +37,7 @@ These five are easy in the same sense. The agent programs are small. What they r
 - a performance measure that has to say what you actually want;
 - a judge the agent mustn't be able to reach.
 
-None of that is new. It has been the hard part since the beginning.
+None of that is new. It has been the hard part since the beginning; only the budgets have changed.
 
 ## What AIMA calls an agent
 
@@ -37,25 +45,25 @@ An agent, in the book's sense, is anything that perceives its environment throug
 
 - **Percept:** what it senses at a given instant.
 - **Percept sequence:** everything it has ever sensed.
-- **Agent function:** its behaviour, described abstractly as a mapping from every possible percept sequence to an action.
+- **Agent function:** its behaviour on paper, a mapping from every possible percept sequence to an action.
 - **Agent program:** the concrete thing that implements that function, running on some physical system.
 
 Keep that distinction in mind, function versus program, because the series hangs on it. A thermostat, a chess engine and a coding assistant are all agents. What separates them is the program, and what the program is allowed to touch.
 
 ## Rational is not the same as all-knowing
 
-The book judges an agent by consequences (§2.2). A performance measure scores the sequence of states the agent's actions produce in the environment, not what the agent meant to do. The running example is a robot vacuum cleaner that earns a point for every clean square at every time step. The series scores its vacuum agents with exactly that measure.
+The book judges an agent by consequences (§2.2). A performance measure scores the states the agent's actions produce in the world, not what the agent meant to do. Good intentions earn no points. The running example is a robot vacuum cleaner that scores a point for every clean square at every time step, and the series scores its vacuum agents with exactly that measure.
 
-A rational agent, in this vocabulary, picks the action it expects to score best, given what it has perceived so far and what it knows in advance. That isn't omniscience: a rational agent can be wrong about what it couldn't see. It isn't a free pass either. A rational agent gathers information when that's worth it, learns from what happens, and becomes more autonomous the less it relies on what its designer built in.
+A rational agent picks the action it expects to score best, given what it has perceived so far and what it knows in advance. That isn't omniscience: a rational agent can be wrong about what it couldn't see, which is reassuring for agents of every kind, humans included. Nor is it a free pass. A rational agent gathers information when that's worth it, learns from what happens, and becomes more autonomous the less it leans on what its designer built in.
 
-Two ideas from this section come back later in the series:
+Two ideas from this section come back later:
 
 - A performance measure should describe what you want the world to look like, not how you want the agent to behave.
 - The standard an agent is judged by has to stay out of the agent's reach. Piece 5 depends on this one.
 
 ## Four letters and seven questions
 
-Before writing an agent, the book asks you to describe its task environment as **PEAS**: Performance measure, Environment, Actuators, Sensors (§2.3). Then it asks seven questions about that environment:
+Before you write an agent, the book makes you fill in a form: **PEAS**, for Performance measure, Environment, Actuators, Sensors (§2.3). Then it asks seven questions about the environment:
 
 - Can the agent observe all of it, or only part?
 - Is it acting alone, or alongside other agents?
@@ -65,7 +73,7 @@ Before writing an agent, the book asks you to describe its task environment as *
 - Are states and actions discrete or continuous?
 - Does the agent know how the environment works?
 
-The hardest case is the one where every answer is the uncomfortable one: partially observable, multi-agent, nondeterministic, sequential, dynamic, continuous and unknown. Now picture a coding agent with a shell, inside a real repository, with network access. Checked against the list:
+The hardest case is the one where every answer is the uncomfortable one: partially observable, multi-agent, nondeterministic, sequential, dynamic, continuous and unknown. Now picture a coding agent with a shell, inside a real repository, with network access:
 
 - It sees only part of a large codebase.
 - It shares that codebase with people and other tools.
@@ -74,7 +82,7 @@ The hardest case is the one where every answer is the uncomfortable one: partial
 - The repository and its dependencies change underneath it.
 - It can't know in advance what a command will do.
 
-That's most of the hardest case, with real actuators attached. Every piece in the series opens with its own PEAS description and its answers to these questions.
+That's most of the hardest case, with real actuators attached, and usually with your credentials. Every piece opens with its own PEAS description and its answers to these questions.
 
 ## Agent = architecture + program
 
@@ -88,69 +96,46 @@ Docker Sandboxes make the architecture something you can create and destroy on d
 - **One tool:** a single command-line program, `sbx`, drives them all.
 - **Local or cloud:** the same commands work on your machine and, with `sbx --cloud`, on Docker's infrastructure.
 
-Moving a program to a different architecture is literally a flag.
+Moving a program to a different architecture is literally a flag. Rarely has a philosophical distinction been this cheap to demonstrate. Piece 1 demonstrates it anyway: its program writes a deterministic report, and that report came out byte for byte identical in my Codespace and in a cloud sandbox, under a different Python version, with the sandbox's network switched off.
 
-Piece 1 checks that claim before the series relies on it. Its program writes a deterministic report. That report came out byte for byte identical in my Codespace and in a cloud sandbox, under a different Python version, with the sandbox's network switched off.
+Why not skip the program and use a lookup table from percept sequences to actions? Because the table would need an entry for every possible history, and the number of histories explodes long before the world gets interesting (§2.4.1). Programs exist because tables don't scale.
 
-Why not skip the program altogether and use a lookup table from percept sequences to actions? The book's answer (§2.4.1) is that the table would need an entry for every possible history, and the number of histories explodes long before the world gets interesting. Programs exist because tables can't scale.
+## Four kinds of agent, plus one that learns
 
-## Five easy pieces
+The book's taxonomy is easy to misremember; I certainly had. It describes **four** basic kinds of agent program, each adding something the previous one lacks: reacting to what it sees, keeping track of what it can't see, planning toward a goal, and weighing how good an outcome is.
 
-The book describes four basic kinds of agent program, each able to do something the previous one can't, and then shows how any of them can become an agent that learns. That makes five pieces.
+Learning isn't a fifth rung on that ladder. It's a way to improve any of the four (§2.4.6). The book wraps an existing agent, now called the *performance element*, with three more parts: a *critic* that judges it against a fixed standard, a *learning element* that changes it, and a *problem generator* that makes it try new things. Four kinds plus learning on top: five pieces. All five live in the same small world, the book's vacuum cleaner generalized to a grid, so you can compare them.
 
-All five live in the same small world, the book's vacuum cleaner generalized to a grid, so you can compare them. Each one swaps in a new program and shows one thing a sandbox can do:
-
-- **Piece 1, the simple reflex agent (§2.4.2).**
-  - *What it does:* acts on the current percept alone, through condition–action rules. Take away its location sensor and it loops forever; a coin flip breaks the loop.
-  - *What the sandbox shows:* disposability. Create, copy in, run, copy out, delete.
-  - *Does it need a fence?* No.
-- **Piece 2, the model-based reflex agent (§2.4.3).**
-  - *What it does:* keeps internal state about what it can't currently see, so it sweeps the grid instead of wandering.
-  - *What the sandbox shows:* persistence. The state survives stopping and restarting the sandbox.
-  - *Does it need a fence?* Still no.
-- **Piece 3, the goal-based agent (§2.4.4).**
-  - *What it does:* searches for actions that reach a goal. Here it will be an LLM agent writing code until a test suite passes.
-  - *What the sandbox shows:* network policy. Deny everything, then allow one host.
-  - *Does it need a fence?* Yes, for the first time.
-- **Piece 4, the utility-based agent (§2.4.5).**
-  - *What it does:* weighs the outcomes it prefers against what they cost. Here several LLM-written candidates will run, each in its own sandbox, scored on quality, model cost and sandbox minutes.
-  - *Does it need a fence?* Yes, once per candidate.
-- **Piece 5, the learning agent (§2.4.6).**
-  - *What it does:* a critic, held to a fixed standard, tells the agent how it's doing, and the agent rewrites its own instructions.
-  - *What the sandbox shows:* the critic stays outside and the agent stays inside.
-  - *Does it need a fence?* That's the whole point.
+- **Piece 1, the simple reflex agent (§2.4.2).** It acts on the current percept alone, through condition–action rules. Take away its location sensor and it loops forever; a coin flip breaks the loop. The sandbox shows disposability: create, copy in, run, copy out, delete. *Fence needed?* No.
+- **Piece 2, the model-based reflex agent (§2.4.3).** It keeps internal state about what it can't see, so it sweeps the grid instead of wandering. The sandbox shows persistence: the state survives stopping and restarting it. *Fence needed?* Still no.
+- **Piece 3, the goal-based agent (§2.4.4).** It searches for actions that reach a goal. Here it will be an LLM agent writing code until a test suite passes. The sandbox shows network policy: deny everything, then allow one host. *Fence needed?* Yes, for the first time.
+- **Piece 4, the utility-based agent (§2.4.5).** It weighs the outcomes it prefers against what they cost. Here several LLM-written candidates will run, each in its own sandbox, scored on quality, model cost and sandbox minutes. *Fence needed?* Yes, once per candidate.
+- **Piece 5, the learning agent (§2.4.6).** A critic, held to a fixed standard, tells the agent how it's doing, and the agent rewrites its own instructions. The sandbox keeps the critic outside and the agent inside. *Fence needed?* That's the whole point.
 
 One more idea from the end of the chapter (§2.4.7) changes along the way: how the agent represents its world. The first two pieces use a factored state, a position plus a few clean-or-dirty flags. The last three hand an LLM a structured world of files, functions and tests.
 
 ## Why the first two pieces have no LLM
 
-Pieces 1 and 2 are deterministic Python programs, standard library only, with no model inside. That's deliberate, for two reasons:
+Pieces 1 and 2 are deterministic Python programs, standard library only, with no model inside. That's deliberate:
 
-- **An LLM isn't needed there.** The simple reflex agent's lesson is one rule and the loop it causes. The model-based agent's lesson is a few lines of explicit state. In both cases you can point at the line responsible, and a model would hide exactly what the pieces are about.
+- **An LLM isn't needed there.** The reflex agent's lesson is one rule and the loop it causes; the model-based agent's is a few lines of explicit state. You can point at the line responsible. Putting a language model inside a 40-line reflex agent would be like hiring a consultant to flip a light switch.
 - **It keeps the complexity down.** With nothing unpredictable running, those pieces can concentrate on containment itself: how a sandbox is created, fed, run, emptied and destroyed, and how state survives in it.
 
-We sandbox those two programs even though they don't need it, and the pieces say so. Learning the mechanics where nothing can go wrong is what makes it obvious, from piece 3 on, when they become indispensable. That's when the program starts running code nobody has read, needs the network to reach its model, and will optimize whatever it can reach.
+So we sandbox two programs that don't need it, and the pieces say so. Learning the mechanics where nothing can go wrong is what makes it obvious, from piece 3 on, when they become indispensable. That's when the program starts running code nobody has read, needs the network to reach its model, and will optimize whatever it can reach.
 
 ## Run it yourself
 
-Everything in the series is in [one repository](https://github.com/andreagalle/five-easy-pieces-agentic-ai). Open it in a GitHub Codespace and run:
+Everything is in [one repository](https://github.com/andreagalle/five-easy-pieces-agentic-ai). Open it in a GitHub Codespace, sign `sbx` in to a Docker account with cloud sandboxes enabled, and run:
 
 ```bash
-make check-env   # what this machine can run
 make run-01      # piece 1 in a cloud sandbox
 ```
 
-Cloud sandboxes need a Docker account with cloud sandboxes enabled. At the time of writing that's part of Docker's Agentic Platform, which Docker labels experimental. Every run leaves a `RUNINFO.json` behind: what ran, where, on which versions, and how it ended. The numbers in these articles come from those files.
+Cloud sandboxes are part of Docker's Agentic Platform, which Docker labels experimental at the time of writing. Every run leaves a `RUNINFO.json` behind: what ran, where, on which versions, and how it ended. The numbers in these articles come from those files, not from my optimism.
 
 Local sandboxes use exactly the same scripts on a machine with hardware virtualization. I haven't tested that path yet, so I'm not publishing it yet. A locally tested version will follow.
 
-The series also has a [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/). It has a journal entry for every working session, every decision with its reasons, and the dead ends, including the ones that were Claude's.
-
-## A note on sources
-
-The series follows the fourth edition of the book (Pearson, 2020) and cites it by section number. I read it in the Italian translation (Pearson Italia), and the sources I checked don't say whether that translation was made from the US or the Global Edition. Section numbers were checked against it.
-
-Because I can't check the English wording against my copy, I paraphrase rather than quote. The ideas are the authors'; the sentences here are paraphrases. For a free summary of the chapter, Z. Yu's [study notes](https://artificialintelligence.readthedocs.io/en/latest/part1/chap2.html) are a good companion. They skip a heading for §2.4.4, but the text is there.
+The series also has a [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/), with a journal entry for every working session, every decision with its reasons, and the dead ends, including the ones that were Claude's.
 
 ## The series
 
