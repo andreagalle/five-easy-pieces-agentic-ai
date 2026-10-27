@@ -1,0 +1,3 @@
+# Host-side tooling for the article charts (scripts/plots.py). Not used by any agent program,
+# which stay standard-library only. Installed into .venv by scripts/post-create.sh.
+matplotlib==3.11.2

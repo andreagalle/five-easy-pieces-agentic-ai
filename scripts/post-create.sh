@@ -28,4 +28,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 # ImageMagick: scripts/gen-header.py turns each kept 7 MB PNG header into a ~1.2 MB JPEG.
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends imagemagick
 
+# Chart tooling for the articles (scripts/plots.py): matplotlib, pinned, in a git-ignored .venv.
+# A virtual environment because Ubuntu's system Python refuses pip installs (PEP 668), and
+# because the agent programs themselves stay standard-library only.
+if ! python3.12 -c 'import ensurepip' 2>/dev/null; then
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python3.12-venv
+fi
+root="$(cd "$here/.." && pwd)"
+[ -x "$root/.venv/bin/python" ] || python3.12 -m venv "$root/.venv"
+"$root/.venv/bin/python" -m pip install --disable-pip-version-check -q -r "$root/requirements-plots.txt"
+
 "$here/check-env.sh"
