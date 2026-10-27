@@ -10,10 +10,10 @@ articles:
   - id: "00"
     title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
     kind: hub
-    status: idea
+    status: draft
     code_tag: ""
     medium_url: ""
-    last_session: "03"
+    last_session: "04"
   - id: "01"
     title: "Piece 1/5 — The simple reflex agent"
     kind: piece

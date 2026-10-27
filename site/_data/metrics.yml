@@ -1,10 +1,10 @@
 # Running counters for article 06 (CLAUDE.md §9.2). Real numbers only.
 # Updated at the end of every session by /wrap.
 
-updated: 2026-10-26
-sessions: 3
-journal_entries: 3
-commits: 31           # project commits since the repository's initial commit
+updated: 2026-10-27
+sessions: 4
+journal_entries: 4
+commits: 35           # project commits since the repository's initial commit
 adrs: 13
 sandbox_runs:
   cloud: 3            # session 02: one probe, two runs of example 01
