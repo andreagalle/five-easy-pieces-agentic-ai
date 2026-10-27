@@ -21,7 +21,7 @@ Today "agent" usually means a large language model with tools. The word is older
 
 I spend my days on the security of agentic AI, which mostly means watching software with tools do things nobody asked it to do. At some point curiosity won, and I took that old acquaintance down from the shelf, the encyclopedic textbook that has outlived several AI hype cycles. My copy is the Italian edition, which I studied a few years back.
 
-Even then, Chapter 2, "Intelligent Agents", struck me as oddly modern. Reopening it, I found I'd remembered right: its vocabulary fits today's agents almost too well.
+Even then, Chapter 2, "Intelligent Agents", struck me as oddly modern. Reopening it, I found I'd remembered right!
 
 > Stuart Russell and Peter Norvig, *Artificial Intelligence: A Modern Approach*, 4th edition (US). Pearson, 2020. ISBN 978-0-13-461099-3.
 
