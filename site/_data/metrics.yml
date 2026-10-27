@@ -2,14 +2,18 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-27
-sessions: 4
-journal_entries: 4
-commits: 47           # project commits since the repository's initial commit
-adrs: 13
+sessions: 5
+journal_entries: 5
+commits: 56           # project commits since the repository's initial commit
+adrs: 14
 sandbox_runs:
-  cloud: 3            # session 02: one probe, two runs of example 01
+  cloud: 6            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01
   local: 0
-cloud_sandbox_minutes: 1   # approximate: 14 s + 17 s + 10 s of sandbox lifetime, micro shape
+cloud_sandbox_minutes: 1.3   # approximate client-side wall clock: 41 s (session 02) + 33 s (session 05), micro shape
+cloud_billed:
+  as_of: 2026-10-27
+  micro_seconds: 31.277   # from the author's Console, before session 05's runs
+  usd: 0.00
 sbx_versions_seen: ["v0.50.0"]
 openrouter_usd:
   images: 1.83        # 14 generations, illustrations/log.jsonl

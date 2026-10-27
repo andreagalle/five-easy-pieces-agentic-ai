@@ -25,7 +25,7 @@
 
 ## Reference run
 
-Cloud, 2026-10-26T21:40:47Z, commit `09759d7`, clean tree, Python 3.14.4 in the sandbox, exit code 0, 10 s from creation to copy-out. `results.json` sha256 `9fbec0343e22d499…`, identical to host runs on Python 3.12.3 and 3.14.2.
+Cloud, 2026-10-27T16:12:51Z, commit `795ffb8`, clean tree, Python 3.14.4 in the sandbox, exit code 0, 10 s from creation to copy-out (`make compare-01`). `results.json` sha256 `efae1944bf22a1d4…`, identical to host runs on Python 3.12.3 and 3.14.2. Since session 05, `results.json` also records each step's location and clean count, for the charts. The scores are unchanged from the first reference run (`09759d7`, sha256 `9fbec034…`).
 
 - `sighted`, two squares, location sensor on: score 18/20, all clean at step 3
 - `blind`, two squares, no location sensor: score 10/20, square A dirty forever
@@ -34,3 +34,12 @@ Cloud, 2026-10-26T21:40:47Z, commit `09759d7`, clean tree, Python 3.14.4 in the 
 - `grid-random`, 4×4, random move on clean squares: score 2666/3200, all clean at step 82
 
 Score is AIMA's performance measure: one point per clean square per time step.
+
+## Charts
+
+`make plots-01` draws four figures from the last recorded run into `articles/01-simple-reflex/assets/`, plus `plots.json`, which records the run they came from. Every figure's footer names that run.
+
+- `fig-two-squares.png`: where each two-square agent is, step by step. The blind one is a flat line.
+- `fig-grid-paths.png`: where the blind and the random agent went on the 4×4 grid.
+- `fig-grid-cleaned-at.png`: the step at which each square was first cleaned, or never.
+- `fig-grid-performance.png`: clean squares over time. Each score is the area under its line.

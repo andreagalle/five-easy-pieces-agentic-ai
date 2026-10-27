@@ -56,6 +56,15 @@ class EpisodeTest(unittest.TestCase):
         self.assertEqual(episode.all_clean_at, 1)
         self.assertEqual(episode.final_dirty, ())
 
+    def test_episode_records_path_and_clean_counts(self):
+        world = VacuumWorld(WorldConfig(width=3), start=(0, 0), dirty=[(1, 0), (2, 0)])
+        episode = run_episode(world, lambda p: Action.SUCK if p.dirty else Action.RIGHT, steps=5)
+        self.assertEqual(episode.start, (0, 0))
+        self.assertEqual(episode.dirty_start, ((1, 0), (2, 0)))
+        self.assertEqual([s.location for s in episode.steps], [(1, 0), (1, 0), (2, 0), (2, 0), (2, 0)])
+        self.assertEqual([s.clean for s in episode.steps], [1, 2, 2, 3, 3])
+        self.assertEqual(episode.score, sum(s.clean for s in episode.steps))
+
     def test_same_seed_same_episode(self):
         def run():
             config = WorldConfig(width=4, height=3, slip=0.3, dirt_rate=0.05, seed=7)

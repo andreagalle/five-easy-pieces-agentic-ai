@@ -68,7 +68,11 @@ def summarize(scenario: Scenario, episode: Episode) -> dict:
         "max_score": episode.max_score,
         "all_clean_at": episode.all_clean_at,
         "final_dirty": [list(square) for square in episode.final_dirty],
+        "start": list(episode.start),
+        "dirty_start": [list(square) for square in episode.dirty_start],
         "actions": [step.action.value for step in episode.steps],
+        "path": [list(step.location) for step in episode.steps],  # location after each step
+        "clean": [step.clean for step in episode.steps],  # clean squares after each step
     }
 
 

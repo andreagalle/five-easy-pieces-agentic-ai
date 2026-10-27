@@ -105,10 +105,14 @@ class Step:
     t: int
     percept: Percept
     action: Action
+    location: Location  # where the agent is after the action
+    clean: int  # clean squares after the action
 
 
 @dataclass(frozen=True)
 class Episode:
+    start: Location
+    dirty_start: Tuple[Location, ...]
     steps: Tuple[Step, ...]
     score: int  # performance measure: one point per clean square per time step
     max_score: int
@@ -118,6 +122,8 @@ class Episode:
 
 def run_episode(world: VacuumWorld, program: AgentProgram, steps: int) -> Episode:
     """Run the percept -> action loop for a fixed number of steps and score it."""
+    start = world.location
+    dirty_start = tuple(sorted(world.dirty))
     trace = []
     score = 0
     all_clean_at = None
@@ -125,11 +131,13 @@ def run_episode(world: VacuumWorld, program: AgentProgram, steps: int) -> Episod
         percept = world.percept()
         action = program(percept)
         world.execute(action)
-        trace.append(Step(t, percept, action))
+        trace.append(Step(t, percept, action, world.location, world.clean_count()))
         score += world.clean_count()
         if all_clean_at is None and not world.dirty:
             all_clean_at = t
     return Episode(
+        start=start,
+        dirty_start=dirty_start,
         steps=tuple(trace),
         score=score,
         max_score=steps * len(world.squares),
