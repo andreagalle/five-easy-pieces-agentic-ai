@@ -17,17 +17,19 @@ medium_url: ""
 
 *AI-generated illustration.*
 
-I spend my days on the security of agentic AI, which mostly means watching software with tools do things nobody asked it to do. At some point curiosity won, and I took an old acquaintance down from the shelf: Stuart Russell and Peter Norvig's *Artificial Intelligence: A Modern Approach*, the encyclopedic textbook that has outlived several AI hype cycles. My copy is the Italian edition, which I studied a few years back.
+Today "agent" usually means a large language model with tools. The word is older than that. Something that perceives, decides and acts, again and again, in a world it doesn't fully control, was laid out in Chapter 2 of Stuart Russell and Peter Norvig's *Artificial Intelligence: A Modern Approach*. The book was first published in 1995 and is now in its fourth edition. The chapter is short, it predates large language models by decades, and its vocabulary still fits.
 
-Even then, Chapter 2, "Intelligent Agents", struck me as oddly modern. Reopening it, I found I'd remembered right: its vocabulary fits today's agents almost too well. So I wanted to put those concepts on the ground, as programs that actually run. Docker Sandboxes looked like the right place to do it.
+I spend my days on the security of agentic AI, which mostly means watching software with tools do things nobody asked it to do. At some point curiosity won, and I took that old acquaintance down from the shelf, the encyclopedic textbook that has outlived several AI hype cycles. My copy is the Italian edition, which I studied a few years back.
+
+Even then, Chapter 2, "Intelligent Agents", struck me as oddly modern. Reopening it, I found I'd remembered right: its vocabulary fits today's agents almost too well.
 
 > Stuart Russell and Peter Norvig, *Artificial Intelligence: A Modern Approach*, 4th edition (US). Pearson, 2020. ISBN 978-0-13-461099-3.
 
-That's the reference for the whole series: AIMA for short, cited by section number. Since my copy speaks Italian, I paraphrase rather than quote. Translating the authors' sentences back into English and calling them quotations would be a creative act I'd rather not commit. The ideas are theirs.
+That's the reference for the whole series: AIMA for short, cited by section number. Since my copy speaks Italian, I paraphrase rather than quote. The ideas are theirs.
 
 ## Five pieces, one question
 
-This series is this hub plus five short pieces. Each piece takes one of the book's agent types, implements it as a small program, and runs it in a Docker Sandbox: a disposable microVM you create, use and throw away, on your machine or in the cloud, with the same commands. One question runs through all of them, one the textbook had no reason to ask in 1995: when does an agent actually need a fence?
+This series is this overture plus five short pieces. Each piece takes one of the book's agent types, implements it as a small program, and runs it in a [Docker Sandbox](https://docs.docker.com/ai/sandboxes/): a disposable [microVM](https://docs.docker.com/ai/sandboxes/security/) you create, use and throw away, on your machine or [in the cloud](https://docs.docker.com/ai/sandboxes/cloud/), with the same commands. One question runs through all of them, one the textbook had no reason to ask in 1995: when does an agent actually need a fence?
 
 The title borrows from Richard Feynman's *Six Easy Pieces*: six chapters from his 1960s physics lectures, published as a book in the mid-1990s, at about the time AIMA first appeared. Feynman's pieces were easy only in a particular sense. They were the fundamentals, stated so plainly that they looked simple, with everything hard about physics sitting right underneath.
 
@@ -96,11 +98,13 @@ Docker Sandboxes make the architecture something you can create and destroy on d
 - **One tool:** a single command-line program, `sbx`, drives them all.
 - **Local or cloud:** the same commands work on your machine and, with `sbx --cloud`, on Docker's infrastructure.
 
-Moving a program to a different architecture is literally a flag. Rarely has a philosophical distinction been this cheap to demonstrate. Piece 1 demonstrates it anyway: its program writes a deterministic report, and that report came out byte for byte identical in my Codespace and in a cloud sandbox, under a different Python version, with the sandbox's network switched off.
+Moving a program to a different architecture is literally a flag.
+
+Piece 1 checks that claim before the series relies on it. Its program writes a deterministic report. That report came out byte for byte identical in my Codespace and in a cloud sandbox, under a different Python version, with the sandbox's network switched off.
 
 Why not skip the program and use a lookup table from percept sequences to actions? Because the table would need an entry for every possible history, and the number of histories explodes long before the world gets interesting (§2.4.1). Programs exist because tables don't scale.
 
-## Four kinds of agent, plus one that learns
+## Five easy pieces
 
 The book's taxonomy is easy to misremember; I certainly had. It describes **four** basic kinds of agent program, each adding something the previous one lacks: reacting to what it sees, keeping track of what it can't see, planning toward a goal, and weighing how good an outcome is.
 
