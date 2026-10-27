@@ -2,10 +2,10 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-27
-sessions: 6
-journal_entries: 6
-commits: 62           # project commits since the repository's initial commit
-adrs: 15
+sessions: 7
+journal_entries: 7
+commits: 66           # project commits since the repository's initial commit
+adrs: 16
 sandbox_runs:
   cloud: 7            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml)
   local: 0

@@ -67,6 +67,13 @@ The docs describe the billing model but don't publish rates: pay-as-you-go, mete
 
 The price doubles with each shape, exactly like the resources. Billed usage to 2026-10-27 was **31.277 s of micro**, for a probe and two runs whose wall-clock time was about 41 s: the meter counts sandbox runtime, not the client's create/copy/remove time. One run of piece 01 costs about $0.0002–0.0003.
 
+### Docs pages linked from the articles (checked 2026-10-27)
+
+- Overview: <https://docs.docker.com/ai/sandboxes/> ("Docker Sandboxes").
+- Security model: <https://docs.docker.com/ai/sandboxes/security/>. It says the microVM is "the primary trust boundary". It describes local sandboxes and points to a local-vs-cloud comparison for the cloud.
+- Cloud sandboxes: <https://docs.docker.com/ai/sandboxes/cloud/>.
+- **Broken link in the docs:** the credentials page links to `/ai/sandboxes/configuration/security/#trust-boundaries`, which returns 404. The security model lives at `/ai/sandboxes/security/`.
+
 ### OpenRouter in the cloud: docs vs `--help`
 
 - `sbx --cloud secret set --help` lists `openrouter` among the built-in services.
