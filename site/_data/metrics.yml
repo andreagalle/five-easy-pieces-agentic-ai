@@ -4,7 +4,7 @@
 updated: 2026-10-27
 sessions: 4
 journal_entries: 4
-commits: 44           # project commits since the repository's initial commit
+commits: 47           # project commits since the repository's initial commit
 adrs: 13
 sandbox_runs:
   cloud: 3            # session 02: one probe, two runs of example 01
