@@ -13,49 +13,49 @@ articles:
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "01"
     title: "Piece 1/5 — The simple reflex agent"
     kind: piece
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "02"
     title: "Piece 2/5 — The model-based reflex agent"
     kind: piece
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "03"
     title: "Piece 3/5 — The goal-based agent"
     kind: piece
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "04"
     title: "Piece 4/5 — The utility-based agent"
     kind: piece
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "05"
     title: "Piece 5/5 — The learning agent"
     kind: piece
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
   - id: "06"
     title: "The making of: Claude, Docker Sandboxes and a Codespace"
     kind: meta
     status: idea
     code_tag: ""
     medium_url: ""
-    last_session: "01"
+    last_session: "03"
 
 examples:
   - id: "_shared"

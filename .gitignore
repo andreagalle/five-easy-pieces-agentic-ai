@@ -230,3 +230,8 @@ node_modules/
 _site/
 .jekyll-cache/
 .jekyll-metadata
+
+# Header illustrations (scripts/gen-header.py): drafts and the 7 MB PNG master stay local; header.jpg is committed
+articles/*/assets/drafts/
+articles/*/assets/header.png
+illustrations/drafts/

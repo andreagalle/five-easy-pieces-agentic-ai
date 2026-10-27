@@ -13,7 +13,7 @@
 3. **Reproducibility first.** Anything that must be run to reproduce an article lives in a script or a `make` target, never only in chat or in article prose. Articles quote commands from the scripts, not the other way round.
 4. **Never invent `sbx` flags.** Docker Sandboxes ships minor releases every few weeks. Verify every command against `sbx <command> --help` and the official docs before it lands in a script or article (protocol in §5.5).
 5. **No secrets in the repo, ever.** Credentials go through `sbx secret` / `sbx --cloud secret` (host-side proxy injection) or GitHub Codespaces secrets. Never print a secret in output, logs, journal entries or commit messages.
-6. **Identity hygiene.** Never write the author's legal name, employer, job title or affiliation anywhere in this repo (files, commits, pages, articles, metadata, screenshots). The author's handle is `andreagalle` (ADR-0006). By the author's choice, git commit metadata and the copyright line in `LICENSE` keep the configured git identity (ADR-0006); don't flag them. Never change git config.
+6. **Identity hygiene.** Never write the author's legal name, employer, job title or affiliation anywhere in this repo (files, commits, pages, articles, metadata, screenshots). The author's handle is `andreagalle` (ADR-0006). By the author's choice, git commit metadata and the copyright line in `LICENSE` keep the configured git identity (ADR-0006); don't flag them. One more exception (ADR-0013): each article's disclosure line says the author is a Docker Captain; nowhere else. Never change git config.
 7. **Cost hygiene.** Every cloud sandbox is created with an explicit `--ttl` and `--on-timeout`, and every script removes what it creates (trap on EXIT). End every session with `sbx --cloud ls` and report anything still alive.
 8. **Ask, don't assume,** on anything listed in §12 (Open decisions). Record every answer as an ADR.
 
@@ -43,7 +43,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 
 ### 2.1 Sources
 
-- **Primary:** Russell, S. & Norvig, P., *Artificial Intelligence: A Modern Approach*, 4th ed., Pearson — Chapter 2, "Intelligent Agents". Confirm edition and year against the author's copy before the first citation is written.
+- **Primary:** Russell, S. & Norvig, P., *Artificial Intelligence: A Modern Approach*, 4th ed., Pearson — Chapter 2, "Intelligent Agents". Confirm edition and year against the author's copy before the first citation is written. **Confirmed (ADR-0012):** cite the 4th edition (Pearson, 2020); the author reads the Italian translation (Pearson Italia), so section numbers are checked there and direct quotes are used only if verified against an English copy — otherwise paraphrase.
 - **Secondary (linked from the hub as a free summary):** Z. Yu, "Chapter 2 Intelligent Agents", *ArtificialIntelligence* notes on Read the Docs (2021) — https://artificialintelligence.readthedocs.io/en/latest/part1/chap2.html. These are study notes on the book, not the book: cite the book for ideas, link the notes for convenience.
   - Gotcha: the notes' table of contents skips §2.4.4 (goal-based agents). The text is on the page but has no anchor; link to the page and write "§2.4.4" in prose.
 - **Optional code reference:** the official AIMA code repositories on GitHub (`aimacode/*`). Check each repository's license before reusing anything; prefer writing our own code.
@@ -92,7 +92,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 - No invented numbers. Every figure comes from a run we did (and is recorded in a `RUNINFO.json`) or from a cited source.
 - Short paragraphs, one idea per section. Code excerpts in articles ≤ ~40 lines; full code lives in the repo.
 - Every article ends with series navigation (hub · previous · next) and a "Reproduce it" box.
-- Every article carries a disclosure line: written with assistance from Claude (Anthropic); code and runs reproducible from the linked repository at a given tag. Final wording is an author decision (record it as an ADR).
+- Every article carries a disclosure line: written with assistance from Claude (Anthropic); code and runs reproducible from the linked repository at a given tag. Final wording is an author decision (record it as an ADR). **Decided: ADR-0013** (exact wording there).
 
 ### 3.3 Medium constraints (drafts must paste cleanly)
 

@@ -2,15 +2,21 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-26
-sessions: 2
-journal_entries: 2
-commits: 22           # project commits since the repository's initial commit
-adrs: 11
+sessions: 3
+journal_entries: 3
+commits: 31           # project commits since the repository's initial commit
+adrs: 13
 sandbox_runs:
   cloud: 3            # session 02: one probe, two runs of example 01
   local: 0
 cloud_sandbox_minutes: 1   # approximate: 14 s + 17 s + 10 s of sandbox lifetime, micro shape
 sbx_versions_seen: ["v0.50.0"]
+openrouter_usd:
+  images: 1.83        # 14 generations, illustrations/log.jsonl
+  llm: 0
+illustrations:
+  generations: 14
+  kept: 8             # seven article headers and the favicon
 notable_failures:
   - session: "01"
     what: "Local tier unavailable in the Codespace: /dev/kvm present but not accessible (GID 109, user not a member)."
@@ -18,3 +24,9 @@ notable_failures:
     what: "The GitHub-template .gitignore ignored /site, which would have silently dropped the whole making-of site from git."
   - session: "02"
     what: "Codespaces secrets added while the Codespace was running stayed invisible until a restart."
+  - session: "03"
+    what: "Nano Banana 2.1's only OpenRouter provider answered HTTP 429 (quota) twice; the series switched to Nano Banana 2."
+  - session: "03"
+    what: "The first 2K image billed 8,400 image tokens ($0.51) instead of the usual 1,680 ($0.10); we briefly dropped to 1K because of that one outlier."
+  - session: "03"
+    what: "A style-reference image leaked its composition (whale, layout, extra grid) into other images until a separate rules file and a stricter note held it back."

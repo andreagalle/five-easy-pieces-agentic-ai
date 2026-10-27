@@ -5,7 +5,9 @@ Full references for the series. Citation and quoting rules: CLAUDE.md §2.
 ## Primary
 
 - Russell, S. & Norvig, P. *Artificial Intelligence: A Modern Approach*, 4th ed. Pearson. Chapter 2, "Intelligent Agents".
-  - **To confirm against the author's copy before the first citation:** edition (US or Global), year and ISBN. Until then, articles cite it as *(AIMA 4e, §2.x)* without a year.
+  - **Cited as** *(AIMA 4e, §2.x)*. The 4th edition exists as the US edition (Pearson, 2020, ISBN 978-0134610993) and a Global Edition (ISBN 9781292401133), per the authors' [list of editions and translations](https://people.eecs.berkeley.edu/~russell/aima/translations.html).
+  - **The author's copy:** the Italian translation of the 4th edition, *Intelligenza artificiale. Un approccio moderno*, Pearson Italia, ed. Francesco Amigoni, ISBN-10 8891904457 (ISBN-13 9788891904454). Library catalogs record it in two volumes, 2021 and 2022. The sources we checked don't say whether it was translated from the US or the Global Edition.
+  - **Consequence (ADR-0012):** section numbers are checked against the Italian copy. Direct quotes are used only if verified against an English 4th-edition text; otherwise we paraphrase.
 
 ## Secondary (linked from the hub as a free summary)
 

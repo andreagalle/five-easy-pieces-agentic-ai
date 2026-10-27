@@ -24,4 +24,4 @@ Option 2: all seven articles are published in **Docker Captains Wisdom**, <https
 
 - Every `medium_url` in `site/_data/series.yml` will point under `medium.com/docker-captains-wisdom/`.
 - Before the first article goes out, check the publication's own formatting conventions (tags, cover image, subtitle) against the Medium constraints in CLAUDE.md §3.3.
-- The disclosure line (CLAUDE.md §3.2) is still an open author decision. The publication's name refers to Docker's community program and the series features a Docker product, so the wording should settle whether that relationship is disclosed.
+- The disclosure line (CLAUDE.md §3.2) states the author's relationship with Docker in one plain clause: see [ADR-0013]({{ "/decisions/ADR-0013-disclosure-line/" | relative_url }}).

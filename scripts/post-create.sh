@@ -35,4 +35,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libglib2.0-0t64 libnspr4 libnss3 libx11-6 libxcb1 libxcomposite1 libxdamage1 \
   libxext6 libxfixes3 libxkbcommon0 libxrandr2 fonts-liberation
 
+# ImageMagick: scripts/gen-header.py turns each kept 7 MB PNG header into a ~1.2 MB JPEG.
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends imagemagick
+
 "$here/check-env.sh"
