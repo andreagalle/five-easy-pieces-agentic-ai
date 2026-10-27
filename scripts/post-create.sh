@@ -4,23 +4,13 @@
 # Claude Code itself comes from the devcontainer feature, not from this script.
 set -euo pipefail
 
-# Bump these deliberately and record the bump in the journal.
-SBX_VERSION="${SBX_VERSION:-0.50.0}"
+# Bump these deliberately and record the bump in the journal (SBX_VERSION lives in install-sbx.sh).
 MERMAID_CLI_VERSION="${MERMAID_CLI_VERSION:-12.0.0}"
 
 here="$(cd "$(dirname "$0")" && pwd)"
 
-if ! command -v sbx >/dev/null || ! sbx version | grep -q "v${SBX_VERSION} "; then
-  echo "Installing docker-sbx ${SBX_VERSION} from Docker's apt repository"
-  # REPO_ONLY=1: add Docker's apt repository and key, install nothing else.
-  curl -fsSL https://get.docker.com | sudo REPO_ONLY=1 sh
-  pkg="$(apt-cache madison docker-sbx | awk -v v="${SBX_VERSION}-" 'index($3, v) == 1 { print $3; exit }')"
-  if [ -z "$pkg" ]; then
-    echo "error: docker-sbx ${SBX_VERSION} not found in the apt repository" >&2
-    exit 1
-  fi
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "docker-sbx=${pkg}"
-fi
+# The same pinned sbx the CI uses (.github/workflows/sandbox.yml).
+"$here/install-sbx.sh"
 
 if ! command -v mmdc >/dev/null || [ "$(mmdc --version 2>/dev/null)" != "$MERMAID_CLI_VERSION" ]; then
   echo "Installing @mermaid-js/mermaid-cli ${MERMAID_CLI_VERSION}"

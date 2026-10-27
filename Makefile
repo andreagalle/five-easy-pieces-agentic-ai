@@ -5,6 +5,8 @@ PYTHON ?= $(shell command -v python3.12 2>/dev/null || command -v python3)
 MMDC ?= mmdc
 # shellcheck from the system if installed, otherwise its official image (the Codespace has Docker).
 SHELLCHECK ?= $(shell command -v shellcheck 2>/dev/null || echo "docker run --rm -v $(CURDIR):/mnt:ro -w /mnt koalaman/shellcheck:v0.10.0")
+# actionlint checks the workflows; sandbox.yml only runs after a merge, so its mistakes must be caught before.
+ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null || echo "docker run --rm -v $(CURDIR):/repo:ro -w /repo rhysd/actionlint:1.7.12")
 DIAGRAM_SIZE ?= 1600
 
 TEST_DIRS := $(sort $(dir $(wildcard examples/*/tests/)))
@@ -28,12 +30,16 @@ test: ## Host-side unit tests for every example that has tests/
 	done; \
 	exit $$status
 
-lint: ## shellcheck every shell script; byte-compile the Python scripts
+lint: ## shellcheck every shell script, actionlint the workflows, byte-compile the Python scripts
 	@$(SHELLCHECK) scripts/*.sh examples/*/run.sh && echo "shellcheck: ok"
+	@$(ACTIONLINT) && echo "actionlint: ok"
 	@$(PYTHON) -m py_compile scripts/gen-header.py scripts/article-check.py && echo "py_compile: ok"
 
 article-check: ## Articles past 'idea': Medium format, disclosure, tag links, length
 	@$(PYTHON) scripts/article-check.py
+
+compare-%: ## Run deterministic example NN on the host and in a cloud sandbox; fail unless results match
+	@scripts/compare-host-cloud.sh $$(ls -d examples/$*-*/ | head -1)
 
 run-%: ## Run example NN through scripts/sbx-run.sh (e.g. make run-01; SBX_TARGET=local)
 	@script=$$(ls examples/$*-*/run.sh 2>/dev/null | head -1); \
