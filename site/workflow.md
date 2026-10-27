@@ -4,7 +4,7 @@ title: Workflow
 permalink: /workflow/
 ---
 
-How the series is made, as of session 05. This page changes when the workflow changes, and every change is noted in the [journal]({{ "/journal/" | relative_url }}).
+How the series is made, as of session 06. This page changes when the workflow changes, and every change is noted in the [journal]({{ "/journal/" | relative_url }}).
 
 ![Workflow: the author prompts Claude Code in a GitHub Codespace; Claude Code edits the repository and runs examples through scripts/sbx-run.sh, which drives the sbx CLI; cloud sandboxes (or local ones, where KVM is available) run the example and results are copied back into the repository; article drafts and this site are built from the repository; the author edits and approves the drafts before they go to Medium.]({{ "/assets/img/workflow.png" | relative_url }})
 
@@ -30,4 +30,4 @@ How the series is made, as of session 05. This page changes when the workflow ch
 
 ## Current state
 
-As of session 05, example 01 runs in cloud sandboxes, and CI will re-check that it gives the same output on the host and in the cloud after every merge. The hub is a first draft, piece 01 has four charts drawn from its reference run, and a checklist describes how each article goes to Medium. Local sandboxes aren't used yet ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).
+As of session 06, CI has run piece 01 in a real cloud sandbox after a merge for the first time, and the result was byte-identical to the runner's. The hub has been rewritten after the author's review, and piece 01 has four charts drawn from its reference run. Local sandboxes aren't used yet ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).

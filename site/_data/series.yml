@@ -13,7 +13,7 @@ articles:
     status: draft
     code_tag: ""
     medium_url: ""
-    last_session: "04"
+    last_session: "06"
   - id: "01"
     title: "Piece 1/5 — The simple reflex agent"
     kind: piece
