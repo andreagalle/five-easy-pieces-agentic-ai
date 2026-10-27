@@ -19,6 +19,10 @@ Full references for the series. Citation and quoting rules: CLAUDE.md §2.
 
 - AIMA code repositories on GitHub, <https://github.com/aimacode>. Check each repository's license before reusing anything; the series writes its own code.
 
+## Other works mentioned
+
+- Feynman, R. P. *Six Easy Pieces: Essentials of Physics Explained by Its Most Brilliant Teacher*. Addison-Wesley. Catalogs date the book 1995, some 1994. Its six chapters come from *The Feynman Lectures on Physics* (early 1960s). The series title nods to it (CLAUDE.md §3.2). The hub says "mid-1990s" because the sources disagree on the year.
+
 ## Docker Sandboxes
 
 - Docker Sandboxes documentation, <https://docs.docker.com/ai/sandboxes/>. Raw Markdown: append `.md` to a page URL (see `sbx-notes.md` for one exception).

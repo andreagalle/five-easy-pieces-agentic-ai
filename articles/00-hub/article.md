@@ -11,7 +11,7 @@ medium_url: ""
 
 # Five Easy Pieces on Agentic AI w/ Docker Sandboxes
 
-*A 1995 textbook already named the parts of today's AI agents. This series runs its five agent types in disposable sandboxes and watches the sandbox go from a formality to a necessity.*
+*AI agents got a parts list in 1995. Since then the parts have grown enormously. The hard problems haven't moved an inch, and they were never the easy pieces.*
 
 ![Five glass spheres stand in a row on a seabed, each holding a small fish above a grid of stones. The glass grows thicker from left to right, and the last sphere is sealed. High above, a whale glides through shafts of light.](assets/header.jpg)
 
@@ -21,7 +21,15 @@ Today "agent" usually means a large language model with tools. The word is older
 
 This series is this hub plus five short pieces. Each piece takes one of the book's agent types, implements it as a small program, and runs it in a Docker Sandbox: a disposable microVM you create, use and throw away, on your machine or in the cloud, with the same commands. One question runs through all of them, one the textbook had no reason to ask: when does an agent actually need a fence?
 
-The title borrows from a 1970 film. The pieces are easy because the world is small, not because the questions are.
+The title borrows from Richard Feynman's *Six Easy Pieces*: six chapters from his 1960s physics lectures, published as a book in the mid-1990s, at about the time AIMA first appeared. Feynman's pieces were easy only in a particular sense. They were the fundamentals, stated so plainly that they looked simple, with everything hard about physics sitting right underneath.
+
+These five are easy in the same sense. The agent programs are small. What they run into is the hard part:
+
+- a world they can only partly see;
+- a performance measure that has to say what you actually want;
+- a judge the agent mustn't be able to reach.
+
+None of that is new. It has been the hard part since the beginning.
 
 ## What AIMA calls an agent
 
