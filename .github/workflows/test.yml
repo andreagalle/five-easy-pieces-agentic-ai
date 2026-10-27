@@ -1,4 +1,6 @@
-# Host-side unit tests only: no sandboxes, no secrets (CLAUDE.md §5.2, "CI").
+# Checks on every push to master/dev and on every pull request.
+# Host-side only: no sandboxes, no secrets (CLAUDE.md §5.2, "CI").
+# Every command comes from the Makefile, so the same checks run in the Codespace.
 name: test
 
 on:
@@ -11,11 +13,38 @@ permissions:
 
 jobs:
   unit:
+    # Two Pythons on purpose: the host and Makefile use 3.12, but the cloud sandbox's
+    # shell template ships 3.14 (references/sbx-notes.md). Results must match on both.
+    strategy:
+      matrix:
+        python: ["3.12", "3.14"]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - run: make test PYTHON=python
+
+  lint:
+    # shellcheck catches shell bugs before they run against a paid cloud sandbox;
+    # site-check guards the record (journal format, session numbering, credential scan).
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: make test PYTHON=python
+      - run: make lint PYTHON=python
       - run: make site-check
+
+  site:
+    # Build the making-of site on every pull request, so a broken page shows up before
+    # the merge rather than in pages.yml after it. Nothing is deployed from here.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./site
+          destination: ./_site
