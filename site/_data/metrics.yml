@@ -2,9 +2,10 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-27
-sessions: 8
-journal_entries: 8
-commits: 72           # project commits since the repository's initial commit
+sessions: 9
+journal_entries: 9
+prompts_recorded: 10   # site/prompts; six of them recovered after the fact in session 09
+commits: 76           # project commits since the repository's initial commit
 adrs: 16
 sandbox_runs:
   cloud: 7            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml)
@@ -34,3 +35,5 @@ notable_failures:
     what: "The first 2K image billed 8,400 image tokens ($0.51) instead of the usual 1,680 ($0.10); we briefly dropped to 1K because of that one outlier."
   - session: "03"
     what: "A style-reference image leaked its composition (whale, layout, extra grid) into other images until a separate rules file and a stricter note held it back."
+  - session: "09"
+    what: "Prompts that changed direction went unrecorded for sessions 04-08: /wrap had no step for them. Recovered from the conversation and the checklist extended."
