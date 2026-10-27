@@ -9,7 +9,7 @@ publication: "https://medium.com/docker-captains-wisdom"
 articles:
   - id: "00"
     title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
-    kind: hub
+    kind: overture
     status: draft
     code_tag: ""
     medium_url: ""

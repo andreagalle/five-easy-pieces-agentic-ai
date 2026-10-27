@@ -30,4 +30,4 @@ How the series is made, as of session 06. This page changes when the workflow ch
 
 ## Current state
 
-As of session 06, CI has run piece 01 in a real cloud sandbox after a merge for the first time, and the result was byte-identical to the runner's. The hub has been rewritten after the author's review, and piece 01 has four charts drawn from its reference run. Local sandboxes aren't used yet ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).
+As of session 06, CI has run piece 01 in a real cloud sandbox after a merge for the first time, and the result was byte-identical to the runner's. The overture (formerly the hub) has been rewritten after the author's review, and piece 01 has four charts drawn from its reference run. Local sandboxes aren't used yet ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).

@@ -23,7 +23,7 @@ A seven-part Medium series, the code behind it, and a public record of how it wa
 
 ## The series
 
-- **00** — Five Easy Pieces on Agentic AI w/ Docker Sandboxes (hub)
+- **00** — Five Easy Pieces on Agentic AI w/ Docker Sandboxes (overture)
 - **01** — The simple reflex agent → [`examples/01-simple-reflex/`](examples/01-simple-reflex/)
 - **02** — The model-based reflex agent → [`examples/02-model-based/`](examples/02-model-based/)
 - **03** — The goal-based agent → [`examples/03-goal-based/`](examples/03-goal-based/)
