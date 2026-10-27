@@ -8,6 +8,8 @@ SHELLCHECK ?= $(shell command -v shellcheck 2>/dev/null || echo "docker run --rm
 # actionlint checks the workflows; sandbox.yml only runs after a merge, so its mistakes must be caught before.
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null || echo "docker run --rm -v $(CURDIR):/repo:ro -w /repo rhysd/actionlint:1.7.12")
 DIAGRAM_SIZE ?= 1600
+# matplotlib lives in a git-ignored .venv (scripts/post-create.sh, requirements-plots.txt).
+VENV_PYTHON ?= .venv/bin/python
 
 TEST_DIRS := $(sort $(dir $(wildcard examples/*/tests/)))
 DIAGRAMS := $(patsubst %.mmd,%.png,$(wildcard articles/*/assets/*.mmd site/assets/img/*.mmd))
@@ -33,7 +35,7 @@ test: ## Host-side unit tests for every example that has tests/
 lint: ## shellcheck every shell script, actionlint the workflows, byte-compile the Python scripts
 	@$(SHELLCHECK) scripts/*.sh examples/*/run.sh && echo "shellcheck: ok"
 	@$(ACTIONLINT) && echo "actionlint: ok"
-	@$(PYTHON) -m py_compile scripts/gen-header.py scripts/article-check.py && echo "py_compile: ok"
+	@$(PYTHON) -m py_compile scripts/gen-header.py scripts/article-check.py scripts/plots.py && echo "py_compile: ok"
 
 article-check: ## Articles past 'idea': Medium format, disclosure, tag links, length
 	@$(PYTHON) scripts/article-check.py
@@ -45,6 +47,9 @@ run-%: ## Run example NN through scripts/sbx-run.sh (e.g. make run-01; SBX_TARGE
 	@script=$$(ls examples/$*-*/run.sh 2>/dev/null | head -1); \
 	if [ -z "$$script" ]; then echo "error: examples/$*-*/run.sh does not exist yet" >&2; exit 1; fi; \
 	$$script
+
+plots-%: ## Draw article NN's charts from its last recorded run (make run-NN or compare-NN first)
+	@$(VENV_PYTHON) scripts/plots.py $*
 
 diagrams: $(DIAGRAMS) ## Render every Mermaid source (*.mmd) to PNG
 

@@ -98,6 +98,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 
 - Medium has no tables, no footnotes and only two heading levels. In `articles/*/article.md` use only `#` and `##`, no tables (use bullet lists or an image), no footnotes (inline links instead), short fenced code blocks.
 - Diagrams: Mermaid sources in `articles/<id>/assets/*.mmd`, rendered to PNG (≥ 1400 px wide) with mermaid-cli. Commit both source and render.
+- Charts: `scripts/plots.py` (`make plots-NN`, matplotlib in a git-ignored `.venv`), drawn only from a recorded run's `results.json` + `RUNINFO.json`, 1500 px wide, with a footer naming the run and an `assets/plots.json` provenance file. Colours from the illustration palette, validated with the dataviz checks: cerulean `#2F80C0` and coral `#E8574A` for series (coral is the agent that loops), a teal ramp `#84BFB8`→`#1F5C6B` for magnitude, plum-navy text. Comparisons across pieces use emphasis (the piece's own agent in colour, earlier agents in grey) rather than more hues.
 - Links to code always point to a **tag**, never to `main` (e.g. `…/tree/piece-01-v1/examples/01-simple-reflex`), so published articles don't rot.
 
 ### 3.4 Skeleton of a short piece (01–05)
