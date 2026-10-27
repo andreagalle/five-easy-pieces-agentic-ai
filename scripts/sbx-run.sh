@@ -66,6 +66,8 @@ name="fep-${piece}-$(git -C "$root" rev-parse --short HEAD)"
 
 stage="$(mktemp -d)"
 created=0
+# Invoked through the EXIT trap below, which shellcheck cannot see.
+# shellcheck disable=SC2317
 cleanup() {
   if [ "$created" = 1 ]; then
     sbx --cloud rm --force "$name" >/dev/null 2>&1 \
@@ -133,5 +135,5 @@ with open(env["RUNINFO_PATH"], "w") as f:
     json.dump(info, f, indent=2)
     f.write("\n")
 EOF
-echo "sbx-run: exit code $exit_code, ${duration}s; outputs in ${example#$root/}/out/"
+echo "sbx-run: exit code $exit_code, ${duration}s; outputs in ${example#"$root"/}/out/"
 exit "$exit_code"
