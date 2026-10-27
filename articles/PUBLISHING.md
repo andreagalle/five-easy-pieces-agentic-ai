@@ -26,11 +26,11 @@ Medium stopped issuing API tokens on 1 January 2025 (as documented by n8n and St
 ## 3. Publish
 
 1. In the story settings, add the story to **Docker Captains Wisdom**, and choose up to five tags (the author's choice).
-2. **For the hub and piece 01, which go out the same day:**
+2. **For the overture and piece 01, which go out the same day:**
    1. Publish piece 01 first.
-   2. Paste its URL into the hub's series list, then publish the hub.
-   3. Edit piece 01 to link back to the hub. Medium allows edits after publishing.
-3. **For each weekly piece:** publish it, then edit the hub and the previous piece to replace "coming soon" with its link.
+   2. Paste its URL into the overture's series list, then publish the overture.
+   3. Edit piece 01 to link back to the overture. Medium allows edits after publishing.
+3. **For each weekly piece:** publish it, then edit the overture and the previous piece to replace "coming soon" with its link.
 
 ## 4. Back in the repository
 

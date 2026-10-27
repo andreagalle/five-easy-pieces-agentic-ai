@@ -106,5 +106,5 @@ if command -v sbx >/dev/null && [ "$cloud_auth" = pass ] && [ -r /dev/kvm ] && [
   local_ready=yes
 fi
 item "Tier C (cloud) ready" "$cloud_ready"
-item "Tier L (local) ready" "$local_ready"
+item "Tier L (local) ready" "$local_ready (not published until tested on a capable machine: ADR-0010)"
 exit 0

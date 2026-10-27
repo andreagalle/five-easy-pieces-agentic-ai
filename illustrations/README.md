@@ -29,12 +29,12 @@ The prompt is assembled from four files, in this order:
 3. [`rules.txt`](rules.txt): **our corrections**, kept separate so the author's text stays untouched. Each line answers something the drafts got wrong:
    - a "sealed" sphere came out opaque and lost its cleaner;
    - grids appeared on the open seabed;
-   - the hub image, used as a reference, pushed its whale into piece 01;
+   - the overture's image, used as a reference, pushed its whale into piece 01;
    - "at night" produced a moon in piece 06;
    - "switched off" didn't darken piece 02.
 4. [`subjects/NN.txt`](subjects/): the author's subject for that article, **verbatim**. `subjects/favicon.txt` is ours: the cleaner in its sphere, simplified so it still reads at 16 px.
 
-For every image except the hub's, the kept hub header is attached as a **style reference**, with a note to copy its style but not its composition. Why: a picture pins the look of the cleaner and the sphere much better than words do. Exception: **04 was generated without the reference.** Its subject is also a row of spheres, and with the reference it came out almost identical to the hub.
+For every image except the overture's, the kept overture header is attached as a **style reference**, with a note to copy its style but not its composition. Why: a picture pins the look of the cleaner and the sphere much better than words do. Exception: **04 was generated without the reference.** Its subject is also a row of spheres, and with the reference it came out almost identical to the overture's image.
 
 ## Choices, and why
 
@@ -45,7 +45,7 @@ For every image except the hub's, the kept hub header is attached as a **style r
 
 ## What each image means
 
-- **00 Hub:** five spheres in a row, glass from almost invisible to sealed: the five pieces and the progression. The whale overhead is the cloud running every sphere.
+- **00 Overture:** five spheres in a row, glass from almost invisible to sealed: the five pieces and the progression. The whale overhead is the cloud running every sphere.
 - **01 Simple reflex:** a ring of bubbles looping back on itself is the infinite loop. The upright sand dollar (a sea "coin") is the coin flip that breaks it. The flimsy glass: here the sandbox is a formality.
 - **02 Model-based:** pearls on the cleaned stones are the internal state and the orderly sweep. They keep glowing while the dark sphere sleeps: state that survives stop and restart.
 - **03 Goal-based:** one thread of light leaving the sealed sphere is the policy that denies everything except `openrouter.ai`. The glowing corner is the goal; placing stones is writing code.

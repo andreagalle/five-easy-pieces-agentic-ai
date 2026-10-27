@@ -8,7 +8,7 @@ ID is an article id (00-06) or "favicon": a 1:1 close-up of the cleaner in its s
 which --keep derives the site's icons (site/assets/img/ and site/favicon.ico).
 
 The prompt is illustrations/style.txt + cast.txt + rules.txt + subjects/ID.txt.
-For every article except 00, the hub's kept header is attached as a style reference, so
+For every article except 00, the overture's kept header is attached as a style reference, so
 the cleaner and the sphere look the same across the series.
 
 Drafts go to articles/ID-*/assets/drafts/ (git-ignored). --keep writes header.png (local
@@ -141,10 +141,10 @@ def generate(article_id: str, use_reference: bool, dry_run: bool) -> None:
     drafts, aspect_ratio, resolution = target(article_id)
     reference = None
     if use_reference and article_id != "00":
-        hub = article_dir("00") / "assets"
-        reference = next((p for p in (hub / "header.png", hub / "header.jpg") if p.exists()), None)
+        overture = article_dir("00") / "assets"
+        reference = next((p for p in (overture / "header.png", overture / "header.jpg") if p.exists()), None)
         if reference is None:
-            print("gen-header: no kept hub header yet; generating without a style reference")
+            print("gen-header: no kept overture header yet; generating without a style reference")
 
     prompt = build_prompt(article_id, reference is not None)
     body = {"model": MODEL, "prompt": prompt, "resolution": resolution, "aspect_ratio": aspect_ratio, "n": 1}
@@ -282,7 +282,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("id", help="article id (00 to 06) or 'favicon'")
     parser.add_argument("--keep", metavar="DRAFT", help="promote a draft: header.jpg for an article, the icon set for 'favicon'")
-    parser.add_argument("--no-reference", action="store_true", help="don't attach the hub header as a style reference")
+    parser.add_argument("--no-reference", action="store_true", help="don't attach the overture header as a style reference")
     parser.add_argument("--dry-run", action="store_true", help="print the prompt and stop; costs nothing")
     args = parser.parse_args()
     if args.keep:

@@ -25,13 +25,15 @@ A seven-part Medium series, the example code behind it, and a public record of h
 
 | ID | Working title | Kind | Target length | Code |
 |----|---------------|------|---------------|------|
-| 00 | Five Easy Pieces on Agentic AI w/ Docker Sandboxes | Hub article | 1,500–2,000 words (~8 min) | — |
+| 00 | Five Easy Pieces on Agentic AI w/ Docker Sandboxes | Overture (opening article) | 1,500–2,000 words (~8 min) | — |
 | 01 | Piece 1/5 — The simple reflex agent | Short article | 600–900 words (~4 min) | `examples/01-simple-reflex/` |
 | 02 | Piece 2/5 — The model-based reflex agent | Short article | 600–900 words | `examples/02-model-based/` |
 | 03 | Piece 3/5 — The goal-based agent | Short article | 600–900 words | `examples/03-goal-based/` |
 | 04 | Piece 4/5 — The utility-based agent | Short article | 600–900 words | `examples/04-utility-based/` |
 | 05 | Piece 5/5 — The learning agent | Short article | 600–900 words | `examples/05-learning/` |
 | 06 | The making of: Claude, Docker Sandboxes and a Codespace | Meta article | 1,200–1,800 words | tells the story of `site/` |
+
+The first article is called the **overture** (ADR-0016): like a musical overture, it introduces the themes of the pieces that follow. Records written before session 07 call it the hub.
 
 Alongside the articles, a GitHub Pages site (`site/`) documents, session by session, how the series was produced in a GitHub Codespace with Claude Code and Docker Sandboxes. Claude writes most of the site's raw material as the work happens (journal, decisions, workflow page); the author edits and decides.
 
@@ -44,16 +46,15 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 ### 2.1 Sources
 
 - **Primary:** Russell, S. & Norvig, P., *Artificial Intelligence: A Modern Approach*, 4th ed., Pearson — Chapter 2, "Intelligent Agents". Confirm edition and year against the author's copy before the first citation is written. **Confirmed (ADR-0012):** cite the 4th edition (Pearson, 2020); the author reads the Italian translation (Pearson Italia), so section numbers are checked there and direct quotes are used only if verified against an English copy — otherwise paraphrase.
-- **Secondary (linked from the hub as a free summary):** Z. Yu, "Chapter 2 Intelligent Agents", *ArtificialIntelligence* notes on Read the Docs (2021) — https://artificialintelligence.readthedocs.io/en/latest/part1/chap2.html. These are study notes on the book, not the book: cite the book for ideas, link the notes for convenience.
-  - Gotcha: the notes' table of contents skips §2.4.4 (goal-based agents). The text is on the page but has no anchor; link to the page and write "§2.4.4" in prose.
+- **No secondary summaries (ADR-0015).** Third-party study notes on the book are not cited or linked anywhere; the overture opens with the full reference to the US 4th edition (Russell & Norvig, Pearson, 2020, ISBN 978-0-13-461099-3).
 - **Optional code reference:** the official AIMA code repositories on GitHub (`aimacode/*`). Check each repository's license before reusing anything; prefer writing our own code.
 - Keep `references/bibliography.md` (full references) and `references/aima-ch2-map.md` (concept → AIMA section → article) up to date.
 
 ### 2.2 Quoting rules (the author quotes AIMA extensively — do it safely)
 
 - Prefer paraphrase. Direct quotes are short (one sentence, ideally under ~25 words), in quotation marks, with the section number, e.g. *(AIMA 4e, §2.4.2)*.
-- Budget: at most one or two direct quotes per short article, a handful in the hub. Definitions make the best quotes (agent, rational agent, *agent = architecture + program*).
-- **Never reproduce the book's figures or pseudocode**, nor the images on the notes site. Redraw diagrams from scratch (Mermaid sources → rendered images in `articles/<id>/assets/`) and implement algorithms in our own code and words.
+- Budget: at most one or two direct quotes per short article, a handful in the overture. Definitions make the best quotes (agent, rational agent, *agent = architecture + program*).
+- **Never reproduce the book's figures or pseudocode.** Redraw diagrams from scratch (Mermaid sources → rendered images in `articles/<id>/assets/`) and implement algorithms in our own code and words.
 - When unsure whether a passage is too long to quote, paraphrase it.
 
 ### 2.3 Chapter 2 concept map (seed for `references/aima-ch2-map.md`)
@@ -77,7 +78,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 
 ## 3. Editorial line
 
-### 3.1 Candidate theses for the hub (the author picks; do not use all of them)
+### 3.1 Candidate theses for the overture (the author picks; do not use all of them)
 
 - **Agent = architecture + program, updated.** An LLM-powered agent is an agent *program*; the harness plus the sandbox is the *architecture*. Changing the architecture (laptop → cloud) without touching the program is exactly what `sbx` / `sbx --cloud` allows.
 - **Real agentic work is the "hardest case".** AIMA names partially observable, multi-agent, nondeterministic, sequential, dynamic, continuous and unknown as the hardest combination. A coding agent loose in a real repository with network access ticks most of those boxes — that is the argument for isolation.
@@ -91,7 +92,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 - **Always state the why.** Every decision, sandbox feature and step comes with its reason, in articles, ADRs, journal entries and chat (author's standing request, session 02). In particular, say for each piece whether containment is actually needed, and why.
 - No invented numbers. Every figure comes from a run we did (and is recorded in a `RUNINFO.json`) or from a cited source.
 - Short paragraphs, one idea per section. Code excerpts in articles ≤ ~40 lines; full code lives in the repo.
-- Every article ends with series navigation (hub · previous · next) and a "Reproduce it" box.
+- Every article ends with series navigation (overture · previous · next) and a "Reproduce it" box.
 - Every article carries a disclosure line: written with assistance from Claude (Anthropic); code and runs reproducible from the linked repository at a given tag. Final wording is an author decision (record it as an ADR). **Decided: ADR-0013** (exact wording there).
 
 ### 3.3 Medium constraints (drafts must paste cleanly)
@@ -228,7 +229,7 @@ All examples run through one script so cloud and local behave the same:
 │   ├── pages.yml             # build site/ with Jekyll, deploy to GitHub Pages
 │   └── test.yml              # host-side unit tests (no sandboxes, no secrets)
 ├── articles/
-│   ├── 00-hub/               # article.md + assets/
+│   ├── 00-overture/          # article.md + assets/
 │   ├── 01-simple-reflex/
 │   ├── 02-model-based/
 │   ├── 03-goal-based/
@@ -341,7 +342,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 - [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
 - [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.
-- [ ] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014).
+- [x] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014). Added in session 06, after run 40570668299 passed.
 - [ ] **OpenRouter spend** (shields.io dynamic YAML badge reading `site/_data/metrics.yml`) — optional, once pieces 03–05 start spending.
 
 ### 9.4 Project slash commands (create during bootstrap; keep in sync with this file)
@@ -379,7 +380,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 - **D3** Site generator: plain GitHub Pages with Jekyll built in Actions (proposed — zero extra tooling) or something else. → **Jekyll in Actions** (ADR-0005)
 - **D4** Repository name, `<AUTHOR_HANDLE>`, code license (proposed: MIT) and article-text license (proposed: CC BY 4.0, excluding quoted AIMA material). → **as proposed; handle `andreagalle`** (ADR-0006)
 - **D5** Dogfooding: should Claude Code itself run inside a sandbox (`sbx run claude` / `sbx --cloud run claude`) for some sessions? Strong material for article 06, but it changes the workflow. → **absolutely not** (though the correct answer would have been yes; ADR-0009)
-- **D6** Publication order and cadence on Medium (hub first with "coming soon" links, or pieces first). → **hub + 01 together, then weekly, 06 last** (ADR-0007)
+- **D6** Publication order and cadence on Medium (overture first with "coming soon" links, or pieces first). → **overture + 01 together, then weekly, 06 last** (ADR-0007)
 - **D7** Publish on the author's own Medium profile or in a Medium publication. → **Docker Captains Wisdom publication** (ADR-0008)
 
 ---
