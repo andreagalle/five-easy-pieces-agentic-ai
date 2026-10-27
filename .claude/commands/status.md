@@ -2,7 +2,7 @@
 description: Summarize where the series stands and propose the next step
 ---
 
-Report project status (CLAUDE.md §9.3). Reply in English.
+Report project status (CLAUDE.md §9.4). Reply in English.
 
 1. Read `site/_data/series.yml`, `site/_data/metrics.yml` and the journal entry in `site/journal/` with the highest session number.
 2. List the open decisions in CLAUDE.md §12 that have no ADR in `site/decisions/` yet.

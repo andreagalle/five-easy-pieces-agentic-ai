@@ -87,7 +87,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 
 ### 3.2 Style
 
-- Precise, plain, lightly wry (the title nods to the 1970 film *Five Easy Pieces*). No hype words ("revolutionary", "game-changer", "unleash", "supercharge").
+- Precise, plain, lightly wry. The title nods to Richard Feynman's *Six Easy Pieces*: the fundamentals look easy, the problems underneath never were, and since AIMA's first edition (1995) the hard problems of agents have barely moved. Use that irony, sparingly (author's note, session 04). No hype words ("revolutionary", "game-changer", "unleash", "supercharge").
 - **Always state the why.** Every decision, sandbox feature and step comes with its reason, in articles, ADRs, journal entries and chat (author's standing request, session 02). In particular, say for each piece whether containment is actually needed, and why.
 - No invented numbers. Every figure comes from a run we did (and is recorded in a `RUNINFO.json`) or from a cited source.
 - Short paragraphs, one idea per section. Code excerpts in articles ≤ ~40 lines; full code lives in the repo.
@@ -169,7 +169,7 @@ examples/0N-<name>/
 - **Tier C — cloud sandboxes (primary in the articles).** Run from the Codespace with `sbx --cloud`. This is the "independent of your laptop" story.
 - **Tier L — local sandboxes (reader fallback).** Same scripts, `SBX_TARGET=local`, on any KVM-capable machine. The Codespace qualifies only if `/dev/kvm` is present and usable inside the devcontainer: test once, record the result in the journal, and never work around its absence with privileged hacks.
 - **Tier T — self-hosted cloud VM via Terraform (optional, decision D1).** A KVM-capable VM (nested virtualization or bare metal) provisioned with Terraform; cloud-init installs `docker-sbx`; then Tier L runs there. **Write no Terraform until the author has chosen a provider.** If it happens: `infra/terraform/<provider>/`, remote state not in git, `*.tfvars` git-ignored, and a documented `make destroy` next to every `make apply`.
-- **CI:** host-side unit tests only (`.github/workflows/test.yml`, no sandboxes, no secrets). Running sandboxes in CI is a possible later extension (it needs KVM on the runner or cloud credentials) — not without an ADR.
+- **CI:** host-side checks only (`.github/workflows/test.yml`: unit tests on Python 3.12 and 3.14, `make lint`, `make site-check`, and a site build on every pull request; no sandboxes, no secrets). Running sandboxes in CI is a possible later extension (it needs KVM on the runner or cloud credentials) — not without an ADR.
 
 ### 5.3 One wrapper for all examples: `scripts/sbx-run.sh`
 
@@ -222,7 +222,7 @@ All examples run through one script so cloud and local behave the same:
 ├── Makefile                  # check-env, test, run-0N, diagrams, site-check
 ├── .gitignore
 ├── .devcontainer/            # devcontainer.json + references to scripts/post-create.sh
-├── .claude/commands/         # project slash commands (§9.3)
+├── .claude/commands/         # project slash commands (§9.4)
 ├── .github/workflows/
 │   ├── pages.yml             # build site/ with Jekyll, deploy to GitHub Pages
 │   └── test.yml              # host-side unit tests (no sandboxes, no secrets)
@@ -332,7 +332,17 @@ One to three next steps.
 - **`site/_data/metrics.yml`** — running counters for article 06: sessions, commits, journal entries, sandbox runs per tier, approximate cloud sandbox minutes, notable failures. Real numbers only.
 - **Screenshots** (e.g. the `sbx` TUI) — `site/assets/img/`, with alt text. Check them for secrets, account IDs and personal information before committing.
 
-### 9.3 Project slash commands (create during bootstrap; keep in sync with this file)
+### 9.3 README badges: add each one when it becomes true
+
+Badges in `README.md` must say something checkable. The backlog below was agreed with the author in session 04; add each badge on your own as soon as its trigger has happened, and note it in the journal. Use the illustration palette for colours. No vanity badges (stars, downloads): they say nothing about reproducibility.
+
+- [ ] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it.
+- [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
+- [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
+- [ ] **Local sandboxes tested** — when ADR-0010 is lifted.
+- [ ] **OpenRouter spend** (shields.io dynamic YAML badge reading `site/_data/metrics.yml`) — optional, once pieces 03–05 start spending.
+
+### 9.4 Project slash commands (create during bootstrap; keep in sync with this file)
 
 - `/status` — read `series.yml` and the latest journal entry; summarize where things stand; propose the next step.
 - `/wrap` — write the journal entry, update `series.yml` and `metrics.yml`, list live cloud sandboxes, commit with `journal:`.

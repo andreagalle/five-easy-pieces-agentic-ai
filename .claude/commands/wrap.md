@@ -12,5 +12,6 @@ Close the current working session (CLAUDE.md §0.2, §0.7, §9). Write everythin
 5. Update `site/_data/metrics.yml` with real numbers only.
 6. If the workflow changed, update `site/workflow.md` and say so in the journal.
 7. Run `make site-check` and fix whatever it reports.
-8. Run `sbx --cloud ls` and report every sandbox still alive (name, age, TTL). Don't remove anything without asking.
-9. Commit the record changes separately from code. The journal entry gets its own commit, `journal: session NN`. Show the commit list to the author.
+8. Check the README badge backlog (CLAUDE.md §9.3). Add any badge whose trigger has happened, tick it, and mention it in the journal.
+9. Run `sbx --cloud ls` and report every sandbox still alive (name, age, TTL). Don't remove anything without asking.
+10. Commit the record changes separately from code. The journal entry gets its own commit, `journal: session NN`. Show the commit list to the author.
