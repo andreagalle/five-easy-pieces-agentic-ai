@@ -44,8 +44,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 ### 2.1 Sources
 
 - **Primary:** Russell, S. & Norvig, P., *Artificial Intelligence: A Modern Approach*, 4th ed., Pearson — Chapter 2, "Intelligent Agents". Confirm edition and year against the author's copy before the first citation is written. **Confirmed (ADR-0012):** cite the 4th edition (Pearson, 2020); the author reads the Italian translation (Pearson Italia), so section numbers are checked there and direct quotes are used only if verified against an English copy — otherwise paraphrase.
-- **Secondary (linked from the hub as a free summary):** Z. Yu, "Chapter 2 Intelligent Agents", *ArtificialIntelligence* notes on Read the Docs (2021) — https://artificialintelligence.readthedocs.io/en/latest/part1/chap2.html. These are study notes on the book, not the book: cite the book for ideas, link the notes for convenience.
-  - Gotcha: the notes' table of contents skips §2.4.4 (goal-based agents). The text is on the page but has no anchor; link to the page and write "§2.4.4" in prose.
+- **No secondary summaries (ADR-0015).** Third-party study notes on the book are not cited or linked anywhere; the hub opens with the full reference to the US 4th edition (Russell & Norvig, Pearson, 2020, ISBN 978-0-13-461099-3).
 - **Optional code reference:** the official AIMA code repositories on GitHub (`aimacode/*`). Check each repository's license before reusing anything; prefer writing our own code.
 - Keep `references/bibliography.md` (full references) and `references/aima-ch2-map.md` (concept → AIMA section → article) up to date.
 
@@ -53,7 +52,7 @@ Alongside the articles, a GitHub Pages site (`site/`) documents, session by sess
 
 - Prefer paraphrase. Direct quotes are short (one sentence, ideally under ~25 words), in quotation marks, with the section number, e.g. *(AIMA 4e, §2.4.2)*.
 - Budget: at most one or two direct quotes per short article, a handful in the hub. Definitions make the best quotes (agent, rational agent, *agent = architecture + program*).
-- **Never reproduce the book's figures or pseudocode**, nor the images on the notes site. Redraw diagrams from scratch (Mermaid sources → rendered images in `articles/<id>/assets/`) and implement algorithms in our own code and words.
+- **Never reproduce the book's figures or pseudocode.** Redraw diagrams from scratch (Mermaid sources → rendered images in `articles/<id>/assets/`) and implement algorithms in our own code and words.
 - When unsure whether a passage is too long to quote, paraphrase it.
 
 ### 2.3 Chapter 2 concept map (seed for `references/aima-ch2-map.md`)
@@ -341,7 +340,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 - [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
 - [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.
-- [ ] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014).
+- [x] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014). Added in session 06, after run 40570668299 passed.
 - [ ] **OpenRouter spend** (shields.io dynamic YAML badge reading `site/_data/metrics.yml`) — optional, once pieces 03–05 start spending.
 
 ### 9.4 Project slash commands (create during bootstrap; keep in sync with this file)

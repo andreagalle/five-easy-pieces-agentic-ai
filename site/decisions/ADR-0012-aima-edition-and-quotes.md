@@ -5,7 +5,7 @@ status: accepted
 date: 2026-10-26
 ---
 
-**Status:** accepted, 2026-10-26. Based on the author's answer in session 03 about their copy of AIMA (CLAUDE.md §2.1).
+**Status:** accepted, 2026-10-26. Based on the author's answer in session 03 about their copy of AIMA (CLAUDE.md §2.1). Amended by [ADR-0015]({{ "/decisions/ADR-0015-cite-the-book-not-the-notes/" | relative_url }}): the hub opens with the full US reference, and the US/Global sentence moves out of the article into the bibliography.
 
 ## Context
 
