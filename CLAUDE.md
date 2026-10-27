@@ -169,7 +169,7 @@ examples/0N-<name>/
 - **Tier C — cloud sandboxes (primary in the articles).** Run from the Codespace with `sbx --cloud`. This is the "independent of your laptop" story.
 - **Tier L — local sandboxes (reader fallback).** Same scripts, `SBX_TARGET=local`, on any KVM-capable machine. The Codespace qualifies only if `/dev/kvm` is present and usable inside the devcontainer: test once, record the result in the journal, and never work around its absence with privileged hacks.
 - **Tier T — self-hosted cloud VM via Terraform (optional, decision D1).** A KVM-capable VM (nested virtualization or bare metal) provisioned with Terraform; cloud-init installs `docker-sbx`; then Tier L runs there. **Write no Terraform until the author has chosen a provider.** If it happens: `infra/terraform/<provider>/`, remote state not in git, `*.tfvars` git-ignored, and a documented `make destroy` next to every `make apply`.
-- **CI:** host-side checks only (`.github/workflows/test.yml`: unit tests on Python 3.12 and 3.14, `make lint`, `make site-check`, and a site build on every pull request; no sandboxes, no secrets). Running sandboxes in CI is a possible later extension (it needs KVM on the runner or cloud credentials) — not without an ADR.
+- **CI:** host-side checks only (`.github/workflows/test.yml`: unit tests on Python 3.12 and 3.14, `make lint`, `make article-check`, `make site-check`, and a site build on every pull request; no sandboxes, no secrets). Running sandboxes in CI is a possible later extension (it needs KVM on the runner or cloud credentials) — not without an ADR.
 
 ### 5.3 One wrapper for all examples: `scripts/sbx-run.sh`
 
@@ -364,7 +364,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 
 **Example 0N:** stdlib-only core; `unittest` passes on the host and inside a sandbox; runs with `SBX_TARGET=cloud` and `SBX_TARGET=local` (or the README honestly says "local tier not tested: no KVM available"; until ADR-0010 is lifted, cloud only and the README says the local version will follow once tested); `policy.md` written; README contains the Reproduce box; tag created.
 
-**Article 0N:** within target length; Medium-safe formatting (§3.3); within the quote budget (§2.2); every `sbx` command verified (§5.5) and copied from the scripts; code links point to the tag; diagrams original; disclosure line present; reviewed by the author; `series.yml` updated.
+**Article 0N:** `make article-check` passes at status `review` (it enforces the mechanical rules below); within target length; Medium-safe formatting (§3.3); within the quote budget (§2.2); every `sbx` command verified (§5.5) and copied from the scripts; code links point to the tag; diagrams original; disclosure line present; reviewed by the author; `series.yml` updated.
 
 **Site:** builds via `pages.yml`; the index shows series status; every session has a journal entry; `workflow.md` is current.
 

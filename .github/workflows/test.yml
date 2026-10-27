@@ -28,6 +28,7 @@ jobs:
 
   lint:
     # shellcheck catches shell bugs before they run against a paid cloud sandbox;
+    # article-check holds drafts to the Medium rules (CLAUDE.md §3.3, ADR-0013);
     # site-check guards the record (journal format, session numbering, credential scan).
     runs-on: ubuntu-24.04
     steps:
@@ -36,6 +37,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: make lint PYTHON=python
+      - run: make article-check PYTHON=python
       - run: make site-check
 
   site:
