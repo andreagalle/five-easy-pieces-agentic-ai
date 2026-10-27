@@ -4,7 +4,7 @@
 updated: 2026-10-27
 sessions: 7
 journal_entries: 7
-commits: 66           # project commits since the repository's initial commit
+commits: 69           # project commits since the repository's initial commit
 adrs: 16
 sandbox_runs:
   cloud: 7            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml)
