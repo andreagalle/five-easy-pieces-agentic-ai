@@ -169,7 +169,7 @@ examples/0N-<name>/
 - **Tier C — cloud sandboxes (primary in the articles).** Run from the Codespace with `sbx --cloud`. This is the "independent of your laptop" story.
 - **Tier L — local sandboxes (reader fallback).** Same scripts, `SBX_TARGET=local`, on any KVM-capable machine. The Codespace qualifies only if `/dev/kvm` is present and usable inside the devcontainer: test once, record the result in the journal, and never work around its absence with privileged hacks.
 - **Tier T — self-hosted cloud VM via Terraform (optional, decision D1).** A KVM-capable VM (nested virtualization or bare metal) provisioned with Terraform; cloud-init installs `docker-sbx`; then Tier L runs there. **Write no Terraform until the author has chosen a provider.** If it happens: `infra/terraform/<provider>/`, remote state not in git, `*.tfvars` git-ignored, and a documented `make destroy` next to every `make apply`.
-- **CI:** host-side checks only (`.github/workflows/test.yml`: unit tests on Python 3.12 and 3.14, `make lint`, `make article-check`, `make site-check`, and a site build on every pull request; no sandboxes, no secrets). Running sandboxes in CI is a possible later extension (it needs KVM on the runner or cloud credentials) — not without an ADR.
+- **CI:** host-side checks only (`.github/workflows/test.yml`: unit tests on Python 3.12 and 3.14, `make lint`, `make article-check`, `make site-check`, and a site build on every pull request; no sandboxes, no secrets). **Sandboxes in CI: ADR-0014.** `.github/workflows/sandbox.yml` runs the deterministic pieces in a real cloud sandbox after each merge to `master` and on demand, never on pull requests. Docker credentials sit in the `cloud-sandboxes` environment, limited to `master`. LLM pieces run there against a fake model, and CI holds no OpenRouter key.
 
 ### 5.3 One wrapper for all examples: `scripts/sbx-run.sh`
 
@@ -340,6 +340,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 - [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
 - [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.
+- [ ] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014).
 - [ ] **OpenRouter spend** (shields.io dynamic YAML badge reading `site/_data/metrics.yml`) — optional, once pieces 03–05 start spending.
 
 ### 9.4 Project slash commands (create during bootstrap; keep in sync with this file)

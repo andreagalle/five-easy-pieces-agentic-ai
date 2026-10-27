@@ -1,0 +1,79 @@
+# Run the deterministic examples in a real cloud sandbox after each merge (ADR-0014).
+#
+# Why only after merges and on demand, never on pull requests: every run uses paid cloud
+# seconds and the Docker credentials, and pull requests are where untrusted changes arrive.
+# Why only the deterministic pieces: pieces 03-05 call a model through OpenRouter. When they
+# exist they run here against a fake model, with no OpenRouter key in CI at all; the real
+# model call is deliberately not tested in CI, and the articles say so (ADR-0014).
+name: sandbox
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "examples/**"
+      - "scripts/sbx-run.sh"
+      - "scripts/compare-host-cloud.sh"
+      - "scripts/install-sbx.sh"
+      - ".github/workflows/sandbox.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sandbox
+  cancel-in-progress: false
+
+jobs:
+  deterministic:
+    # DOCKER_ID and DOCKER_PAT live in this environment, which only master may use.
+    environment: cloud-sandboxes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        example: ["01"]
+    env:
+      # Shorter than the job's timeout: if the runner dies before the wrapper's EXIT trap
+      # can remove the sandbox, the sandbox deletes itself.
+      SBX_TTL: 10m
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install sbx (pinned; the same script as the Codespace)
+        run: scripts/install-sbx.sh
+
+      - name: Sign in to Docker
+        env:
+          DOCKER_ID: ${{ secrets.DOCKER_ID }}
+          DOCKER_PAT: ${{ secrets.DOCKER_PAT }}
+        run: printf '%s\n' "$DOCKER_PAT" | sbx login --username "$DOCKER_ID" --password-stdin > /dev/null
+
+      - name: Check cloud access
+        run: sbx --cloud diagnose
+
+      - name: Run on the host and in a cloud sandbox; results must be identical
+        run: make compare-${{ matrix.example }} PYTHON=python
+
+      - name: Keep RUNINFO.json, results.json and stdout.txt
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: run-${{ matrix.example }}
+          path: examples/${{ matrix.example }}-*/out/
+          if-no-files-found: warn
+
+      - name: Leftover sandboxes (there should be none)
+        if: always()
+        run: |
+          name="fep-${{ matrix.example }}-$(git rev-parse --short HEAD)"
+          if sbx --cloud ls -q | grep -qx "$name"; then
+            echo "::warning::$name was still alive; removing it"
+            sbx --cloud rm --force "$name"
+          fi
+          sbx --cloud ls

@@ -53,6 +53,20 @@ Checked with `sbx <command> --help` in the Codespace, cross-checked with the doc
 - **`sbx --cloud inspect --format json`:** fields `id`, `name`, `agent`, `state`, `image`, `cpus`, `memory_mib`, `on_timeout`, `auto_resume`, `age`, `created_at`, `expires_at`. There's no image digest, so `RUNINFO.json` records the tag only.
 - **Headless sign-in** (`printf '%s\n' "$DOCKER_PAT" | sbx login --username "$DOCKER_ID" --password-stdin`) works. Without a keychain, sbx warns that the credential is stored on disk, protected by file permissions; it's under `~/.config/com.docker.sandboxes` (mode 700), outside the repository.
 
+### Cloud pricing (from the author's Agentic Platform Console, 2026-10-27)
+
+The docs describe the billing model but don't publish rates: pay-as-you-go, metered by the second on runtime and size, with no subscription fee and a one-time promotional credit at signup (`/agentic-platform/signup.md`, `/subscription-billing/plans/docker-agentic-platform.md`). The rates shown in the Console:
+
+| Shape | vCPU / memory | $ per second | ≈ $ per hour |
+|-------|---------------|--------------|--------------|
+| micro | 1 / 2 GiB | 0.00001944 | 0.07 |
+| small | 2 / 4 GiB | 0.00003889 | 0.14 |
+| medium | 4 / 8 GiB | 0.00007778 | 0.28 |
+| large | 8 / 16 GiB | 0.00015556 | 0.56 |
+| xl | 16 / 32 GiB | 0.00031111 | 1.12 |
+
+The price doubles with each shape, exactly like the resources. Billed usage to 2026-10-27 was **31.277 s of micro**, for a probe and two runs whose wall-clock time was about 41 s: the meter counts sandbox runtime, not the client's create/copy/remove time. One run of piece 01 costs about $0.0002–0.0003.
+
 ### OpenRouter in the cloud: docs vs `--help`
 
 - `sbx --cloud secret set --help` lists `openrouter` among the built-in services.
