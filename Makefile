@@ -3,12 +3,14 @@
 
 PYTHON ?= $(shell command -v python3.12 2>/dev/null || command -v python3)
 MMDC ?= mmdc
+# shellcheck from the system if installed, otherwise its official image (the Codespace has Docker).
+SHELLCHECK ?= $(shell command -v shellcheck 2>/dev/null || echo "docker run --rm -v $(CURDIR):/mnt:ro -w /mnt koalaman/shellcheck:v0.10.0")
 DIAGRAM_SIZE ?= 1600
 
 TEST_DIRS := $(sort $(dir $(wildcard examples/*/tests/)))
 DIAGRAMS := $(patsubst %.mmd,%.png,$(wildcard articles/*/assets/*.mmd site/assets/img/*.mmd))
 
-.PHONY: help check-env test diagrams site-check site-build
+.PHONY: help check-env test lint article-check diagrams site-check site-build
 
 help: ## List targets
 	@grep -E '^[a-zA-Z0-9_%-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{ printf "  %-12s %s\n", $$1, $$2 }'
@@ -25,6 +27,13 @@ test: ## Host-side unit tests for every example that has tests/
 		(cd $$ex && PYTHONPATH=$(CURDIR)/examples/_shared $(PYTHON) -m unittest discover -s tests -t .) || status=1; \
 	done; \
 	exit $$status
+
+lint: ## shellcheck every shell script; byte-compile the Python scripts
+	@$(SHELLCHECK) scripts/*.sh examples/*/run.sh && echo "shellcheck: ok"
+	@$(PYTHON) -m py_compile scripts/gen-header.py scripts/article-check.py && echo "py_compile: ok"
+
+article-check: ## Articles past 'idea': Medium format, disclosure, tag links, length
+	@$(PYTHON) scripts/article-check.py
 
 run-%: ## Run example NN through scripts/sbx-run.sh (e.g. make run-01; SBX_TARGET=local)
 	@script=$$(ls examples/$*-*/run.sh 2>/dev/null | head -1); \

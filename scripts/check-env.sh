@@ -36,6 +36,7 @@ print(next((c.get("status", "unknown") for c in report.get("checks", []) if c.ge
 
 section "Host"
 item "date (UTC)" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+# shellcheck source=/dev/null  # a system file, not part of the repository
 item "os" "$(. /etc/os-release 2>/dev/null && echo "${PRETTY_NAME:-unknown}")"
 item "arch" "$(uname -m)"
 item "codespace" "$([ -n "${CODESPACES:-}" ] && echo yes || echo no)"

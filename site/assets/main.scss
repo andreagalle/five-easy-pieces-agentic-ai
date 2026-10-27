@@ -6,8 +6,34 @@ $brand-color: #1F5C6B;  // dark teal from the illustration palette; ~7:1 contras
 
 @import "minima";
 
+$header-top-space: 0.9rem;  // breathing room between the top border and the title
+
 .site-header {
   border-top-color: #2B2238;  // plum-navy
+  padding-top: $header-top-space;
+}
+
+// On narrow screens minima pins the menu button at top: 9px; move it down by the same
+// amount so it stays level with the title.
+// The long title would otherwise wrap at minima's 54px line height and fill a third of a
+// phone screen: shrink it, use normal line spacing, and leave room for the menu button.
+@media screen and (max-width: 600px) {
+  .site-nav {
+    top: calc(9px + #{$header-top-space});
+  }
+
+  .site-title {
+    font-size: 1.15rem;
+    line-height: 1.35;
+    max-width: calc(100% - 56px);
+    padding: 0.35rem 0 0.75rem;
+  }
+
+  .site-logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
 }
 
 .site-title {

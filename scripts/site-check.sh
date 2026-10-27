@@ -8,7 +8,7 @@
 set -uo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$root"
+cd "$root" || exit 1
 failures=0
 fail() { echo "FAIL: $*"; failures=$((failures + 1)); }
 
