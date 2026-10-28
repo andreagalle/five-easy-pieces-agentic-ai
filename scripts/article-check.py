@@ -124,7 +124,7 @@ def main() -> int:
     failed = 0
     for path in paths:
         meta, _ = front_matter(path.read_text())
-        name = path.relative_to(ROOT) if path.resolve().is_relative_to(ROOT) else path
+        name = path.resolve().relative_to(ROOT) if path.resolve().is_relative_to(ROOT) else path
         if meta.get("status", "idea") == "idea":
             continue  # placeholders: nothing to check yet
         errors, warnings = check(path)
