@@ -30,4 +30,4 @@ How the series is made, as of session 09. This page changes when the workflow ch
 
 ## Current state
 
-As of session 09, the overture and piece 1 are drafts waiting for the author's review. CI runs piece 1 in a real cloud sandbox after each merge that touches the code. Each session now closes with a checklist (`/wrap`) that covers the whole record, prompts included. Local sandboxes aren't used yet ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).
+As of session 10, the overture and piece 1 are `ready` and waiting to be published on Medium, after the author's review of piece 1. Piece 1 now explains what a sandbox is and why each setting, and the pieces may run to 1,200 words ([ADR-0017]({{ "/decisions/ADR-0017-pieces-up-to-1200-words/" | relative_url }})). Before publishing: the `piece-01-v1` tag, and a test of the new "Open in GitHub Codespaces" badge on a fresh Codespace. CI runs piece 1 in a real cloud sandbox after each merge that touches the code. Local sandboxes aren't used yet: the author's laptop is too old for them ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).

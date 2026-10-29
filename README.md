@@ -23,7 +23,7 @@
 
 A seven-part Medium series, the code behind it, and a public record of how it was made. Chapter 2 of Russell & Norvig's *Artificial Intelligence: A Modern Approach* already gave us the vocabulary for today's agentic AI. Docker Sandboxes give each agent *program* a disposable, reproducible *architecture* to run in, on a laptop or in the cloud, with the same commands.
 
-**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. No article is published yet. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
+**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are ready; nothing is published yet. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
 
 ## The series
 
