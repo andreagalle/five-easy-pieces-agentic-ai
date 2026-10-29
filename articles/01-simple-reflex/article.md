@@ -93,30 +93,41 @@ Each agent's score is the area under its line: 2666 for the wanderer, 788 for th
 make run-01
 ```
 
-That creates a cloud sandbox, copies the code in, runs the tests and then the scenarios, copies the results out with a `RUNINFO.json`, and deletes the sandbox. The line in `scripts/sbx-run.sh` that creates it denies all network by default:
+A Docker Sandbox is a disposable computer for one agent. Locally, it's a [microVM](https://docs.docker.com/ai/sandboxes/security/isolation/) with its own kernel, filesystem, network and Docker engine: what runs inside can't see the host's files or processes, and every outbound connection must pass a network policy. A [cloud sandbox](https://docs.docker.com/ai/sandboxes/cloud/) is the same kind of environment on Docker's infrastructure. It needs no virtualization on your machine, and it can't mount your folders: files go in and out by copy.
+
+`make run-01` creates one, copies the code in, runs the tests and the scenarios, copies the results out with a `RUNINFO.json`, and deletes the sandbox. This line in `scripts/sbx-run.sh` creates it:
 
 ```bash
 sbx --cloud create --name "$name" --ttl "$ttl" --on-timeout delete \
   --cpus "$cpus" --memory "$memory" "${network_flags[@]}" --no-progress "$agent"
 ```
 
-A locally tested version will follow once I've run it on a capable machine.
+Each setting has a reason:
+
+- **`shell`:** a template with no AI agent installed, just Bash (and, as it happens, Python 3.14). Our agent is the program we copy in.
+- **1 vCPU and 2 GiB:** the smallest size. Compute is billed by the second and by size, and forty lines of Python need nothing bigger.
+- **`--ttl 30m --on-timeout delete`:** if my script dies halfway, the sandbox [deletes itself](https://docs.docker.com/ai/sandboxes/cloud/usage/#configure-expiration) after half an hour.
+- **`--deny-network '**'`:** the [network policy](https://docs.docker.com/ai/sandboxes/cloud/network-policy/) refuses every destination. This agent needs no network, and "nothing" is the easiest policy to check.
+
+Local sandboxes run the same script on a machine with hardware virtualization. My laptop is too old for that, so the local version waits until I buy a new one.
 
 ## What the sandbox adds: disposability
 
-The sandbox lives about ten seconds, on the smallest size, with no network, and deletes itself if anything goes wrong first. What comes back is byte for byte the `results.json` produced on the host, though the sandbox runs Python 3.14 and the host 3.12. CI checks it again after every merge that touches the code.
+The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` produced on the host, though the sandbox runs Python 3.14 and the host 3.12. CI checks it again after every merge that touches the code.
 
 Does this agent need a fence? No: it's forty lines of code I've read, with no network and no secrets. We fence it anyway, to learn the mechanics on a run where nothing can go wrong, and to show that changing the architecture doesn't change the program.
 
 ## Why it still matters
 
-The sandbox's own network policy is a simple reflex agent: for each outbound request, if the host is on the list, allow it, otherwise deny it. It shares the reflex agent's blind spot, too. It judges each request alone, so it can't see what a hundred allowed requests add up to. Rules are fast and cheap. Memory is what piece 2 adds.
+One comparison, and it's only an analogy: the sandbox's network policy decides the way our vacuum agent does. Its percept is one outbound request, and it has one rule: if the destination is on the list, allow it, otherwise deny it. Like the vacuum agent, it remembers nothing. Give it an allowlist and it can't notice that a hundred uploads, each allowed on its own, add up to your repository leaving the building. Rules are fast, cheap and predictable, and blind to history. Memory is what piece 2 adds.
 
 ## Reproduce it
 
 - **Code:** [`examples/01-simple-reflex`](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-01-v1/examples/01-simple-reflex) at tag `piece-01-v1`
+- **Where:** a Codespace opened from the repository has everything installed. Elsewhere you need `git`, `make`, Python 3.12+ and `sbx`; I've tested only on Linux. Either way, `sbx` signs in to your own Docker account, with cloud sandboxes enabled (pay-as-you-go).
 - **Command:** `make run-01`
-- **Sandbox:** cloud, `shell` template (`docker/sandbox-templates:shell-docker`), 1 vCPU / 2 GiB, no egress
+- **Check it:** `make compare-01` runs the program on your machine and in a cloud sandbox. Expect `compare: identical`, and a `results.json` sha256 starting `efae1944`.
+- **Sandbox:** cloud, `shell` template (`docker/sandbox-templates:shell-docker`)
 - **Verified with:** `sbx` v0.50.0
 - **Reference run:** 2026-10-27, commit `795ffb8`, `results.json` sha256 `efae1944…`
 
