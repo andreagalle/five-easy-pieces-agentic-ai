@@ -84,7 +84,7 @@ The hardest case is the one where every answer is the uncomfortable one: partial
 - The repository and its dependencies change underneath it.
 - It can't know in advance what a command will do.
 
-That's most of the hardest case, with real actuators attached, and usually with your credentials. Every piece opens with its own PEAS description and its answers to these questions.
+That's most of the hardest case, with real actuators attached, and usually with your credentials. Every piece opens with its own PEAS description.
 
 ## Agent = architecture + program
 
@@ -100,9 +100,9 @@ Docker Sandboxes make the architecture something you can create and destroy on d
 
 Moving a program to a different architecture is literally a flag.
 
-Piece 1 checks that claim before the series relies on it. Its program writes a deterministic report. That report came out byte for byte identical in my Codespace and in a cloud sandbox, under a different Python version, with the sandbox's network switched off.
+Piece 1 checks that claim: its report comes out byte for byte the same in my Codespace and in a cloud sandbox.
 
-Why not skip the program and use a lookup table from percept sequences to actions? Because the table would need an entry for every possible history, and the number of histories explodes long before the world gets interesting (§2.4.1). Programs exist because tables don't scale.
+Why not a lookup table from percept sequences to actions? It would need an entry for every possible history, and histories explode long before the world gets interesting (§2.4.1). Tables don't scale; programs do.
 
 ## Five easy pieces
 
@@ -116,6 +116,8 @@ Learning isn't a fifth rung on that ladder. It's a way to improve any of the fou
 - **Piece 4, the utility-based agent (§2.4.5).** It weighs the outcomes it prefers against what they cost. Here several LLM-written candidates will run, each in its own sandbox, scored on quality, model cost and sandbox minutes. *Fence needed?* Yes, once per candidate.
 - **Piece 5, the learning agent (§2.4.6).** A critic, held to a fixed standard, tells the agent how it's doing, and the agent rewrites its own instructions. The sandbox keeps the critic outside and the agent inside. *Fence needed?* That's the whole point.
 
+About the pictures: each article opens on a cleaner fish, the vacuum agent give or take a pun, in a glass sphere that stands for the sandbox. Across the five the glass thickens, as the fence becomes necessary. The whale is the cloud. Each scene hides its piece's idea, like piece 1's coin flip: a sand dollar on its edge.
+
 One more idea from the end of the chapter (§2.4.7) changes along the way: how the agent represents its world. The first two pieces use a factored state, a position plus a few clean-or-dirty flags. The last three hand an LLM a structured world of files, functions and tests.
 
 ## Why the first two pieces have no LLM
@@ -123,7 +125,7 @@ One more idea from the end of the chapter (§2.4.7) changes along the way: how t
 Pieces 1 and 2 are deterministic Python programs, standard library only, with no model inside. That's deliberate:
 
 - **An LLM isn't needed there.** The reflex agent's lesson is one rule and the loop it causes; the model-based agent's is a few lines of explicit state. You can point at the line responsible. Putting a language model inside a 40-line reflex agent would be like hiring a consultant to flip a light switch.
-- **It keeps the complexity down.** With nothing unpredictable running, those pieces can concentrate on containment itself: how a sandbox is created, fed, run, emptied and destroyed, and how state survives in it.
+- **It keeps the complexity down.** With nothing unpredictable running, those pieces can concentrate on containment itself.
 
 So we sandbox two programs that don't need it, and the pieces say so. Learning the mechanics where nothing can go wrong is what makes it obvious, from piece 3 on, when they become indispensable. That's when the program starts running code nobody has read, needs the network to reach its model, and will optimize whatever it can reach.
 
