@@ -151,4 +151,4 @@ The series also has a [making-of site](https://andreagalle.github.io/five-easy-p
 - Piece 5/5 — The learning agent (coming soon)
 - The making of: Claude, Docker Sandboxes and a Codespace (coming soon)
 
-*Disclosure: I'm a Docker Captain, and I'm enthusiastic about this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and the full making-of live in [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai).*
+*Disclosure: I'm a Docker Captain, and I ❤️ this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and the full making-of live in [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai).*

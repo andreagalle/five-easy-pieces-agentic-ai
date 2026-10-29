@@ -111,7 +111,7 @@ Each setting has a reason:
 
 Local sandboxes run the same script on a machine with hardware virtualization. My laptop is too old for that, so the local version waits until I buy a new one. Thank heaven for cloud sandboxes, which don't care how old it is.
 
-## What the sandbox adds: disposability
+## What the sandbox adds, here: disposability
 
 The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` I get by running the program directly in my Codespace, with no sandbox at all, though the sandbox runs Python 3.14 and the Codespace 3.12. CI checks it again after every merge that touches the code.
 
@@ -137,4 +137,4 @@ One comparison, and it's only an analogy: the sandbox's network policy decides t
 - **Piece 1/5 — The simple reflex agent** (you are here)
 - Next: Piece 2/5 — The model-based reflex agent (coming soon)
 
-*Disclosure: I'm a Docker Captain, and I'm enthusiastic about this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-01-v1) at tag `piece-01-v1`.*
+*Disclosure: I'm a Docker Captain, and I ❤️ this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-01-v1) at tag `piece-01-v1`.*
