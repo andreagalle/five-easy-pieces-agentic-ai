@@ -18,7 +18,7 @@
 ## Reproduce it
 
 - **Command:** `make run-01` (runs `examples/01-simple-reflex/run.sh`)
-- **Needs:** `sbx` signed in to Docker with cloud sandboxes enabled (`make check-env` says "Tier C (cloud) ready: yes")
+- **Needs:** `sbx` signed in to Docker with cloud sandboxes enabled: `make login`, which is headless with the `DOCKER_ID` and `DOCKER_PAT` secrets and runs on its own when a Codespace is created with them. `make check-env` should say "Tier C (cloud) ready: yes".
 - **Sandbox:** cloud, agent `shell`, image `docker/sandbox-templates:shell-docker`, 1 vCPU / 2 GiB, TTL 30m with delete on timeout, no egress
 - **Verified with:** `sbx v0.50.0 (2026-10-29)`
 - **Local sandboxes:** not yet. The author's laptop is too old to run them, so a locally tested version will follow once the author has bought a new one. Thankfully, cloud sandboxes need nothing from the laptop but a browser or a terminal. Nothing is published until it has been run (ADR-0010).

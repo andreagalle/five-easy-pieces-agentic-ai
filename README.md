@@ -51,12 +51,13 @@ Pieces 01 and 02 are deterministic programs that don't need a sandbox, and they 
 Open the repository in a GitHub Codespace (or any Ubuntu 24.04 devcontainer), then:
 
 ```bash
+make login       # sign sbx in to Docker (headless with the DOCKER_ID/DOCKER_PAT Codespaces secrets)
 make check-env   # what this machine can run: cloud sandboxes, local sandboxes, neither
 make test        # host-side unit tests
 make run-01      # piece 01 in a cloud sandbox: tests, then the scenarios, then RUNINFO.json
 ```
 
-`make run-01` needs `sbx` signed in to Docker, with cloud sandboxes enabled. Local sandboxes will be documented once they've been tested, which waits for the author to replace a laptop too old to run them ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
+`make run-01` needs `sbx` signed in to Docker (`make login`), with cloud sandboxes enabled. In a Codespace created with the `DOCKER_ID` and `DOCKER_PAT` secrets, the setup script signs in on its own. Local sandboxes will be documented once they've been tested, which waits for the author to replace a laptop too old to run them ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
 
 ## Licence
 

@@ -67,7 +67,7 @@ if command -v sbx >/dev/null; then
   local_json="$(timeout 60 sbx diagnose --format json 2>/dev/null)"
   cloud_json="$(timeout 60 sbx --cloud diagnose --format json 2>/dev/null)"
   cloud_auth="$(printf '%s' "$cloud_json" | diagnose_status "Authentication")"
-  item "signed in" "$([ "$cloud_auth" = pass ] && echo yes || echo "no ($cloud_auth)")"
+  item "signed in" "$([ "$cloud_auth" = pass ] && echo yes || echo "no ($cloud_auth; run: make login)")"
 
   printf '\n  sbx diagnose (local):\n'
   printf '%s' "$local_json" | summarize_diagnose

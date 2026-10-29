@@ -131,9 +131,10 @@ So we sandbox two programs that don't need it, and the pieces say so. Learning t
 
 ## Run it yourself
 
-Everything is in [one repository](https://github.com/andreagalle/five-easy-pieces-agentic-ai). Open it in a GitHub Codespace, sign `sbx` in to a Docker account with cloud sandboxes enabled, and run:
+Everything is in [one repository](https://github.com/andreagalle/five-easy-pieces-agentic-ai). Open it in a GitHub Codespace, bring a Docker account with cloud sandboxes enabled, and run:
 
 ```bash
+make login       # sign sbx in to your Docker account
 make run-01      # piece 1 in a cloud sandbox
 ```
 

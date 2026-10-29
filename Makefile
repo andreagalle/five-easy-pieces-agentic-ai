@@ -14,13 +14,16 @@ VENV_PYTHON ?= .venv/bin/python
 TEST_DIRS := $(sort $(dir $(wildcard examples/*/tests/)))
 DIAGRAMS := $(patsubst %.mmd,%.png,$(wildcard articles/*/assets/*.mmd site/assets/img/*.mmd))
 
-.PHONY: help check-env test lint article-check diagrams site-check site-build
+.PHONY: help check-env login test lint article-check diagrams site-check site-build
 
 help: ## List targets
 	@grep -E '^[a-zA-Z0-9_%-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{ printf "  %-12s %s\n", $$1, $$2 }'
 
 check-env: ## Read-only report: sbx, KVM, sign-in, cloud access, Python
 	@scripts/check-env.sh
+
+login: ## Sign sbx in to Docker: headless with the DOCKER_ID/DOCKER_PAT secrets, else in the browser
+	@scripts/sbx-login.sh
 
 test: ## Host-side unit tests for every example that has tests/
 	@if [ -z "$(TEST_DIRS)" ]; then echo "no tests yet"; exit 0; fi; \

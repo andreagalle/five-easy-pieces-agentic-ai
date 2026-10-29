@@ -57,7 +57,7 @@ failed = [c for c in checks if c.get("status") == "fail"]
 for c in failed:
     print("sbx-run: cloud check failed: {}: {} {}".format(c["name"], c.get("message", ""), c.get("hint", "")), file=sys.stderr)
 sys.exit(1 if failed else 0)
-' || die "cloud sandboxes aren't ready (run: make check-env)"
+' || die "cloud sandboxes aren't ready (run: make check-env; to sign in: make login)"
 
 commit="$(git -C "$root" rev-parse HEAD)"
 dirty=false

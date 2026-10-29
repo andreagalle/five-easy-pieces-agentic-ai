@@ -347,7 +347,7 @@ Badges in `README.md` must say something checkable. The backlog below was agreed
 
 ### 9.4 Project slash commands (create during bootstrap; keep in sync with this file)
 
-- `/status` — read `series.yml` and the latest journal entry; summarize where things stand; propose the next step.
+- `/series-status` — read `series.yml` and the latest journal entry; summarize where things stand; propose the next step. (Renamed from `/status` in session 11: Claude Code's built-in `/status` hides a project command with that name.)
 - `/wrap` — close the session: the journal entry; prompts that changed direction (§9.2); an ADR for every decision; `series.yml`, `metrics.yml`, references, the workflow page's current state, the README status and badges; `make test`/`lint`/`article-check`/`site-check`; `sbx --cloud ls`; commits (journal on its own); push and PR, waiting for CI. The full checklist, with the reason for each step, is `.claude/commands/wrap.md`.
 - `/verify-sbx <article-or-example>` — run the §5.5 protocol on every `sbx` command it uses.
 - `/new-piece <NN>` — scaffold `articles/<NN>-…` and `examples/<NN>-…` from the skeletons in §3.4 and §4.

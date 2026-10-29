@@ -88,9 +88,24 @@ The price doubles with each shape, exactly like the resources. Billed usage to 2
 - `/dev/kvm` is present (`crw-rw----`, owner root, GID 109, which has no name in `/etc/group`). The `codespace` user isn't in that group, so `sbx diagnose` reports *Virtualization — not accessible*. Not worked around (CLAUDE.md §5.2). See ADR-0001 and the session 01 journal.
 - Default `python3` in the current Codespace image is 3.14.2. `python3.12` (3.12.3) is also present and is what `make test` uses. The devcontainer pins 3.12.
 
+## Sign-in (verified 2026-10-29, sbx v0.50.0)
+
+- `sbx login --username USER --password-stdin` (`--help`: "Non-interactive sign-in, for CI") signs in from a token on stdin. `scripts/sbx-login.sh` (`make login`) uses it with the `DOCKER_ID` and `DOCKER_PAT` secrets.
+- On Linux without a keyring, it warns "no keychain detected; this secret will be stored on disk, protected by file permissions". The credentials land under `~/.config/com.docker.sandboxes`, outside the repository.
+- Bare `sbx` when signed out starts the browser device flow (a URL and a one-time code). So does `sbx login` without flags.
+- `sbx logout` stops running local sandboxes and signs out.
+
+## A fresh Codespace from `.devcontainer/` (2026-10-29)
+
+The first one built from the README badge, from `master` after PR #8:
+
+- Ubuntu 24.04.3, `python3` 3.12.16 (the devcontainer's pin), Node 26.13.0, `sbx` v0.50.0, mermaid-cli 12.0.0.
+- `/dev/kvm` absent ("no hypervisor present"), and no Docker, so `make site-build` skips the local build there. CI builds the site on every pull request.
+- **Not signed in**: nothing used the `DOCKER_ID` and `DOCKER_PAT` secrets. Since session 11, `post-create.sh` runs `make login` when both are set.
+- The old Codespace (sessions 01–11) wasn't a clean build of the current `.devcontainer/`: its default `python3` is 3.14.2, it has Docker, and its `/dev/kvm` exists but isn't accessible.
+
 ## Still to verify (before the wrapper or any article relies on it)
 
-- `sbx login --username … --password-stdin` (headless sign-in) and where credentials land on Linux without a keyring.
 - `sbx secret`, `sbx policy` (local and cloud) and `sbx template save`.
 - Whether the `shell` template has `python3` locally. (In the cloud: yes, Python 3.14.4, every run since session 02.)
 - `sbx stop` / resume semantics (piece 02) and `sbx move`.
