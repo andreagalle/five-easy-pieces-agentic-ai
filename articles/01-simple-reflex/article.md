@@ -113,7 +113,7 @@ Local sandboxes run the same script on a machine with hardware virtualization. M
 
 ## What the sandbox adds: disposability
 
-The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` produced on the host, though the sandbox runs Python 3.14 and the host 3.12. CI checks it again after every merge that touches the code.
+The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` I get by running the program directly in my Codespace, with no sandbox at all, though the sandbox runs Python 3.14 and the Codespace 3.12. CI checks it again after every merge that touches the code.
 
 Does this agent need a fence? No: it's forty lines of code I've read, with no network and no secrets. We fence it anyway, to learn the mechanics on a run where nothing can go wrong, and to show that changing the architecture doesn't change the program.
 
