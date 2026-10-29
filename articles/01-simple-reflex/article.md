@@ -120,8 +120,8 @@ Does this agent need a fence? No: it's forty lines of code I've read, with no ne
 ## Reproduce it
 
 - **Code:** [`examples/01-simple-reflex`](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-01-v1/examples/01-simple-reflex) at tag `piece-01-v1`
-- **Where:** a Codespace opened from the repository has everything installed. Elsewhere you need `git`, `make`, Python 3.12+ and `sbx`; I've tested only on Linux. Either way, `sbx` signs in to your own Docker account, with cloud sandboxes enabled (pay-as-you-go).
-- **Command:** `make run-01`
+- **Where:** a Codespace opened from the repository has everything installed. Elsewhere you need `git`, `make`, Python 3.12+ and `sbx`; I've tested only on Linux. Either way, `make login` signs `sbx` in to your own Docker account, which needs cloud sandboxes enabled (pay-as-you-go). In a Codespace with `DOCKER_ID` and `DOCKER_PAT` secrets, that happens on its own.
+- **Commands:** `make login`, then `make run-01`
 - **Check it:** `make compare-01` runs the program on your machine and in a cloud sandbox. Expect `compare: identical`, and a `results.json` sha256 starting `efae1944`.
 - **Sandbox:** cloud, `shell` template (`docker/sandbox-templates:shell-docker`)
 - **Verified with:** `sbx` v0.50.0
