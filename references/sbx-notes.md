@@ -7,6 +7,7 @@ Working notes on Docker Sandboxes and the `sbx` CLI. Started from CLAUDE.md §5.
 | Date | Version | Source | Notes |
 |------|---------|--------|-------|
 | 2026-10-26 | v0.50.0 (`30d023cb`) | `docker-sbx` 0.50.0-1~ubuntu.24.04~noble from Docker's apt repo | Released the same day (2026-10-26 14:44 UTC). Previous: v0.49.2 (2026-10-21). |
+| 2026-10-29 | v0.50.1 seen, not installed | `sbx diagnose`: "update available"; release notes | Released 2026-10-28. One line of notes: "fixes an issue that prevented sandboxes from starting". No flag changes, so the series stays pinned at v0.50.0, which every run used. Re-verified on v0.50.0 in session 10 (`/verify-sbx`). |
 
 ## Verified with sbx v0.50.0 (2026-10-26)
 
@@ -67,11 +68,13 @@ The docs describe the billing model but don't publish rates: pay-as-you-go, mete
 
 The price doubles with each shape, exactly like the resources. Billed usage to 2026-10-27 was **31.277 s of micro**, for a probe and two runs whose wall-clock time was about 41 s: the meter counts sandbox runtime, not the client's create/copy/remove time. One run of piece 01 costs about $0.0002–0.0003.
 
-### Docs pages linked from the articles (checked 2026-10-27)
+### Docs pages linked from the articles (checked 2026-10-27; piece 01's added 2026-10-29)
 
 - Overview: <https://docs.docker.com/ai/sandboxes/> ("Docker Sandboxes").
 - Security model: <https://docs.docker.com/ai/sandboxes/security/>. It says the microVM is "the primary trust boundary". It describes local sandboxes and points to a local-vs-cloud comparison for the cloud.
 - Cloud sandboxes: <https://docs.docker.com/ai/sandboxes/cloud/>.
+- Piece 01: isolation layers <https://docs.docker.com/ai/sandboxes/security/isolation/> (microVM, own kernel, network policy through a host proxy; describes local sandboxes), cloud sandboxes <https://docs.docker.com/ai/sandboxes/cloud/>, expiration <https://docs.docker.com/ai/sandboxes/cloud/usage/#configure-expiration> (default TTL one hour) and cloud network policy <https://docs.docker.com/ai/sandboxes/cloud/network-policy/> (rules match destinations only, no method or path). The cloud pages don't call a cloud sandbox a microVM, so the article doesn't either.
+- **Agentic Platform Console** (<https://agentic-platform.docker.com/>): **Sandboxes** lists running and paused cloud sandboxes; **Usage & billing** shows runtime and estimated cost, and the docs say it can take up to 48 hours to update (<https://docs.docker.com/agentic-platform/signup/>).
 - **Broken link in the docs:** the credentials page links to `/ai/sandboxes/configuration/security/#trust-boundaries`, which returns 404. The security model lives at `/ai/sandboxes/security/`.
 
 ### OpenRouter in the cloud: docs vs `--help`
@@ -89,6 +92,6 @@ The price doubles with each shape, exactly like the resources. Billed usage to 2
 
 - `sbx login --username … --password-stdin` (headless sign-in) and where credentials land on Linux without a keyring.
 - `sbx secret`, `sbx policy` (local and cloud) and `sbx template save`.
-- Whether the `shell` template has `python3`, and which version, locally and in the cloud.
+- Whether the `shell` template has `python3` locally. (In the cloud: yes, Python 3.14.4, every run since session 02.)
 - `sbx stop` / resume semantics (piece 02) and `sbx move`.
 - Cloud network policy defaults for a new account.

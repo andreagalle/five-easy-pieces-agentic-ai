@@ -20,8 +20,8 @@
 - **Command:** `make run-01` (runs `examples/01-simple-reflex/run.sh`)
 - **Needs:** `sbx` signed in to Docker with cloud sandboxes enabled (`make check-env` says "Tier C (cloud) ready: yes")
 - **Sandbox:** cloud, agent `shell`, image `docker/sandbox-templates:shell-docker`, 1 vCPU / 2 GiB, TTL 30m with delete on timeout, no egress
-- **Verified with:** `sbx v0.50.0 (2026-10-26)`
-- **Local sandboxes:** a locally tested version will follow once the author has a capable machine. It isn't published until it has been run (ADR-0010).
+- **Verified with:** `sbx v0.50.0 (2026-10-29)`
+- **Local sandboxes:** not yet. The author's laptop is too old to run them, so a locally tested version will follow once the author has bought a new one. Thankfully, cloud sandboxes need nothing from the laptop but a browser or a terminal. Nothing is published until it has been run (ADR-0010).
 
 ## Reference run
 
@@ -34,6 +34,8 @@ Cloud, 2026-10-27T16:12:51Z, commit `795ffb8`, clean tree, Python 3.14.4 in the 
 - `grid-random`, 4×4, random move on clean squares: score 2666/3200, all clean at step 82
 
 Score is AIMA's performance measure: one point per clean square per time step.
+
+Rerun by the author on 2026-10-29 with `make compare-01`, at commit `c650564`: the same sha256 on the host (Python 3.14.2) and in the cloud (3.14.4), exit code 0, 13 s, and `sbx --cloud ls` empty afterwards.
 
 ## Charts
 

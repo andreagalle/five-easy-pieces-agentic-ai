@@ -26,11 +26,11 @@ A seven-part Medium series, the example code behind it, and a public record of h
 | ID | Working title | Kind | Target length | Code |
 |----|---------------|------|---------------|------|
 | 00 | Five Easy Pieces on Agentic AI w/ Docker Sandboxes | Overture (opening article) | 1,500–2,000 words (~8 min) | — |
-| 01 | Piece 1/5 — The simple reflex agent | Short article | 600–900 words (~4 min) | `examples/01-simple-reflex/` |
-| 02 | Piece 2/5 — The model-based reflex agent | Short article | 600–900 words | `examples/02-model-based/` |
-| 03 | Piece 3/5 — The goal-based agent | Short article | 600–900 words | `examples/03-goal-based/` |
-| 04 | Piece 4/5 — The utility-based agent | Short article | 600–900 words | `examples/04-utility-based/` |
-| 05 | Piece 5/5 — The learning agent | Short article | 600–900 words | `examples/05-learning/` |
+| 01 | Piece 1/5 — The simple reflex agent | Short article | 600–1,200 words (~5 min, ADR-0017) | `examples/01-simple-reflex/` |
+| 02 | Piece 2/5 — The model-based reflex agent | Short article | 600–1,200 words | `examples/02-model-based/` |
+| 03 | Piece 3/5 — The goal-based agent | Short article | 600–1,200 words | `examples/03-goal-based/` |
+| 04 | Piece 4/5 — The utility-based agent | Short article | 600–1,200 words | `examples/04-utility-based/` |
+| 05 | Piece 5/5 — The learning agent | Short article | 600–1,200 words | `examples/05-learning/` |
 | 06 | The making of: Claude, Docker Sandboxes and a Codespace | Meta article | 1,200–1,800 words | tells the story of `site/` |
 
 The first article is called the **overture** (ADR-0016): like a musical overture, it introduces the themes of the pieces that follow. Records written before session 07 call it the hub.
@@ -338,7 +338,7 @@ One to three next steps.
 
 Badges in `README.md` must say something checkable. The backlog below was agreed with the author in session 04; add each badge on your own as soon as its trigger has happened, and note it in the journal. Use the illustration palette for colours. No vanity badges (stars, downloads): they say nothing about reproducibility.
 
-- [ ] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it.
+- [x] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it. Added in session 10 at the author's request, ahead of that test. **Still to do:** build a fresh Codespace from the badge, run `make check-env` and `make compare-01` in it, and record the result in the journal; fix or remove the badge if it fails.
 - [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
 - [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.

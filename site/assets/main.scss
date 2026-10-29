@@ -13,37 +13,58 @@ $header-top-space: 0.9rem;  // breathing room between the top border and the tit
   padding-top: $header-top-space;
 }
 
+// The title and the logo are the site's identity: twice minima's title (26px) and more than
+// twice the old 40px logo, which would look small next to three lines of text.
+// Rules for all widths come first, so the phone rules below can override them.
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 3.25rem;
+  line-height: 1.15;
+  padding: 0.5rem 0;
+}
+
+// Balanced lines read as a block next to the logo instead of a ragged paragraph.
+.site-title-text {
+  text-wrap: balance;
+}
+
+.site-title-tail {
+  white-space: nowrap;
+}
+
+.site-logo {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 // On narrow screens minima pins the menu button at top: 9px; move it down by the same
 // amount so it stays level with the title.
-// The long title would otherwise wrap at minima's 54px line height and fill a third of a
-// phone screen: shrink it, use normal line spacing, and leave room for the menu button.
+// Twice the size would wrap the long title over five lines and fill half a phone screen,
+// so phones get about one and a half times their old size, and room for the menu button.
 @media screen and (max-width: 600px) {
   .site-nav {
     top: calc(9px + #{$header-top-space});
   }
 
   .site-title {
-    font-size: 1.15rem;
-    line-height: 1.35;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    gap: 0.6rem;
     max-width: calc(100% - 56px);
     padding: 0.35rem 0 0.75rem;
   }
 
-  .site-logo {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
+  // Balancing three short lines splits "Agentic AI"; plain wrapping keeps it whole.
+  .site-title-text {
+    text-wrap: wrap;
   }
-}
 
-.site-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.site-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  .site-logo {
+    width: 52px;
+    height: 52px;
+  }
 }

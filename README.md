@@ -7,6 +7,10 @@
 <p align="center"><em>AIMA's five agent types, from simple reflex to learning, run in Docker Sandboxes.</em></p>
 
 <p align="center">
+  <a href="https://codespaces.new/andreagalle/five-easy-pieces-agentic-ai?quickstart=1"><img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces"></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml/badge.svg?branch=master" alt="Tests"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml/badge.svg?branch=master" alt="Cloud sandbox run: piece 01 on the runner and in a cloud sandbox, results identical"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml/badge.svg?branch=master" alt="Making-of site"></a>
@@ -19,7 +23,7 @@
 
 A seven-part Medium series, the code behind it, and a public record of how it was made. Chapter 2 of Russell & Norvig's *Artificial Intelligence: A Modern Approach* already gave us the vocabulary for today's agentic AI. Docker Sandboxes give each agent *program* a disposable, reproducible *architecture* to run in, on a laptop or in the cloud, with the same commands.
 
-**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. No article is published yet. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
+**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are ready; nothing is published yet. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
 
 ## The series
 
@@ -52,7 +56,7 @@ make test        # host-side unit tests
 make run-01      # piece 01 in a cloud sandbox: tests, then the scenarios, then RUNINFO.json
 ```
 
-`make run-01` needs `sbx` signed in to Docker, with cloud sandboxes enabled. Local sandboxes will be documented once they've been tested ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
+`make run-01` needs `sbx` signed in to Docker, with cloud sandboxes enabled. Local sandboxes will be documented once they've been tested, which waits for the author to replace a laptop too old to run them ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
 
 ## Licence
 

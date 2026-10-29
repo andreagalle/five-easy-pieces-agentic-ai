@@ -26,9 +26,13 @@
   },
   "customizations": {
     "vscode": {
+      // Claude Code's extension also comes with its feature above; listing it keeps it
+      // even if the feature changes. Git Graph: the author's choice for browsing history.
       "extensions": [
         "ms-python.python",
-        "bierner.markdown-mermaid"
+        "bierner.markdown-mermaid",
+        "anthropic.claude-code",
+        "mhutchie.git-graph"
       ]
     }
   }

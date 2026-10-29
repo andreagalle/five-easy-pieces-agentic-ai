@@ -5,7 +5,7 @@ status: accepted
 date: 2026-10-26
 ---
 
-**Status:** accepted, 2026-10-26. Wording direction from the author in session 03; Claude drafted the text. Resolves the open point in [ADR-0008]({{ "/decisions/ADR-0008-medium-publication/" | relative_url }}) and makes a deliberate exception to CLAUDE.md §0.6.
+**Status:** accepted, 2026-10-26. Wording direction from the author in session 03; Claude drafted the text. Resolves the open point in [ADR-0008]({{ "/decisions/ADR-0008-medium-publication/" | relative_url }}) and makes a deliberate exception to CLAUDE.md §0.6. Amended 2026-10-29 (session 10): the author changed "I'm enthusiastic about this technology" to "I ❤️ this technology". The line below is the current wording.
 
 ## Context
 
@@ -20,7 +20,7 @@ The author's direction: say that they're a Docker Captain and enthusiastic about
 
 Each short piece (01–05) ends with this line, in italics:
 
-> *Disclosure: I'm a Docker Captain, and I'm enthusiastic about this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-0N-v1) at tag `piece-0N-v1`.*
+> *Disclosure: I'm a Docker Captain, and I ❤️ this technology. This article was written with the assistance of Claude (Anthropic), and the header image is AI-generated (Google's Nano Banana 2, via OpenRouter). The code and every run are reproducible from [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai/tree/piece-0N-v1) at tag `piece-0N-v1`.*
 
 The hub (00) and the making-of (06) use the same line, with the last sentence replaced by "The code and the full making-of live in [five-easy-pieces-agentic-ai](https://github.com/andreagalle/five-easy-pieces-agentic-ai)."
 
