@@ -4,8 +4,10 @@
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     {%- comment -%} The logo sits inside the title link, so it also leads home. alt="" because the
-        link text already names the destination. {%- endcomment %}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}"><img class="site-logo" src="{{ "/assets/img/icon-192.png" | relative_url }}" alt="" width="40" height="40">{{ site.title | escape }}</a>
+        link text already names the destination. The part in parentheses is kept on one line,
+        so the large title never breaks at the hyphen in "making-of". {%- endcomment %}
+    {%- assign title_parts = site.title | split: " (" %}
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}"><img class="site-logo" src="{{ "/assets/img/icon-192.png" | relative_url }}" alt="" width="112" height="112"><span class="site-title-text">{{ title_parts[0] | escape }}{% if title_parts[1] %} <span class="site-title-tail">({{ title_parts[1] | escape }}</span>{% endif %}</span></a>
 
     {%- if page_paths -%}
       <nav class="site-nav">
