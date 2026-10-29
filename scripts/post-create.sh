@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Devcontainer postCreateCommand (CLAUDE.md §6).
-# Installs the pinned sbx and mermaid-cli, then prints the read-only environment report.
+# Installs the pinned sbx and mermaid-cli, signs sbx in if the Docker secrets are set,
+# then prints the read-only environment report.
 # Claude Code itself comes from the devcontainer feature, not from this script.
 set -euo pipefail
 
@@ -37,5 +38,11 @@ fi
 root="$(cd "$here/.." && pwd)"
 [ -x "$root/.venv/bin/python" ] || python3.12 -m venv "$root/.venv"
 "$root/.venv/bin/python" -m pip install --disable-pip-version-check -q -r "$root/requirements-plots.txt"
+
+# Sign sbx in when the Codespaces secrets are there, so a fresh Codespace can run the pieces
+# straight away. Without them, check-env below says "signed in: no" and points to make login.
+if [ -n "${DOCKER_ID:-}" ] && [ -n "${DOCKER_PAT:-}" ]; then
+  "$here/sbx-login.sh" || echo "post-create: sign-in failed; run make login"
+fi
 
 "$here/check-env.sh"
