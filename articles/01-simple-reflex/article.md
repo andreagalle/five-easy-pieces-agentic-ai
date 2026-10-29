@@ -1,10 +1,10 @@
 ---
 id: "01"
 title: "Piece 1/5 — The simple reflex agent"
-status: draft
+status: ready
 drafted_by: claude
 edited_by: author
-verified_with: "sbx v0.50.0 (2026-10-26)"
+verified_with: "sbx v0.50.0 (2026-10-29)"
 code_tag: "piece-01-v1"
 medium_url: ""
 ---

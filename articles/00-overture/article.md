@@ -1,10 +1,10 @@
 ---
 id: "00"
 title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
-status: draft
+status: ready
 drafted_by: claude
 edited_by: author
-verified_with: "sbx v0.50.0 (2026-10-26)"
+verified_with: "sbx v0.50.0 (2026-10-29)"
 code_tag: ""
 medium_url: ""
 ---
