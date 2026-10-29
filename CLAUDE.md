@@ -26,11 +26,11 @@ A seven-part Medium series, the example code behind it, and a public record of h
 | ID | Working title | Kind | Target length | Code |
 |----|---------------|------|---------------|------|
 | 00 | Five Easy Pieces on Agentic AI w/ Docker Sandboxes | Overture (opening article) | 1,500–2,000 words (~8 min) | — |
-| 01 | Piece 1/5 — The simple reflex agent | Short article | 600–900 words (~4 min) | `examples/01-simple-reflex/` |
-| 02 | Piece 2/5 — The model-based reflex agent | Short article | 600–900 words | `examples/02-model-based/` |
-| 03 | Piece 3/5 — The goal-based agent | Short article | 600–900 words | `examples/03-goal-based/` |
-| 04 | Piece 4/5 — The utility-based agent | Short article | 600–900 words | `examples/04-utility-based/` |
-| 05 | Piece 5/5 — The learning agent | Short article | 600–900 words | `examples/05-learning/` |
+| 01 | Piece 1/5 — The simple reflex agent | Short article | 600–1,200 words (~5 min, ADR-0017) | `examples/01-simple-reflex/` |
+| 02 | Piece 2/5 — The model-based reflex agent | Short article | 600–1,200 words | `examples/02-model-based/` |
+| 03 | Piece 3/5 — The goal-based agent | Short article | 600–1,200 words | `examples/03-goal-based/` |
+| 04 | Piece 4/5 — The utility-based agent | Short article | 600–1,200 words | `examples/04-utility-based/` |
+| 05 | Piece 5/5 — The learning agent | Short article | 600–1,200 words | `examples/05-learning/` |
 | 06 | The making of: Claude, Docker Sandboxes and a Codespace | Meta article | 1,200–1,800 words | tells the story of `site/` |
 
 The first article is called the **overture** (ADR-0016): like a musical overture, it introduces the themes of the pieces that follow. Records written before session 07 call it the hub.

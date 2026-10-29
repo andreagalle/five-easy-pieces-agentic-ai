@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 REPO_URL = "github.com/andreagalle/five-easy-pieces-agentic-ai"
 STATUSES = ["idea", "outline", "draft", "review", "ready", "published"]
 REQUIRED_KEYS = ["id", "title", "status", "drafted_by", "edited_by", "verified_with", "code_tag", "medium_url"]
-TARGET_WORDS = {"00": (1500, 2000), "06": (1200, 1800)}  # pieces 01-05: (600, 900)
+TARGET_WORDS = {"00": (1500, 2000), "06": (1200, 1800)}  # pieces 01-05: (600, 1200), ADR-0017
 MAX_CODE_LINES = 40
 
 
@@ -108,7 +108,7 @@ def check(path: Path) -> tuple[list[str], list[str]]:
         elif not any("*AI-generated illustration.*" in l for l in lines[image + 1:image + 4]):
             errors.append("header image without the '*AI-generated illustration.*' caption (ADR-0013)")
 
-    low, high = TARGET_WORDS.get(meta.get("id", ""), (600, 900))
+    low, high = TARGET_WORDS.get(meta.get("id", ""), (600, 1200))
     words = prose_words(body)
     if not low <= words <= high:
         (errors if strict else warnings).append(f"{words} words of prose; target {low}-{high}")
