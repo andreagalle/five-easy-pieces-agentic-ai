@@ -102,6 +102,7 @@ The first one built from the README badge, from `master` after PR #8:
 - Ubuntu 24.04.3, `python3` 3.12.16 (the devcontainer's pin), Node 26.13.0, `sbx` v0.50.0, mermaid-cli 12.0.0.
 - `/dev/kvm` absent ("no hypervisor present"), and no Docker, so `make site-build` skips the local build there. CI builds the site on every pull request.
 - **Not signed in**: nothing used the `DOCKER_ID` and `DOCKER_PAT` secrets. Since session 11, `post-create.sh` runs `make login` when both are set.
+- **The second fresh build** (session 12, `master` at `cd894cd`) reported `signed in: yes` at its first `make check-env`, with no manual `make login` in the author's terminal. So Codespaces passes the secrets to `postCreateCommand`. `make compare-01`: identical, host Python 3.12.16, cloud 3.14.4, 12 s. `make lint` failed, though: with no `shellcheck`, `actionlint` or Docker, the Makefile's fallback (the tools' Docker images) had nothing to run on. `scripts/install-linters.sh` now installs the pinned binaries.
 - The old Codespace (sessions 01–11) wasn't a clean build of the current `.devcontainer/`: its default `python3` is 3.14.2, it has Docker, and its `/dev/kvm` exists but isn't accessible.
 
 ## Still to verify (before the wrapper or any article relies on it)
