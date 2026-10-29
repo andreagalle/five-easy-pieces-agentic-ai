@@ -2,10 +2,10 @@
 # Updated at the end of every session by /wrap.
 
 updated: 2026-10-29
-sessions: 10
-journal_entries: 10
+sessions: 11
+journal_entries: 11
 prompts_recorded: 11   # site/prompts; six of them recovered after the fact in session 09
-commits: 93           # project commits since the repository's initial commit
+commits: 99           # project commits since the repository's initial commit
 adrs: 17
 sandbox_runs:
   cloud: 8            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml); session 10: the author's own make compare-01
@@ -39,3 +39,5 @@ notable_failures:
     what: "Prompts that changed direction went unrecorded for sessions 04-08: /wrap had no step for them. Recovered from the conversation and the checklist extended."
   - session: "10"
     what: "Piece 1 said the Codespace runs Python 3.12, although the sbx notes had recorded since session 01 that its default python3 is 3.14.2. The author's rerun exposed it; the bytes were identical either way."
+  - session: "11"
+    what: "The first fresh Codespace built from the README badge had sbx installed but not signed in: nothing used the DOCKER_ID/DOCKER_PAT secrets. The old Codespace had been signed in by hand in session 02. Fixed with make login."
