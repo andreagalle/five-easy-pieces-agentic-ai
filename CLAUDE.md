@@ -338,7 +338,7 @@ One to three next steps.
 
 Badges in `README.md` must say something checkable. The backlog below was agreed with the author in session 04; add each badge on your own as soon as its trigger has happened, and note it in the journal. Use the illustration palette for colours. No vanity badges (stars, downloads): they say nothing about reproducibility.
 
-- [ ] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it.
+- [x] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it. Added in session 10 at the author's request, ahead of that test. **Still to do:** build a fresh Codespace from the badge, run `make check-env` and `make compare-01` in it, and record the result in the journal; fix or remove the badge if it fails.
 - [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
 - [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.

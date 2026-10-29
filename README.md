@@ -7,6 +7,10 @@
 <p align="center"><em>AIMA's five agent types, from simple reflex to learning, run in Docker Sandboxes.</em></p>
 
 <p align="center">
+  <a href="https://codespaces.new/andreagalle/five-easy-pieces-agentic-ai?quickstart=1"><img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces"></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml/badge.svg?branch=master" alt="Tests"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml/badge.svg?branch=master" alt="Cloud sandbox run: piece 01 on the runner and in a cloud sandbox, results identical"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml/badge.svg?branch=master" alt="Making-of site"></a>
