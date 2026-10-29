@@ -109,7 +109,7 @@ Each setting has a reason:
 - **`--ttl 30m --on-timeout delete`:** if my script dies halfway, the sandbox [deletes itself](https://docs.docker.com/ai/sandboxes/cloud/usage/#configure-expiration) after half an hour.
 - **`--deny-network '**'`:** the [network policy](https://docs.docker.com/ai/sandboxes/cloud/network-policy/) refuses every destination. This agent needs no network, and "nothing" is the easiest policy to check.
 
-Local sandboxes run the same script on a machine with hardware virtualization. My laptop is too old for that, so the local version waits until I buy a new one.
+Local sandboxes run the same script on a machine with hardware virtualization. My laptop is too old for that, so the local version waits until I buy a new one. Thank heaven for cloud sandboxes, which don't care how old it is.
 
 ## What the sandbox adds: disposability
 
