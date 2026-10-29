@@ -137,7 +137,7 @@ make run-01      # piece 1 in a cloud sandbox
 
 Cloud sandboxes are part of Docker's Agentic Platform, which Docker labels experimental at the time of writing. Every run leaves a `RUNINFO.json` behind: what ran, where, on which versions, and how it ended. The numbers in these articles come from those files, not from my optimism.
 
-Local sandboxes use exactly the same scripts on a machine with hardware virtualization. I haven't tested that path yet, so I'm not publishing it yet. A locally tested version will follow.
+Local sandboxes use exactly the same scripts on a machine with hardware virtualization. My laptop is too old to be that machine, so the local version waits until I buy a new one. I don't publish what I haven't run.
 
 The series also has a [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/), with a journal entry for every working session, every decision with its reasons, and the dead ends, including the ones that were Claude's.
 

@@ -21,7 +21,7 @@
 - **Needs:** `sbx` signed in to Docker with cloud sandboxes enabled (`make check-env` says "Tier C (cloud) ready: yes")
 - **Sandbox:** cloud, agent `shell`, image `docker/sandbox-templates:shell-docker`, 1 vCPU / 2 GiB, TTL 30m with delete on timeout, no egress
 - **Verified with:** `sbx v0.50.0 (2026-10-26)`
-- **Local sandboxes:** a locally tested version will follow once the author has a capable machine. It isn't published until it has been run (ADR-0010).
+- **Local sandboxes:** not yet. The author's laptop is too old to run them, so a locally tested version will follow once the author has bought a new one. Nothing is published until it has been run (ADR-0010).
 
 ## Reference run
 

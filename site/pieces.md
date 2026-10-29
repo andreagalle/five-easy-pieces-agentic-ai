@@ -68,4 +68,4 @@ Two reasons. First, **it isn't needed**: the lessons of 01 and 02 are clearest i
 
 ## Local sandboxes
 
-All published runs use cloud sandboxes for now. The local tier will be published once the author has tested it on a capable machine, expected soon ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).
+All published runs use cloud sandboxes for now. The author's laptop is too old to run local sandboxes, so the local tier will be published once it has been tested on the new one the author has to buy ([ADR-0010]({{ "/decisions/ADR-0010-cloud-only-until-local-is-tested/" | relative_url }})).

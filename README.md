@@ -52,7 +52,7 @@ make test        # host-side unit tests
 make run-01      # piece 01 in a cloud sandbox: tests, then the scenarios, then RUNINFO.json
 ```
 
-`make run-01` needs `sbx` signed in to Docker, with cloud sandboxes enabled. Local sandboxes will be documented once they've been tested ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
+`make run-01` needs `sbx` signed in to Docker, with cloud sandboxes enabled. Local sandboxes will be documented once they've been tested, which waits for the author to replace a laptop too old to run them ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).
 
 ## Licence
 
