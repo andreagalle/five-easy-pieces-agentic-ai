@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Devcontainer postCreateCommand (CLAUDE.md §6).
-# Installs the pinned sbx and mermaid-cli, signs sbx in if the Docker secrets are set,
+# Installs the pinned sbx, linters and mermaid-cli, signs sbx in if the Docker secrets are set,
 # then prints the read-only environment report.
 # Claude Code itself comes from the devcontainer feature, not from this script.
 set -euo pipefail
@@ -12,6 +12,10 @@ here="$(cd "$(dirname "$0")" && pwd)"
 
 # The same pinned sbx the CI uses (.github/workflows/sandbox.yml).
 "$here/install-sbx.sh"
+
+# The pinned linters behind make lint; a Codespace built from this devcontainer has no Docker
+# to run their images.
+"$here/install-linters.sh"
 
 if ! command -v mmdc >/dev/null || [ "$(mmdc --version 2>/dev/null)" != "$MERMAID_CLI_VERSION" ]; then
   echo "Installing @mermaid-js/mermaid-cli ${MERMAID_CLI_VERSION}"

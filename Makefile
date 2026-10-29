@@ -3,7 +3,8 @@
 
 PYTHON ?= $(shell command -v python3.12 2>/dev/null || command -v python3)
 MMDC ?= mmdc
-# shellcheck from the system if installed, otherwise its official image (the Codespace has Docker).
+# shellcheck from the system if installed (post-create.sh installs the pinned one), otherwise its
+# official image through Docker (CI's runner has Docker; a fresh Codespace doesn't).
 SHELLCHECK ?= $(shell command -v shellcheck 2>/dev/null || echo "docker run --rm -v $(CURDIR):/mnt:ro -w /mnt koalaman/shellcheck:v0.10.0")
 # actionlint checks the workflows; sandbox.yml only runs after a merge, so its mistakes must be caught before.
 ACTIONLINT ?= $(shell command -v actionlint 2>/dev/null || echo "docker run --rm -v $(CURDIR):/repo:ro -w /repo rhysd/actionlint:1.7.12")
