@@ -113,13 +113,9 @@ Local sandboxes run the same script on a machine with hardware virtualization. M
 
 ## What the sandbox adds, here: disposability
 
-The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` I get by running the program directly in my Codespace, with no sandbox at all, though the sandbox runs Python 3.14 and the Codespace 3.12. CI checks it again after every merge that touches the code.
+The sandbox lives about ten seconds, then nothing is left: no machine, no files, nothing running up a bill. What comes back is byte for byte the `results.json` I get by running the program directly in my Codespace, with no sandbox at all. The Python versions differ (3.14.4 in the sandbox, 3.12 or 3.14 in the Codespace), and the bytes don't. CI checks it again after every merge that touches the code.
 
 Does this agent need a fence? No: it's forty lines of code I've read, with no network and no secrets. We fence it anyway, to learn the mechanics on a run where nothing can go wrong, and to show that changing the architecture doesn't change the program.
-
-## Why it still matters
-
-One comparison, and it's only an analogy: the sandbox's network policy decides the way our vacuum agent does. Its percept is one outbound request, and it has one rule: if the destination is on the list, allow it, otherwise deny it. Like the vacuum agent, it remembers nothing. Give it an allowlist and it can't notice that a hundred uploads, each allowed on its own, add up to your repository leaving the building. Rules are fast, cheap and predictable, and blind to history. Memory is what piece 2 adds.
 
 ## Reproduce it
 
