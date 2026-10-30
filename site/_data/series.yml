@@ -67,7 +67,7 @@ examples:
     dir: "examples/01-simple-reflex"
     status: tested-sandbox
     code_tag: ""
-    last_session: "11"
+    last_session: "12"
   - id: "02"
     dir: "examples/02-model-based"
     status: idea
