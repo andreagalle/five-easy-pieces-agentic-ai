@@ -4,7 +4,7 @@ Medium stopped issuing API tokens on 1 January 2025 (as documented by n8n and St
 
 ## 1. Ready in the repository
 
-1. The author has reviewed the draft, and the front matter says `status: review`.
+1. The author has reviewed the draft, and the front matter has moved from `draft` to `review`. Step 6 moves it on to `ready`, which is the status an article has when it goes to Medium.
 2. `make article-check` passes. At `review` it's strict: length and `verified_with` are errors, not warnings.
 3. **Pieces 01–05 only:** the code is frozen and tagged (`git tag piece-NN-v1`, then `git push origin piece-NN-v1`), and every code link points to that tag. `make article-check` rejects links to a branch.
 4. `/verify-sbx` has passed, and `verified_with` names the `sbx` version.

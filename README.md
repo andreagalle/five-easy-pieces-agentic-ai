@@ -14,6 +14,7 @@
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/test.yml/badge.svg?branch=master" alt="Tests"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml/badge.svg?branch=master" alt="Cloud sandbox run: piece 01 on the runner and in a cloud sandbox, results identical"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml/badge.svg?branch=master" alt="Making-of site"></a>
+  <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/tags"><img src="https://img.shields.io/github/v/tag/andreagalle/five-easy-pieces-agentic-ai?sort=date&label=latest%20tag&color=1F5C6B" alt="Latest tag: the code each published article links to"></a>
   <a href="references/sbx-notes.md"><img src="https://img.shields.io/badge/verified%20with-sbx%20v0.50.0-2A8C8C" alt="Verified with sbx v0.50.0"></a>
   <a href="examples/"><img src="https://img.shields.io/badge/python-3.12%2C%20stdlib%20only-1F5C6B" alt="Python 3.12, standard library only"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-2F80C0" alt="Code licence: MIT"></a>
