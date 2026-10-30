@@ -2,8 +2,9 @@
 # Checks for the making-of record (CLAUDE.md §9, §11 "Site"):
 #   1. every journal entry has the §9.1 front matter and sections;
 #   2. session numbers run 01..N with no gaps;
-#   3. no credential-shaped strings anywhere in the working tree;
-#   4. with SITE_BUILD=1 and Docker available, build site/ with the same
+#   3. series.yml's "published: N/7" (read by a README badge) matches the article statuses;
+#   4. no credential-shaped strings anywhere in the working tree;
+#   5. with SITE_BUILD=1 and Docker available, build site/ with the same
 #      image GitHub's jekyll-build-pages action uses.
 set -uo pipefail
 
@@ -37,14 +38,29 @@ for n in $(grep -h '^session:' "${entries[@]}" /dev/null | tr -dc '0-9\n' | sort
   expected=$((10#$n + 1))
 done
 
-# 3. Credential-shaped strings (tracked and untracked, ignored files excluded)
+# 3. The "Articles published N/7" field, which shields.io can read but not count
+if ! msg="$(python3 -c '
+import re, sys
+text = open(sys.argv[1]).read()
+articles = text.split("\narticles:", 1)[1].split("\nexamples:", 1)[0]
+total = articles.count("\n  - id:")
+done = sum(1 for line in articles.splitlines() if line.strip() == "status: published")
+field = re.search(r"^published: \"(\d+)/(\d+)\"", text, re.M)
+if not field or (int(field[1]), int(field[2])) != (done, total):
+    found = field[0].split(": ")[1] if field else "missing"
+    sys.exit(f"series.yml: published is {found}, but the statuses say \"{done}/{total}\"")
+' site/_data/series.yml 2>&1)"; then
+  fail "$msg"
+fi
+
+# 4. Credential-shaped strings (tracked and untracked, ignored files excluded)
 pattern='dckr_pat_[A-Za-z0-9_-]{8,}|sk-ant-[A-Za-z0-9_-]{8,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
 if hits="$(git grep -nIE --untracked "$pattern" -- . ':!scripts/site-check.sh')"; then
   fail "credential-shaped strings found:"
   echo "$hits" | cut -c1-120
 fi
 
-# 4. Optional build with the GitHub Pages builder image
+# 5. Optional build with the GitHub Pages builder image
 if [ "${SITE_BUILD:-0}" = 1 ]; then
   image="ghcr.io/actions/jekyll-build-pages:v1.0.13"
   if command -v docker >/dev/null; then

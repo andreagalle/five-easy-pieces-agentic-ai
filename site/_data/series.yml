@@ -6,6 +6,10 @@
 # Medium publication for every article (ADR-0008); order and cadence in ADR-0007.
 publication: "https://medium.com/docker-captains-wisdom"
 
+# Read by the README's "Articles published" badge (shields.io dynamic YAML), which can't count.
+# site-check fails if it disagrees with the statuses below.
+published: "0/7"
+
 articles:
   - id: "00"
     title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
