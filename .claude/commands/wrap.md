@@ -17,7 +17,7 @@ Close the current working session (CLAUDE.md §0.2, §0.7, §9). Write everythin
 5. **Decisions (§0.8, §9.2).** Every decision taken this session has an ADR. If it changes a rule, CLAUDE.md says so and points to the ADR, and §12 is current. *Why:* a decision that exists only in the chat is lost at the next session.
 6. **Status:** update `site/_data/series.yml` (`status`, `code_tag`, `medium_url`, `last_session` for every item touched), and keep each article's front matter in step with it.
 7. **Metrics:** update `site/_data/metrics.yml` with real numbers only:
-   - count the commits *after* the wrap's own commits;
+   - count the commits *after* the wrap's own commits, with `git rev-list --no-merges --count HEAD` minus one (merges of `master` into `dev` must not inflate it);
    - include cloud runs from CI;
    - add OpenRouter spend from `illustrations/log.jsonl` and any LLM runs;
    - add the prompts recorded.

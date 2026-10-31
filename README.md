@@ -25,7 +25,7 @@
 
 A seven-part Medium series, the code behind it, and a public record of how it was made. Chapter 2 of Russell & Norvig's *Artificial Intelligence: A Modern Approach* already gave us the vocabulary for today's agentic AI. Docker Sandboxes give each agent *program* a disposable, reproducible *architecture* to run in, on a laptop or in the cloud, with the same commands.
 
-**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are published on Medium, in Docker Captains Wisdom; the other pieces follow weekly. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
+**Status:** in progress. Examples 01 and 02 run in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are published on Medium, in Docker Captains Wisdom; piece 02 is a draft, and the other pieces follow weekly. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
 
 ## The series
 
@@ -57,6 +57,7 @@ make login       # sign sbx in to Docker (headless with the DOCKER_ID/DOCKER_PAT
 make check-env   # what this machine can run: cloud sandboxes, local sandboxes, neither
 make test        # host-side unit tests
 make run-01      # piece 01 in a cloud sandbox: tests, then the scenarios, then RUNINFO.json
+make run-02      # piece 02: the same, with a stop and a restart in the middle
 ```
 
 `make run-01` needs `sbx` signed in to Docker (`make login`), with cloud sandboxes enabled. In a Codespace created with the `DOCKER_ID` and `DOCKER_PAT` secrets, the setup script signs in on its own. Local sandboxes will be documented once they've been tested, which waits for the author to replace a laptop too old to run them ([ADR-0010](site/decisions/ADR-0010-cloud-only-until-local-is-tested.md)).

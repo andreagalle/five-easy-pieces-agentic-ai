@@ -73,6 +73,7 @@ The price doubles with each shape, exactly like the resources. Billed usage to 2
 - Overview: <https://docs.docker.com/ai/sandboxes/> ("Docker Sandboxes").
 - Security model: <https://docs.docker.com/ai/sandboxes/security/>. It says the microVM is "the primary trust boundary". It describes local sandboxes and points to a local-vs-cloud comparison for the cloud.
 - Cloud sandboxes: <https://docs.docker.com/ai/sandboxes/cloud/>.
+- Piece 02: stop and remove <https://docs.docker.com/ai/sandboxes/cloud/usage/#stop-or-remove-a-sandbox>.
 - Piece 01: isolation layers <https://docs.docker.com/ai/sandboxes/security/isolation/> (microVM, own kernel, network policy through a host proxy; describes local sandboxes), cloud sandboxes <https://docs.docker.com/ai/sandboxes/cloud/>, expiration <https://docs.docker.com/ai/sandboxes/cloud/usage/#configure-expiration> (default TTL one hour) and cloud network policy <https://docs.docker.com/ai/sandboxes/cloud/network-policy/> (rules match destinations only, no method or path). The cloud pages don't call a cloud sandbox a microVM, so the article doesn't either.
 - **Agentic Platform Console** (<https://agentic-platform.docker.com/>): **Sandboxes** lists running and paused cloud sandboxes; **Usage & billing** shows runtime and estimated cost, and the docs say it can take up to 48 hours to update (<https://docs.docker.com/agentic-platform/signup/>).
 - **Broken link in the docs:** the credentials page links to `/ai/sandboxes/configuration/security/#trust-boundaries`, which returns 404. The security model lives at `/ai/sandboxes/security/`.
@@ -87,6 +88,17 @@ The price doubles with each shape, exactly like the resources. Billed usage to 2
 
 - `/dev/kvm` is present (`crw-rw----`, owner root, GID 109, which has no name in `/etc/group`). The `codespace` user isn't in that group, so `sbx diagnose` reports *Virtualization — not accessible*. Not worked around (CLAUDE.md §5.2). See ADR-0001 and the session 01 journal.
 - Default `python3` in the current Codespace image is 3.14.2. `python3.12` (3.12.3) is also present and is what `make test` uses. The devcontainer pins 3.12.
+
+## Stop and restart (verified 2026-10-31, sbx v0.50.0)
+
+From `--help`, the docs, a probe and piece 02's reference run:
+
+- `sbx --cloud stop` returns when the request is accepted. In `inspect --format json`, `state` goes `running` → `stopping` → `stopped`: about 45 s in the probe, 44 s in the run, on the micro size. `scripts/sbx-run.sh` polls for it.
+- `sbx --cloud exec` starts a stopped sandbox first: 1–2 s, same ID, files intact. Non-interactive restart needs nothing else.
+- **It's a true suspend.** In the probe, a background process left running was alive after the restart, and `/proc/uptime` had advanced only about 5 s across a stop of about 50 s.
+- A stopped sandbox has no running TTL: `sbx --cloud ttl` says "Sandbox is stopped; its TTL restarts when it does", `ttl_paused` is true, and on restart a new TTL period starts. So `--on-timeout delete` can't clean up a stopped sandbox, and only the wrapper's EXIT trap does. Compute isn't billed while stopped.
+- `sbx --cloud rm --force` works on a sandbox after a stop and restart.
+- `sbx --cloud template save` is documented as multi-GB and several minutes, and its storage price isn't documented in the pages we read. Not tried.
 
 ## Sign-in (verified 2026-10-29, sbx v0.50.0)
 
@@ -109,5 +121,5 @@ The first one built from the README badge, from `master` after PR #8:
 
 - `sbx secret`, `sbx policy` (local and cloud) and `sbx template save`.
 - Whether the `shell` template has `python3` locally. (In the cloud: yes, Python 3.14.4, every run since session 02.)
-- `sbx stop` / resume semantics (piece 02) and `sbx move`.
+- `sbx stop` / resume semantics locally, `sbx move`, and `sbx --cloud template save`.
 - Cloud network policy defaults for a new account.

@@ -185,6 +185,7 @@ All examples run through one script so cloud and local behave the same:
   - cloud: `sbx --cloud create --name <n> --ttl <t> --on-timeout delete <agent>` → `sbx --cloud cp` in → `sbx --cloud exec --workdir … <n> …` → `sbx --cloud cp` out → `sbx --cloud rm --force <n>`. Check whether `shell` is accepted with `--cloud`; if not, use a built-in agent template and only `exec` into it, or a kit.
 - Check that `python3` exists in the chosen template before relying on it. If it doesn't, build a kit or template — never `pip install` at run time.
 - `trap` on EXIT removes the sandbox.
+- Optional `SBX_AFTER_RESTART` (piece 02): after the entry command succeeds, stop the sandbox, wait for `stopped`, and run this command in it. `exec` restarts it. A stopped sandbox has no running TTL, so the trap is the only cleanup.
 - Writes `out/RUNINFO.json`: UTC timestamp, tier, `sbx version`, template/kit reference, size, git commit, exit code, wall-clock duration.
 - Fails loudly with a clear message if `sbx` is missing, not signed in, KVM is absent (local) or cloud access isn't enabled (`sbx --cloud diagnose`).
 
