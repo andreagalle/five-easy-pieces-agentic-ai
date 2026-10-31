@@ -15,6 +15,7 @@
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/sandbox.yml/badge.svg?branch=master" alt="Cloud sandbox run: piece 01 on the runner and in a cloud sandbox, results identical"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml"><img src="https://github.com/andreagalle/five-easy-pieces-agentic-ai/actions/workflows/pages.yml/badge.svg?branch=master" alt="Making-of site"></a>
   <a href="https://github.com/andreagalle/five-easy-pieces-agentic-ai/tags"><img src="https://img.shields.io/github/v/tag/andreagalle/five-easy-pieces-agentic-ai?sort=date&label=latest%20tag&color=1F5C6B" alt="Latest tag: the code each published article links to"></a>
+  <a href="https://medium.com/docker-captains-wisdom/five-easy-pieces-on-agentic-ai-w-docker-sandboxes-53d5acb6e2e4"><img src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fandreagalle%2Ffive-easy-pieces-agentic-ai%2Fmaster%2Fsite%2F_data%2Fseries.yml&query=%24.published&label=articles%20published&color=2A8C8C" alt="Articles published: the count in site/_data/series.yml"></a>
   <a href="references/sbx-notes.md"><img src="https://img.shields.io/badge/verified%20with-sbx%20v0.50.0-2A8C8C" alt="Verified with sbx v0.50.0"></a>
   <a href="examples/"><img src="https://img.shields.io/badge/python-3.12%2C%20stdlib%20only-1F5C6B" alt="Python 3.12, standard library only"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/code-MIT-2F80C0" alt="Code licence: MIT"></a>
@@ -24,12 +25,12 @@
 
 A seven-part Medium series, the code behind it, and a public record of how it was made. Chapter 2 of Russell & Norvig's *Artificial Intelligence: A Modern Approach* already gave us the vocabulary for today's agentic AI. Docker Sandboxes give each agent *program* a disposable, reproducible *architecture* to run in, on a laptop or in the cloud, with the same commands.
 
-**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are ready; nothing is published yet. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
+**Status:** in progress. Example 01 runs in cloud sandboxes, with byte-identical output on the host and in the cloud. The overture and piece 01 are published on Medium, in Docker Captains Wisdom; the other pieces follow weekly. Live status: [`site/_data/series.yml`](site/_data/series.yml) and the [making-of site](https://andreagalle.github.io/five-easy-pieces-agentic-ai/).
 
 ## The series
 
-- **00** — Five Easy Pieces on Agentic AI w/ Docker Sandboxes (overture)
-- **01** — The simple reflex agent → [`examples/01-simple-reflex/`](examples/01-simple-reflex/)
+- **00** — [Five Easy Pieces on Agentic AI w/ Docker Sandboxes](https://medium.com/docker-captains-wisdom/five-easy-pieces-on-agentic-ai-w-docker-sandboxes-53d5acb6e2e4) (overture)
+- **01** — [The simple reflex agent](https://medium.com/docker-captains-wisdom/piece-1-5-the-simple-reflex-agent-b34c17054a7b) → [`examples/01-simple-reflex/`](examples/01-simple-reflex/)
 - **02** — The model-based reflex agent → [`examples/02-model-based/`](examples/02-model-based/)
 - **03** — The goal-based agent → [`examples/03-goal-based/`](examples/03-goal-based/)
 - **04** — The utility-based agent → [`examples/04-utility-based/`](examples/04-utility-based/)

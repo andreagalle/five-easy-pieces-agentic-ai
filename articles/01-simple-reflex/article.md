@@ -1,12 +1,12 @@
 ---
 id: "01"
 title: "Piece 1/5 — The simple reflex agent"
-status: ready
+status: published
 drafted_by: claude
 edited_by: author
 verified_with: "sbx v0.50.0 (2026-10-29)"
 code_tag: "piece-01-v1"
-medium_url: ""
+medium_url: "https://medium.com/docker-captains-wisdom/piece-1-5-the-simple-reflex-agent-b34c17054a7b"
 ---
 
 # Piece 1/5 — The simple reflex agent
@@ -129,7 +129,7 @@ Does this agent need a fence? No: it's forty lines of code I've read, with no ne
 
 ## The series
 
-- Five Easy Pieces on Agentic AI w/ Docker Sandboxes (overture, link added at publication)
+- [Five Easy Pieces on Agentic AI w/ Docker Sandboxes](https://medium.com/docker-captains-wisdom/five-easy-pieces-on-agentic-ai-w-docker-sandboxes-53d5acb6e2e4) (overture)
 - **Piece 1/5 — The simple reflex agent** (you are here)
 - Next: Piece 2/5 — The model-based reflex agent (coming soon)
 

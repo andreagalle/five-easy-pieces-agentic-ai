@@ -34,6 +34,6 @@ Medium stopped issuing API tokens on 1 January 2025 (as documented by n8n and St
 
 ## 4. Back in the repository
 
-1. In `site/_data/series.yml`, set `status: published`, `medium_url` and `last_session`.
-2. Add or update the "Articles published N/7" badge in the README (CLAUDE.md §9.3).
+1. In `site/_data/series.yml`, set `status: published`, `medium_url` and `last_session`, and raise `published: "N/7"`, which the README's badge reads. `make site-check` fails if the count disagrees with the statuses.
+2. In the article's front matter, set the same `status` and `medium_url`. Replace "coming soon" and "link added at publication" in the repository's series lists, so they match Medium.
 3. Write a journal entry. The publication is part of the record.
