@@ -6,21 +6,25 @@
 # Medium publication for every article (ADR-0008); order and cadence in ADR-0007.
 publication: "https://medium.com/docker-captains-wisdom"
 
+# Read by the README's "Articles published" badge (shields.io dynamic YAML), which can't count.
+# site-check fails if it disagrees with the statuses below.
+published: "2/7"
+
 articles:
   - id: "00"
     title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
     kind: overture
-    status: ready
+    status: published
     code_tag: ""
-    medium_url: ""
-    last_session: "11"
+    medium_url: "https://medium.com/docker-captains-wisdom/five-easy-pieces-on-agentic-ai-w-docker-sandboxes-53d5acb6e2e4"
+    last_session: "13"
   - id: "01"
     title: "Piece 1/5 — The simple reflex agent"
     kind: piece
-    status: ready
+    status: published
     code_tag: "piece-01-v1"
-    medium_url: ""
-    last_session: "11"
+    medium_url: "https://medium.com/docker-captains-wisdom/piece-1-5-the-simple-reflex-agent-b34c17054a7b"
+    last_session: "13"
   - id: "02"
     title: "Piece 2/5 — The model-based reflex agent"
     kind: piece
@@ -65,9 +69,9 @@ examples:
     last_session: "05"
   - id: "01"
     dir: "examples/01-simple-reflex"
-    status: tested-sandbox
-    code_tag: ""
-    last_session: "12"
+    status: frozen
+    code_tag: "piece-01-v1"
+    last_session: "13"
   - id: "02"
     dir: "examples/02-model-based"
     status: idea

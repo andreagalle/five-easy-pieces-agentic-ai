@@ -339,8 +339,8 @@ One to three next steps.
 Badges in `README.md` must say something checkable. The backlog below was agreed with the author in session 04; add each badge on your own as soon as its trigger has happened, and note it in the journal. Use the illustration palette for colours. No vanity badges (stars, downloads): they say nothing about reproducibility.
 
 - [x] **Open in GitHub Codespaces** (`https://github.com/codespaces/badge.svg`) — when a fresh Codespace has been built from `.devcontainer/` and `make check-env` passes in it. Added in session 10 at the author's request, ahead of that test. **Tested in sessions 11–12:** the first fresh build couldn't sign `sbx` in (fixed with `make login`); the second, from `master` at `cd894cd`, signed itself in and passed `check-env`, `test`, `article-check`, `site-check` and `compare-01`. `make lint` needed Docker, which the Codespace lacks, so `post-create.sh` now installs the pinned linters.
-- [ ] **Latest tag** (shields.io `github/v/tag`) — when `piece-01-v1` exists.
-- [ ] **Articles published N/7** (shields.io dynamic YAML badge reading `site/_data/series.yml`) — after the first article is published.
+- [x] **Latest tag** (shields.io `github/v/tag`, `sort=date` because the tags aren't semver) — when `piece-01-v1` exists. Added in session 13, after the tag was pushed on `d8687ce`.
+- [x] **Articles published N/7** (shields.io dynamic YAML badge reading `published: "N/7"` in `site/_data/series.yml`; `make site-check` fails if that field disagrees with the article statuses) — after the first article is published. Added in session 13.
 - [ ] **Local sandboxes tested** — when ADR-0010 is lifted.
 - [x] **Cloud sandbox run** (GitHub's badge for `sandbox.yml`) — after its first successful run on `master` (ADR-0014). Added in session 06, after run 40570668299 passed.
 - [ ] **OpenRouter spend** (shields.io dynamic YAML badge reading `site/_data/metrics.yml`) — optional, once pieces 03–05 start spending.

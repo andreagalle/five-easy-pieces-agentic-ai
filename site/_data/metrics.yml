@@ -1,16 +1,16 @@
 # Running counters for article 06 (CLAUDE.md §9.2). Real numbers only.
 # Updated at the end of every session by /wrap.
 
-updated: 2026-10-29
-sessions: 12
-journal_entries: 12
+updated: 2026-10-31
+sessions: 13
+journal_entries: 13
 prompts_recorded: 11   # site/prompts; six of them recovered after the fact in session 09
-commits: 102           # project commits since the repository's initial commit
+commits: 107           # project commits since the repository's initial commit
 adrs: 17
 sandbox_runs:
-  cloud: 9            # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml); session 10: the author's own make compare-01; session 12: make compare-01 in a fresh Codespace
+  cloud: 11           # session 02: a probe and two runs of 01; session 05: three host-vs-cloud comparisons of 01; session 06: the first CI run (sandbox.yml); session 10: the author's own make compare-01; session 12: make compare-01 in a fresh Codespace; sandbox.yml after the merges of PRs #8 and #9, counted in session 13
   local: 0
-cloud_sandbox_minutes: 1.8   # approximate client-side wall clock: 41 s (session 02) + 33 s (session 05) + 10 s (CI, session 06) + 13 s (session 10) + 12 s (session 12), micro shape
+cloud_sandbox_minutes: 2.2   # approximate client-side wall clock: 41 s (session 02) + 33 s (session 05) + 10 s (CI, session 06) + 13 s (session 10) + 12 s (session 12) + 11 s and 10 s (CI, PRs #8 and #9), micro shape
 cloud_billed:
   as_of: 2026-10-27
   micro_seconds: 31.277   # from the author's Console, before session 05's runs

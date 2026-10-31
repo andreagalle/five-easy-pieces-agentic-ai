@@ -1,12 +1,12 @@
 ---
 id: "00"
 title: "Five Easy Pieces on Agentic AI w/ Docker Sandboxes"
-status: ready
+status: published
 drafted_by: claude
 edited_by: author
 verified_with: "sbx v0.50.0 (2026-10-29)"
 code_tag: ""
-medium_url: ""
+medium_url: "https://medium.com/docker-captains-wisdom/five-easy-pieces-on-agentic-ai-w-docker-sandboxes-53d5acb6e2e4"
 ---
 
 # Five Easy Pieces on Agentic AI w/ Docker Sandboxes
@@ -147,7 +147,7 @@ The series also has a [making-of site](https://andreagalle.github.io/five-easy-p
 ## The series
 
 - **Five Easy Pieces on Agentic AI w/ Docker Sandboxes** (you are here)
-- Piece 1/5 — The simple reflex agent (link added at publication)
+- [Piece 1/5 — The simple reflex agent](https://medium.com/docker-captains-wisdom/piece-1-5-the-simple-reflex-agent-b34c17054a7b)
 - Piece 2/5 — The model-based reflex agent (coming soon)
 - Piece 3/5 — The goal-based agent (coming soon)
 - Piece 4/5 — The utility-based agent (coming soon)

@@ -4,7 +4,7 @@ Medium stopped issuing API tokens on 1 January 2025 (as documented by n8n and St
 
 ## 1. Ready in the repository
 
-1. The author has reviewed the draft, and the front matter says `status: review`.
+1. The author has reviewed the draft, and the front matter has moved from `draft` to `review`. Step 6 moves it on to `ready`, which is the status an article has when it goes to Medium.
 2. `make article-check` passes. At `review` it's strict: length and `verified_with` are errors, not warnings.
 3. **Pieces 01–05 only:** the code is frozen and tagged (`git tag piece-NN-v1`, then `git push origin piece-NN-v1`), and every code link points to that tag. `make article-check` rejects links to a branch.
 4. `/verify-sbx` has passed, and `verified_with` names the `sbx` version.
@@ -34,6 +34,6 @@ Medium stopped issuing API tokens on 1 January 2025 (as documented by n8n and St
 
 ## 4. Back in the repository
 
-1. In `site/_data/series.yml`, set `status: published`, `medium_url` and `last_session`.
-2. Add or update the "Articles published N/7" badge in the README (CLAUDE.md §9.3).
+1. In `site/_data/series.yml`, set `status: published`, `medium_url` and `last_session`, and raise `published: "N/7"`, which the README's badge reads. `make site-check` fails if the count disagrees with the statuses.
+2. In the article's front matter, set the same `status` and `medium_url`. Replace "coming soon" and "link added at publication" in the repository's series lists, so they match Medium.
 3. Write a journal entry. The publication is part of the record.
