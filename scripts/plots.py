@@ -12,13 +12,16 @@ Colours come from the illustration palette, checked with the dataviz validator o
 surface (Medium): cerulean + coral pass every categorical check; the teal ramp passes the
 ordinal checks; text uses plum-navy (15:1) and a secondary plum-grey (7:1).
 Colour follows the agent in every figure: coral is the blind reflex agent, the one that loops;
-cerulean is every agent that works.
+cerulean is every agent that works. In piece 02, coral is the stretch after the agent loses its
+state and goes back over its own ground, and piece 01's agents are grey: comparisons across
+pieces use emphasis, not more hues (CLAUDE.md §3.3).
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 import textwrap
 from pathlib import Path
@@ -41,6 +44,7 @@ STONE = "#F1ECDF"  # a grid square, as in the illustrations
 NEVER = "#E9E5DC"  # a square that was never cleaned
 CERULEAN = "#2F80C0"
 CORAL = "#E8574A"
+EARLIER = "#B4B0BA"  # agents from earlier pieces: context, always directly labeled
 RAMP = ["#84BFB8", "#5FA9A2", "#3E918B", "#2B7678", "#1F5C6B"]  # teal, light to dark
 DPI = 200
 WIDTH = 7.5  # inches: 1500 px
@@ -299,7 +303,105 @@ def plots_01(results: dict, runinfo: dict, assets: Path) -> list[Path]:
     return made
 
 
-PIECES = {"01": plots_01}
+# ---------------------------------------------------------------- piece 02
+
+OTHER_RUNS: list[dict] = []  # other recorded runs a piece's figures read, for plots.json
+
+
+def path_points(s: dict) -> tuple[list[tuple[int, int]], int]:
+    """Where the agent went, up to the step at which everything was clean."""
+    points = [tuple(s["start"])] + [tuple(p) for p in s["path"]]
+    return points, s["all_clean_at"] or len(s["path"])
+
+
+def draw_path(ax, points: list, color: str, offset: float = 0.0) -> None:
+    for (x0, y0), (x1, y1) in zip(points, points[1:]):
+        if (x0, y0) != (x1, y1):
+            ax.plot([x0 + offset, x1 + offset], [y0 + offset, y1 + offset], color=color, lw=2.6,
+                    solid_capstyle="round", zorder=1)
+
+
+def fig_sweep(scenarios: dict, runinfo: dict, assets: Path, made: list) -> None:
+    kept, lost = scenarios["grid-model"], scenarios["grid-amnesia"]
+    stop = int(re.search(r"step (\d+)", lost["description"]).group(1))
+    fig, axes = plt.subplots(1, 2, figsize=(WIDTH, 4.6))
+    fig.subplots_adjust(left=0.02, right=0.98, top=0.80, bottom=0.08, wspace=0.08)
+    title(fig, "4×4 grid, no location sensor: the same sweep, with and without its state",
+          "Neither agent can sense where it is. Each line is the path it took until the grid was clean.")
+    for ax, s in zip(axes, (kept, lost)):
+        width, height = map(int, s["world"].split("x"))
+        draw_grid(ax, width, height)
+        points, end = path_points(s)
+        draw_path(ax, points[:stop + 1], CERULEAN)
+        draw_path(ax, points[stop:end + 1], CERULEAN if s is kept else CORAL, 0.0 if s is kept else 0.1)  # beside the first pass
+        ax.plot(*points[0], "o", ms=9, mfc=SURFACE, mec=CERULEAN, mew=2, zorder=3)
+        ax.annotate("start", points[0], xytext=(0, 11), textcoords="offset points", ha="center", fontsize=8, color=TEXT_2)
+        shift = 0.0 if s is kept else 0.1
+        finish = (points[end][0] + shift, points[end][1] + shift)
+        ax.plot(*finish, "o", ms=9, color=CERULEAN if s is kept else CORAL, mec=SURFACE, mew=2, zorder=3)
+        ax.annotate(f"all clean at step {s['all_clean_at']}", finish, xytext=(9, 6), textcoords="offset points",
+                    ha="left", va="bottom", fontsize=8, color=TEXT)
+        ax.plot(*points[stop], "s", ms=8, mfc=SURFACE, mec=TEXT, mew=1.6, zorder=4)
+        note = f"sandbox stopped and\nrestarted at step {stop}" if s is kept else f"state lost at step {stop}"
+        ax.annotate(note, points[stop], xytext=(16, -15), textcoords="offset points", ha="left", va="top",
+                    fontsize=8, color=TEXT, linespacing=1.3, zorder=5)
+        heading = "State kept" if s is kept else "State lost, then rebuilt from scratch"
+        ax.set_title(f"{heading}\n{outcome(s)}", loc="left", fontsize=9, color=TEXT)
+    footer(fig, runinfo)
+    save(fig, assets, "fig-sweep.png", made)
+
+
+def fig_performance_02(scenarios: dict, earlier: dict, runinfo: dict, assets: Path, made: list) -> None:
+    shown = 100  # every line is flat long before this
+    fig, ax = plt.subplots(figsize=(WIDTH, 4.2))
+    fig.subplots_adjust(left=0.08, right=0.80, top=0.80, bottom=0.17)
+    size = scenarios["grid-model"]["max_score"] // len(scenarios["grid-model"]["path"])
+    title(fig, "Clean squares on the same 4×4 grid: piece 2 against piece 1",
+          f"Score is the area under each line over 200 steps. Shown: the first {shown}; nothing changes after that.")
+    lines = [
+        (earlier["grid-blind"], EARLIER, 1.6, "Piece 1, blind"),
+        (earlier["grid-random"], EARLIER, 1.6, "Piece 1, random moves"),
+        (scenarios["grid-amnesia"], CORAL, 2, "Piece 2, state lost"),
+        (scenarios["grid-model"], CERULEAN, 2, "Piece 2, state kept"),
+    ]
+    for s, color, width, label in lines:
+        ys = [size - len(s["dirty_start"])] + s["clean"]
+        ax.plot(range(shown + 1), ys[:shown + 1], color=color, lw=width, solid_joinstyle="round",
+                label=f"{label} (score {s['score']})")
+        if s["all_clean_at"]:
+            t = s["all_clean_at"]
+            ax.plot(t, ys[t], "o", ms=8, color=color, mec=SURFACE, mew=2, zorder=3)
+            first = s is scenarios["grid-model"]  # above its dot; the others sit below, clear of their lines
+            ax.annotate(f"step {t}", (t, ys[t]), xytext=(0, 9) if first else (7, -14), textcoords="offset points",
+                        ha="center" if first else "left", fontsize=8, color=TEXT)
+    blind = earlier["grid-blind"]
+    ax.annotate(f"{blind['clean'][-1]} clean, for good", (shown, blind["clean"][-1]), xytext=(6, 0),
+                textcoords="offset points", va="center", fontsize=8.5, color=TEXT)
+    ax.annotate(f"all {size} clean", (shown, size), xytext=(6, 0), textcoords="offset points", va="center",
+                fontsize=8.5, color=TEXT)
+    ax.set_xlim(0, shown)
+    ax.set_ylim(0, size + 2.5)
+    ax.set_yticks(range(0, size + 1, 4))
+    ax.grid(axis="y", color=GRID, lw=0.8)
+    clean_axes(ax, keep=("bottom",))
+    ax.set_xlabel("time step")
+    ax.set_ylabel("clean squares")
+    ax.legend(loc="lower right", bbox_to_anchor=(1.0, 0.27), frameon=False, fontsize=8, labelcolor=TEXT)
+    footer(fig, runinfo)
+    save(fig, assets, "fig-performance.png", made)
+
+
+def plots_02(results: dict, runinfo: dict, assets: Path) -> list[Path]:
+    scenarios = {s["name"]: s for s in results["scenarios"]}
+    example, earlier, _, digest = load_run("01")
+    OTHER_RUNS.append({"results": str((example / "out" / "results.json").relative_to(ROOT)), "results_sha256": digest})
+    made: list[Path] = []
+    fig_sweep(scenarios, runinfo, assets, made)
+    fig_performance_02(scenarios, {s["name"]: s for s in earlier["scenarios"]}, runinfo, assets, made)
+    return made
+
+
+PIECES = {"01": plots_01, "02": plots_02}
 
 
 def main() -> int:
@@ -317,6 +419,8 @@ def main() -> int:
         "matplotlib": matplotlib.__version__,
         "figures": [p.name for p in made],
     }
+    if OTHER_RUNS:
+        provenance["also_read"] = OTHER_RUNS
     (assets / "plots.json").write_text(json.dumps(provenance, indent=2) + "\n")
     for p in made:
         print(f"plots: wrote {p.relative_to(ROOT)}")

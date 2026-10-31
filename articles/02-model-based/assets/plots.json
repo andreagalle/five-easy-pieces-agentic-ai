@@ -1,0 +1,24 @@
+{
+  "piece": "02",
+  "results": "examples/02-model-based/out/results.json",
+  "results_sha256": "aee06cc3e9d7d200cde729486979fd69917a478448299c82dc6a51012044a938",
+  "run": {
+    "timestamp_utc": "2026-10-31T17:45:13Z",
+    "tier": "cloud",
+    "sbx_version": "v0.50.0",
+    "git_commit": "a660c56c381cc1d198c6ba28836244ea75bad031",
+    "git_dirty": false,
+    "python": "Python 3.14.4"
+  },
+  "matplotlib": "3.11.2",
+  "figures": [
+    "fig-sweep.png",
+    "fig-performance.png"
+  ],
+  "also_read": [
+    {
+      "results": "examples/01-simple-reflex/out/results.json",
+      "results_sha256": "efae1944bf22a1d43b44ca9f22ed33dbcae71a059fc9580215f1e8f06cf8c510"
+    }
+  ]
+}
