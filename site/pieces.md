@@ -34,7 +34,7 @@ Two reasons. First, **it isn't needed**: the lessons of 01 and 02 are clearest i
 
 **Why no LLM.** Internal state is the lesson, and a small JSON file shows it better than a model's opaque memory.
 
-**Sandbox.** Persistence: the agent's state file survives stopping and restarting the cloud sandbox, and a saved template captures it as a snapshot. The fence still isn't needed. Why show it: from 03 on, LLM agents keep their memory in files inside the sandbox too. Here we see the pattern calmly, on a file we can read.
+**Sandbox.** Persistence: the agent's state file survives stopping and restarting the cloud sandbox, and the run comes out byte for byte the same as one that was never interrupted. The fence still isn't needed. Why show it: from 03 on, LLM agents keep their memory in files inside the sandbox too. Here we see the pattern calmly, on a file we can read.
 
 ## 03 — Goal-based (first LLM)
 

@@ -13,6 +13,10 @@
 #   SBX_MEMORY   memory (default 2g)   } 1/2g micro, 2/4g small, 4/8g medium, 8/16g large
 #   SBX_TTL      time to live (default 30m); the sandbox is deleted when it lapses
 #   SBX_NETWORK  deny-all (default) | open
+#   SBX_AFTER_RESTART  a shell command. If <command> succeeds, the sandbox is stopped and
+#                restarted, and this runs in it: what the first command left there is all
+#                it has (piece 02). A stopped sandbox has no running TTL, so only the EXIT
+#                trap removes it: `sbx --cloud ls` catches anything a killed run leaves.
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -30,6 +34,7 @@ cpus="${SBX_CPUS:-1}"
 memory="${SBX_MEMORY:-2g}"
 ttl="${SBX_TTL:-30m}"
 network="${SBX_NETWORK:-deny-all}"
+after_restart="${SBX_AFTER_RESTART:-}"
 agent="shell"
 workspace="/home/agent/workspace"
 dest="$workspace/fep"
@@ -63,6 +68,20 @@ commit="$(git -C "$root" rev-parse HEAD)"
 dirty=false
 [ -z "$(git -C "$root" status --porcelain -- examples scripts)" ] || dirty=true
 name="fep-${piece}-$(git -C "$root" rev-parse --short HEAD)"
+
+# inspect_field <field>: one field of the sandbox's record, e.g. its id or state.
+inspect_field() {
+  sbx --cloud inspect --format json "$name" | python3 -c 'import json, sys; print(json.load(sys.stdin)[sys.argv[1]])' "$1"
+}
+
+# wait_until_stopped: `sbx --cloud stop` returns when the request is accepted, not when it's done.
+wait_until_stopped() {
+  local deadline=$(( $(date +%s) + 300 ))
+  until [ "$(inspect_field state)" = stopped ]; do
+    [ "$(date +%s)" -lt "$deadline" ] || die "$name didn't reach 'stopped' within 5 minutes"
+    sleep 3
+  done
+}
 
 stage="$(mktemp -d)"
 created=0
@@ -98,6 +117,21 @@ sbx --cloud exec -w "$dest/$example_name" -e "PYTHONPATH=$dest/_shared" "$name" 
 exit_code="${PIPESTATUS[0]}"
 set -e
 
+stop_seconds=""
+if [ -n "$after_restart" ] && [ "$exit_code" = 0 ]; then
+  sandbox_id="$(inspect_field id)"
+  stop_started="$(date +%s)"
+  sbx --cloud stop "$name" >/dev/null
+  wait_until_stopped
+  stop_seconds=$(( $(date +%s) - stop_started ))
+  echo "sbx-run: $name stopped after ${stop_seconds}s; restarting it"
+  set +e
+  sbx --cloud exec -w "$dest/$example_name" -e "PYTHONPATH=$dest/_shared" "$name" sh -c "$after_restart" 2>&1 | tee -a "$stage/stdout.txt"
+  exit_code="${PIPESTATUS[0]}"
+  set -e
+  [ "$(inspect_field id)" = "$sandbox_id" ] || die "$name came back as a different sandbox"
+fi
+
 rm -rf "$example/out"
 sbx --cloud cp "$name:$dest/$example_name/out" "$example/out" || mkdir -p "$example/out"
 cp "$stage/stdout.txt" "$example/out/stdout.txt"
@@ -107,8 +141,8 @@ duration=$(( $(date +%s) - started ))
 RUNINFO_PATH="$example/out/RUNINFO.json" INSPECT_PATH="$stage/inspect.json" \
 TARGET="$target" SBX_VERSION="$(sbx version | awk '{print $3}')" AGENT="$agent" \
 CPUS="$cpus" MEMORY="$memory" TTL="$ttl" NETWORK="$network" NAME="$name" \
-PYTHON_VERSION="$python_version" COMMIT="$commit" DIRTY="$dirty" \
-EXIT_CODE="$exit_code" DURATION="$duration" python3 - "$@" <<'EOF'
+PYTHON_VERSION="$python_version" COMMIT="$commit" DIRTY="$dirty" STOP_SECONDS="$stop_seconds" \
+AFTER_RESTART="$after_restart" EXIT_CODE="$exit_code" DURATION="$duration" python3 - "$@" <<'EOF'
 import datetime, json, os, sys
 env = os.environ
 with open(env["INSPECT_PATH"]) as f:
@@ -131,6 +165,8 @@ info = {
     "exit_code": int(env["EXIT_CODE"]),
     "duration_seconds": int(env["DURATION"]),
 }
+if env["STOP_SECONDS"]:
+    info["stopped_and_restarted"] = {"seconds_to_stop": int(env["STOP_SECONDS"]), "then_ran": env["AFTER_RESTART"]}
 with open(env["RUNINFO_PATH"], "w") as f:
     json.dump(info, f, indent=2)
     f.write("\n")

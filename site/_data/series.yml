@@ -28,10 +28,10 @@ articles:
   - id: "02"
     title: "Piece 2/5 — The model-based reflex agent"
     kind: piece
-    status: idea
-    code_tag: ""
+    status: draft
+    code_tag: "piece-02-v1"
     medium_url: ""
-    last_session: "03"
+    last_session: "14"
   - id: "03"
     title: "Piece 3/5 — The goal-based agent"
     kind: piece
@@ -74,9 +74,9 @@ examples:
     last_session: "13"
   - id: "02"
     dir: "examples/02-model-based"
-    status: idea
+    status: tested-sandbox
     code_tag: ""
-    last_session: "01"
+    last_session: "14"
   - id: "03"
     dir: "examples/03-goal-based"
     status: idea

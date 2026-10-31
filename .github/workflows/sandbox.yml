@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["01"]
+        example: ["01", "02"]
     env:
       # Shorter than the job's timeout: if the runner dies before the wrapper's EXIT trap
       # can remove the sandbox, the sandbox deletes itself.
